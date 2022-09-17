@@ -1,0 +1,25 @@
+{
+  "name": "#Transporte La Garra C.A",
+  "short_name": "#Trans | La Garra C.A",
+  "description": "Bienvenid@s a #Trans La Garra C.A, Sistema de Nómina e Inventario :)",
+  "background_color": "#aaaa",
+  "theme_color": "#aaaa",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "es-MX",
+  "icons": [
+    {
+      "src": "vendor/images/lagarra.png",
+      "sizes": "458x396",
+      "type": "image/png"
+    },
+    {
+      "src": "vendor/images/lagarra_cuadrado.png",
+      "sizes": "458x396",
+      "type": "image/jpg"
+    }
+   
+  ]
+}
