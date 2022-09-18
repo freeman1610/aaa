@@ -117,7 +117,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('listar_nomina', [NominaController::class, 'listar_nomina'])->name('listar_nomina');
 
-    Route::post('muestra_empleados', [EmpleadosController::class, 'muestra_empleados'])->name('muestra_empleados');
+    // Route::post('muestra_empleados', [EmpleadosController::class, 'muestra_empleados'])->name('muestra_empleados');
 
     Route::post('muestra_salario_base', [SalarioController::class, 'muestra_salario_base'])->name('muestra_salario_base');
 
