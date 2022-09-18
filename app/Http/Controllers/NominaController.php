@@ -200,7 +200,7 @@ class NominaController extends Controller
 
         $salarioMensual = number_format($selectSalario->salario, 2);
 
-        $salarioQuincenal = number_format($salarioMensual / 15, 2);
+        $salarioQuincenal = number_format($salarioMensual / 2, 2);
 
         $salarioDiario = number_format($salarioMensual / 30, 2);
 
@@ -264,7 +264,7 @@ class NominaController extends Controller
 
         $salarioMensual = number_format($selectSalario->salario, 2);
 
-        $salarioQuincenal = number_format($salarioMensual / 15, 2);
+        $salarioQuincenal = number_format($salarioMensual / 2, 2);
 
         $salarioDiario = number_format($salarioMensual / 30, 2);
 
@@ -501,7 +501,7 @@ class NominaController extends Controller
         $fpdf->Line(65, 230, 65, 200);
         $fpdf->Line(35, 230, 65, 230);
 
-        // Que Wuebo Hacer estas linas 
+        // Que Wuebo Hacer estas linas
 
         $fpdf->setY(201);
         $fpdf->setX(80);
@@ -545,4 +545,312 @@ class NominaController extends Controller
         $fpdf->output("pago-nomina-" . $codigoHash . '.pdf', 'I');
         exit;
     }
+     // funcion que Imprime Todos Los PDF --
+    public function AllPDF(Fpdf $fpdf){
+
+        $cantidad = Nomina::where('inicio_pago','=','2022-10-01')->get()->count();
+        $fecha_inicio = Nomina::where('inicio_pago','=','2022-10-01')->get()->pluck('inicio_pago');
+        $PagoNomina = Nomina::select('id_nomina','nombre','apellido','cedula','cargo','fecha_ingreso','salario_mensual','fecha_nomina','inicio_pago','fin_pago','total_asignaciones','total_pago')->where('inicio_pago','=','2022-10-01')->join('empleado','pago_nomina.id_empleado','=','empleado.id_emp')->get();
+
+        for($i=0;$i<$cantidad;$i++){
+
+            $fpdf->AddPage();
+            $fpdf->SetFont('Arial', 'B', 20);
+            $textypos = 5;
+            $fpdf->Image(asset('vendor/images/lagarra.png'), 45, 8, -800);
+            $fpdf->setY(12);
+            $fpdf->setX(60);
+
+
+
+            // Agregamos los datos de la empresa
+            $fpdf->Cell(5, $textypos, "Transporte La Garra C.A");
+            $fpdf->SetFont('Arial', 'B', 8);
+            $fpdf->setY(13);
+            $fpdf->setX(145);
+            $fpdf->Cell(5, $textypos, "RIF: J-13698756-1");
+
+            $espacioIzquierda = 60;
+
+            $espaciadoLetrasDerecha = 105;
+
+            // Agregamos los datos del cliente
+            $fpdf->SetFont('Arial', 'B', 15);
+            $fpdf->setY(25);
+            $fpdf->setX(65);
+            $fpdf->Cell(5, $textypos, "RECIBO DE PAGO DE SALARIO");
+            $fpdf->SetFont('Arial', 'B', 10);
+            $fpdf->setY(35);
+            $fpdf->setX($espacioIzquierda);
+            $fpdf->Cell(5, $textypos, "PERIODO LABORADO:");
+
+            $fpdf->setY(35);
+            $fpdf->setX($espaciadoLetrasDerecha);
+            $fpdf->Cell(5, $textypos, "DEL " . date_format(new DateTime($PagoNomina[$i]['inicio_pago']), 'Y/m/d') . "  AL " . date_format(new DateTime($PagoNomina[$i]['fin_pago']), 'Y/m/d'));
+
+            $fpdf->setY(45);
+            $fpdf->setX($espacioIzquierda);
+            $fpdf->Cell(5, $textypos, "Apellidos y Nombres:");
+
+            $fpdf->setY(45);
+            $fpdf->setX($espaciadoLetrasDerecha);
+            $fpdf->SetFont('Arial', '', 10);
+            $fpdf->Cell(5, $textypos, utf8_decode($PagoNomina[$i]['nombre'] . ' ' . $PagoNomina[$i]['apellido']));
+
+            $fpdf->setY(55);
+            $fpdf->setX($espacioIzquierda);
+            $fpdf->SetFont('Arial', 'B', 10);
+            $fpdf->Cell(5, $textypos, "Cedula de Identidad:");
+
+            $fpdf->setY(55);
+            $fpdf->setX($espaciadoLetrasDerecha);
+            $fpdf->SetFont('Arial', '', 10);
+            $fpdf->Cell(5, $textypos, $PagoNomina[$i]['cedula']);
+
+            $fpdf->setY(65);
+            $fpdf->setX($espacioIzquierda);
+            $fpdf->SetFont('Arial', 'B', 10);
+            $fpdf->Cell(5, $textypos, "Sueldo Mensual:");
+
+            $fpdf->setY(65);
+            $fpdf->setX($espaciadoLetrasDerecha);
+            $fpdf->SetFont('Arial', '', 10);
+            $fpdf->Cell(5, $textypos, "VES " . $PagoNomina[$i]['salario_mensual']);
+
+            $salarioQuincenal = number_format($PagoNomina[$i]['salario_mensual'] / 2, 2);
+
+            $fpdf->setY(75);
+            $fpdf->setX($espacioIzquierda);
+            $fpdf->SetFont('Arial', 'B', 10);
+            $fpdf->Cell(5, $textypos, "Sueldo Quincenal");
+
+            $fpdf->setY(75);
+            $fpdf->setX($espaciadoLetrasDerecha);
+            $fpdf->SetFont('Arial', '', 10);
+            $fpdf->Cell(5, $textypos, "VES " . $salarioQuincenal);
+
+            $salarioDiario = number_format($PagoNomina[$i]['salario_mensual']  / 30, 2);
+
+            $fpdf->setY(85);
+            $fpdf->setX($espacioIzquierda);
+            $fpdf->SetFont('Arial', 'B', 10);
+            $fpdf->Cell(5, $textypos, "Sueldo Diario:");
+
+            $fpdf->setY(85);
+            $fpdf->setX($espaciadoLetrasDerecha);
+            $fpdf->SetFont('Arial', '', 10);
+            $fpdf->Cell(5, $textypos, "VES " . $salarioDiario);
+
+            $fpdf->setY(95);
+            $fpdf->setX($espacioIzquierda);
+            $fpdf->SetFont('Arial', 'B', 10);
+            $fpdf->Cell(5, $textypos, "Fecha de Pago:");
+
+            $fpdf->setY(95);
+            $fpdf->setX($espaciadoLetrasDerecha);
+            $fpdf->SetFont('Arial', '', 10);
+            $fpdf->Cell(5, $textypos, date_format(new DateTime($PagoNomina[$i]['fecha_nomina']), 'd-m-Y'));
+
+            $fpdf->setY(105);
+            $fpdf->setX($espacioIzquierda);
+            $fpdf->SetFont('Arial', 'B', 10);
+            $fpdf->Cell(5, $textypos, "Cargo:");
+
+            $fpdf->setY(105);
+            $fpdf->setX($espaciadoLetrasDerecha);
+            $fpdf->SetFont('Arial', '', 10);
+            $fpdf->Cell(5, $textypos, utf8_decode($PagoNomina[$i]['cargo']));
+
+            $fpdf->setY(115);
+            $fpdf->setX($espacioIzquierda);
+            $fpdf->SetFont('Arial', 'B', 10);
+            $fpdf->Cell(5, $textypos, "Fecha de Ingreso:");
+
+            $fpdf->setY(115);
+            $fpdf->setX($espaciadoLetrasDerecha);
+            $fpdf->SetFont('Arial', '', 10);
+            $fpdf->Cell(5, $textypos, date_format(new DateTime($PagoNomina[$i]['fecha_ingreso']), 'd-m-Y'));
+            // ------------------------------------------------------------Conceptos
+            $fpdf->setY(130);
+            $fpdf->setX(58);
+            $fpdf->SetFont('Arial', 'B', 7);
+            $fpdf->Cell(5, $textypos, "Conceptos");
+
+            // --------------------------- Asignaciones ------------------------------------------
+
+            $AsignacionNomina = AsignacionNomina::where('id_nomina', '=', $PagoNomina[$i]['id_nomina'])->get();
+
+
+            $fpdf->setY(137);
+            $fpdf->setX(30);
+            $fpdf->SetFont('Arial', '', 8);
+            $fpdf->Cell(5, $textypos, $AsignacionNomina[0]['dias_lab']. " Dia(s) laborados Diurnos en la Semana");
+
+            $fpdf->setY(142);
+            $fpdf->setX(30);
+            $fpdf->Cell(5, $textypos, $AsignacionNomina[0]['dias_libres']. " Dia(s) de Descanso Remunerado");
+
+            $fpdf->setY(147);
+            $fpdf->setX(30);
+            $fpdf->Cell(5, $textypos, $AsignacionNomina[0]['horas_extra_diurna']. " Horas Extras Diurnas");
+
+            $fpdf->setY(152);
+            $fpdf->setX(30);
+            $fpdf->Cell(5, $textypos, $AsignacionNomina[0]['horas_extra_noc']. " Horas Extras Nocturnas");
+
+            $fpdf->setY(157);
+            $fpdf->setX(30);
+            $fpdf->Cell(5, $textypos, "Aporte Seguro Social Obligatorio (sSo)");
+
+            $fpdf->setY(162);
+            $fpdf->setX(30);
+            $fpdf->Cell(5, $textypos, "Aporte Perdida Involuntaria de Empleo");
+
+            $fpdf->setY(167);
+            $fpdf->setX(30);
+            $fpdf->Cell(5, $textypos, "Aporte Fondo de Ahorro Obligatorio para la Vivienda (iph)");
+
+            // Lineas de cajas
+            $fpdf->Line(15, 23, 15, 240); //Linea Izquierda Vertical
+
+            $fpdf->Line(15, 23, 195, 23); //Linea Superior Horizontal
+
+            $fpdf->Line(15, 175, 195, 175); //Linea Medio Horizontal
+
+            $fpdf->Line(195, 240, 195, 23); //Linea Derecha Vertical
+
+            $fpdf->Line(15, 240, 195, 240); //Linea Inferior Horizontal
+
+
+            $fpdf->Line(15, 128, 195, 128);
+            $fpdf->Line(15, 136, 195, 136);
+            $fpdf->Line(110, 128, 110, 175);
+            $fpdf->Line(155, 128, 155, 175);
+
+            $fpdf->setY(130);
+            $fpdf->setX(123);
+            $fpdf->SetFont('Arial', 'B', 7);
+            $fpdf->Cell(5, $textypos, "Asignaciones");
+
+            $fpdf->setY(137);
+            $fpdf->setX(123);
+            $fpdf->SetFont('Arial', '', 8);
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($AsignacionNomina[0]['pagos_diasLab'], 2));
+
+            $fpdf->setY(142);
+            $fpdf->setX(123);
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($AsignacionNomina[0]['pagos_DiaLib'], 2));
+
+            $fpdf->setY(147);
+            $fpdf->setX(123);
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($AsignacionNomina[0]['pago_hr_extraD'], 2));
+
+            $fpdf->setY(152);
+            $fpdf->setX(123);
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($AsignacionNomina[0]['pago_hr_extra_noc'], 2));
+
+            // -------------------- Deducciones -------------------------------------------
+
+            $DeduccionNomina = DeduccionNomina::where('id_nomina', '=', $PagoNomina[$i]['id_nomina'])->get();
+
+            $fpdf->setY(130);
+            $fpdf->setX(167);
+            $fpdf->SetFont('Arial', 'B', 7);
+            $fpdf->Cell(5, $textypos, "Deducciones");
+
+            $fpdf->setY(157);
+            $fpdf->setX(167);
+            $fpdf->SetFont('Arial', '', 8);
+            $fpdf->Cell(5, $textypos, "VES " . number_format($DeduccionNomina[0]['sso'], 2));
+
+            $fpdf->setY(162);
+            $fpdf->setX(167);
+            $fpdf->Cell(5, $textypos, "VES " . number_format($DeduccionNomina[0]['paro_forzoso'], 2));
+
+            $fpdf->setY(167);
+            $fpdf->setX(167);
+            $fpdf->Cell(5, $textypos, "VES " . number_format($DeduccionNomina[0]['lph'], 2));
+
+            // --------------------- Total ----------------------------------
+
+            $fpdf->setY(176);
+            $fpdf->setX(70);
+            $fpdf->SetFont('Arial', '', 9);
+            $fpdf->Cell(5, $textypos, "Total");
+
+            // -------------------- Total Asignaciones --------------------------------
+
+            $fpdf->setY(176);
+            $fpdf->setX(123);
+            $fpdf->SetFont('Arial', '', 9);
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($PagoNomina[$i]['total_asignaciones'], 2));
+
+            // ---------------- Total Deducciones --------------------------------------------
+
+            $fpdf->setY(176);
+            $fpdf->setX(167);
+            $fpdf->SetFont('Arial', '', 9);
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($DeduccionNomina[0]['subtotal'], 2));
+
+            // Huella XD
+
+            $fpdf->Line(35, 200, 35, 230);
+            $fpdf->Line(35, 200, 65, 200);
+
+            $fpdf->setY(213);
+            $fpdf->setX(45);
+            $fpdf->Cell(5, $textypos, 'Huella');
+
+            $fpdf->Line(65, 230, 65, 200);
+            $fpdf->Line(35, 230, 65, 230);
+
+            // Que Wuebo Hacer estas linas
+
+            // ------------------- Total de Pago ---------------------------------
+
+            $fpdf->setY(201);
+            $fpdf->setX(80);
+            $fpdf->SetFont('Arial', 'B', 13);
+            $fpdf->Cell(5, $textypos, 'Total Neto a Pagar');
+
+            $fpdf->setY(201);
+            $fpdf->setX(140);
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($PagoNomina[$i]['total_pago'], 2));
+
+            $fpdf->Line(90, 225, 150, 225);
+
+            $fpdf->setY(227);
+            $fpdf->setX(107);
+            $fpdf->SetFont('Arial', '', 8);
+            $fpdf->Cell(5, $textypos, 'Recibe Conforme');
+
+            $fpdf->setY(230);
+            $fpdf->setX(110);
+            $fpdf->SetFont('Arial', '', 7);
+            $fpdf->Cell(5, $textypos, utf8_decode($cantidad));
+
+
+            $fpdf->setY(241);
+            $fpdf->setX(15);
+            $fpdf->SetFont('Arial', '', 10);
+            $fpdf->Cell(5, $textypos, utf8_decode("Dirección: Madre Juana - San Cristóbal, Venezuela - Edo. Táchira"));
+            $fpdf->setY(245);
+            $fpdf->setX(15);
+            $fpdf->Cell(5, $textypos, "Telf: (0276) 3462518");
+
+
+            $fpdf->setY(260);
+            $fpdf->setX(15);
+            $fpdf->SetFont('Arial', 'B', 10);
+
+            $codigoHash = random_int(100000, 9999999) . '-' . $cantidad;
+
+            $fpdf->Cell(5, $textypos, "COD: " . $codigoHash);
+
+        }
+        $fpdf->output("pago-nomina-" . $codigoHash . '.pdf', 'I');
+        exit;
+
+    }
+
 }

@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('perfil_personal', [PerfilController::class, 'mostrar_perfil_personal'])->name('mostrar_perfil_personal');
 
-    // ---------------- USUARIOS ------------------------ 
+    // ---------------- USUARIOS ------------------------
 
     Route::get('mostrar_listar_usuarios', [UsuarioController::class, 'mostrar_listar_usuarios'])->name('mostrar_listar_usuarios');
 
@@ -83,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
 
     //  ---------------- FIN USUARIOS ------------------------
 
-    // ----------------- TIPO USUARIO ------------------------ 
+    // ----------------- TIPO USUARIO ------------------------
 
     Route::get('listar_tipousuario', [TipoUsuarioController::class, 'listar_tipousuario'])->name('listar_tipousuario');
 
@@ -93,7 +93,7 @@ Route::middleware(['auth'])->group(function () {
 
     //  ---------------- FIN TIPO USUARIOS ------------------------
 
-    // ----------------- EMPLEADOS ------------------------ 
+    // ----------------- EMPLEADOS ------------------------
 
     Route::get('listar_empleados', [EmpleadosController::class, 'listar_empleados'])->name('listar_empleados');
 
@@ -110,7 +110,7 @@ Route::middleware(['auth'])->group(function () {
 
     //  ---------------- FIN EMPLEADOS ------------------------
 
-    // ----------------- NOMINA PERSONAL ------------------------ 
+    // ----------------- NOMINA PERSONAL ------------------------
 
 
     Route::post('crear_nomina', [NominaController::class, 'crear_nomina'])->name('crear_nomina');
@@ -127,17 +127,20 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('pagoNominaPDF', [NominaController::class, 'pagoNominaPDF'])->name('pagoNominaPDF');
 
+    Route::get('AllPDF', [NominaController::class, 'AllPDF'])->name('AllPDF');
+
+
     //  ---------------- FIN NOMINA PERSONAL ------------------------
 
-    // ----------------- ALMACEN ------------------------ 
+    // ----------------- ALMACEN ------------------------
 
     Route::get('listar_almacen', [AlmacenController::class, 'listar_almacen'])->name('listar_almacen');
 
 
 
-    // ----------------- FIN ALMACEN ------------------------ 
+    // ----------------- FIN ALMACEN ------------------------
 
-    // ----------------- PERFIL ------------------------ 
+    // ----------------- PERFIL ------------------------
 
     Route::post('guardar_perfil_editado', [PerfilController::class, 'guardar_perfil_editado'])->name('guardar_perfil_editado');
 
