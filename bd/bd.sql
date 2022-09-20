@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-09-2022 a las 07:48:32
+-- Tiempo de generación: 20-09-2022 a las 07:03:25
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 
@@ -112,10 +112,10 @@ CREATE TABLE `almacen` (
   `idalmacen` int(11) NOT NULL,
   `idusuario` int(11) NOT NULL,
   `codigo` varchar(50) NOT NULL,
+  `marca` varchar(100) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `stock` int(11) UNSIGNED NOT NULL,
   `descripcion` varchar(256) DEFAULT NULL,
-  `codicion` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -124,9 +124,10 @@ CREATE TABLE `almacen` (
 -- Volcado de datos para la tabla `almacen`
 --
 
-INSERT INTO `almacen` (`idalmacen`, `idusuario`, `codigo`, `nombre`, `stock`, `descripcion`, `codicion`, `created_at`, `updated_at`) VALUES
-(46, 1, '21312', 'XD', 22, 'fff', 1, '2022-09-13 00:00:00', '2022-09-13 00:00:00'),
-(47, 21, '321222', 'dasda', 213, 'dasdad', 0, '2022-09-14 06:59:39', '2022-09-14 06:59:39');
+INSERT INTO `almacen` (`idalmacen`, `idusuario`, `codigo`, `marca`, `nombre`, `stock`, `descripcion`, `created_at`, `updated_at`) VALUES
+(46, 1, '21312', '', 'XD', 22, 'fff', '2022-09-13 00:00:00', '2022-09-13 00:00:00'),
+(47, 21, '321222', '', 'dasda', 213, 'dasdad', '2022-09-14 06:59:39', '2022-09-14 06:59:39'),
+(48, 1, '123554', 'Goodyear', 'Caucho', 4, 'Ring 20', '2022-09-20 00:57:59', '2022-09-20 00:57:59');
 
 -- --------------------------------------------------------
 
@@ -1041,7 +1042,7 @@ ALTER TABLE `usuario_permiso`
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `idalmacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `idalmacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `asignacion_nomina`
