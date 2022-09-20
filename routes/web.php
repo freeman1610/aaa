@@ -136,6 +136,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('listar_almacen', [AlmacenController::class, 'listar_almacen'])->name('listar_almacen');
 
+    Route::post('registrar_articulo', [AlmacenController::class, 'registrar_articulo'])->name('registrar_articulo');
 
 
     // ----------------- FIN ALMACEN ------------------------

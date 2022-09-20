@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Almacen;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AlmacenController extends Controller
 {
@@ -16,13 +19,13 @@ class AlmacenController extends Controller
         foreach ($selectAlmacen as $datos) {
 
             $returnDatos[] = [
-                "0" => ($datos->condicion) ? '<button class="btn btn-primary btn-xs" onclick="mostrar(' . $datos->idalmacen . ')"><i class="fa fa-edit"></i></button>' . ' ' . '<button class="btn btn-danger btn-xs" onclick="desactivar(' . $datos->idalmacen . ')"><i class="fa fa-close"></i></button>' . ' ' . '<button class="btn btn-warning btn-xs" onclick="eliminar(' . $datos->idalmacen . ')"><i class="fa fa-trash"></i></button>' : '<button class="btn btn-warning btn-xs" onclick="eliminar(' . $datos->idalmacen . ')"><i class="fa fa-trash"></i></button>' . ' ' . '<button class="btn btn-primary btn-xs" onclick="activar(' . $datos->idalmacen . ')"><i class="fa fa-check"></i></button>',
+                "0" => '<button class="btn btn-primary btn-xs" onclick="mostrar(' . $datos->idalmacen . ')"><i class="fa fa-edit"></i></button> <button class="btn btn-warning btn-xs" onclick="eliminar(' . $datos->idalmacen . ')"><i class="fa fa-trash"></i></button>',
                 "1" => $datos->codigo,
-                "2" => $datos->nombre,
-                "3" => $datos->stock,
-                "4" => $datos->descripcion,
-                "5" => $datos->created_at,
-                "6" => ($datos->condicion) ? '<span class="label bg-green">Activado</span>' : '<span class="label bg-red">Desactivado</span>'
+                "2" => $datos->marca,
+                "3" => $datos->nombre,
+                "4" => $datos->stock,
+                "5" => $datos->descripcion,
+                "6" => date_format($datos->created_at, 'd-m-Y'),
             ];
         }
 
@@ -36,5 +39,36 @@ class AlmacenController extends Controller
         return response()->json($results, status: 200);
 
         // return $selectAlmacen;
+    }
+
+    public function registrar_articulo(Request $request)
+    {
+        $this->validate($request, [
+            'codigo' => 'required',
+            'marca' => 'required',
+            'nombre' => 'required',
+            'stock' => 'required',
+            'descripcion' => 'required'
+        ]);
+
+        $comprobarCodigo = DB::table('almacen')
+            ->select('codigo')
+            ->where('codigo', $request->codigo)
+            ->get();
+
+        if (isset($comprobarCodigo[0]->codigo)) {
+            return response()->json(['message' => 'El Codigo Ingresado Ya Ha Sido Registrado'], status: 422);
+        }
+
+        DB::insert('insert into almacen (idusuario, codigo, marca, nombre, stock, descripcion, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?)', [
+            Auth::user()->idusuario,
+            $request->codigo,
+            $request->marca,
+            $request->nombre,
+            $request->stock,
+            $request->descripcion,
+            new DateTime(),
+            new DateTime()
+        ]);
     }
 }
