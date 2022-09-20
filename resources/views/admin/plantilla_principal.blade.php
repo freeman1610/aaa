@@ -259,21 +259,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <i class="fas fa-user-circle nav-icon"></i><p>Articulos</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="./categoria.php" class="nav-link" id="cat">
-                                        <i class="fas fa-cubes nav-icon"></i><p>Categorias</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="./ingreso.php" class="nav-link" id="ing">
-                                        <i class="fas fa-arrow-up nav-icon"></i><p>Ingresar Articulo</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="./egreso.php" class="nav-link" id="ret">
-                                        <i class="fas fa-arrow-down nav-icon"></i><p>Retirar Articulos</p>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                         @endif
