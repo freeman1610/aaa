@@ -189,7 +189,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="./departamento.php" class="nav-link" id="dep">
+                            <a href="{{ route('departamentos') }}" class="nav-link" id="dep">
                                 <i class="nav-icon fas fa-city"></i><p>Departamentos</p>
                             </a>
                         </li>
@@ -283,7 +283,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Versión 2022.3
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2021-2022<b> Transporte la Garra C.A</strong> Todos los derechos reservados.</b>
+    <strong>Copyright &copy; 2022<b> Transporte la Garra C.A</strong> Todos los derechos reservados.</b>
   </footer>
 </div>
 <!-- ./wrapper -->

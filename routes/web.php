@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlmacenController;
+use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\LoginAuthController;
@@ -131,6 +132,25 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('AllPDF', [NominaController::class, 'AllPDF'])->name('AllPDF');
 
+
+    // ----------------- DEPARTAMENTOS ------------------------
+
+    Route::get('listar_departamentos', [DepartamentoController::class, 'listar_departamentos'])->name('listar_departamentos');
+
+    Route::post('mostrar_departamento_update', [DepartamentoController::class, 'mostrar_departamento_update'])->name('mostrar_departamento_update');
+
+    Route::post('registrar_departamento', [DepartamentoController::class, 'registrar_departamento'])->name('registrar_departamento');
+
+    Route::post('update_departamento', [DepartamentoController::class, 'update_departamento'])->name('update_departamento');
+
+    Route::post('desactivar_departamento', [DepartamentoController::class, 'desactivar_departamento'])->name('desactivar_departamento');
+
+    Route::post('activar_departamento', [DepartamentoController::class, 'activar_departamento'])->name('activar_departamento');
+
+    Route::post('eliminar_departamento', [DepartamentoController::class, 'eliminar_departamento'])->name('eliminar_departamento');
+
+
+    // ----------------- FIN DEPARTAMENTOS ------------------------
 
     //  ---------------- FIN NOMINA PERSONAL ------------------------
 

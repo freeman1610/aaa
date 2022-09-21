@@ -1,6 +1,6 @@
 -- phpMyAdmin SQL Dump
 -- version 5.1.1
--- https://www.phpmyadmin.net/adawq
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
 -- Tiempo de generación: 20-09-2022 a las 07:03:25
