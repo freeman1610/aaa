@@ -72,10 +72,8 @@
             toastr.error('No puedes realizar una busqueda desde el '+fecha_fin+' al '+fecha_inicio)
  
         }else{
-
             let datos = $('#formGenerarPDFXfechas').serialize();
             window.open('generarPDFXfechas?'+datos, '_blank')     
-
         }
     }
 
