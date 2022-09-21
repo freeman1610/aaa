@@ -190,7 +190,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                         <li class="nav-item">
                             <a href="./departamento.php" class="nav-link" id="dep">
-                                <i class="nav-icon fas fa-city"></i><p>Departamento</p>
+                                <i class="nav-icon fas fa-city"></i><p>Departamentos</p>
                             </a>
                         </li>
                         @endif
