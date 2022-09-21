@@ -19,7 +19,7 @@ class AlmacenController extends Controller
         foreach ($selectAlmacen as $datos) {
 
             $returnDatos[] = [
-                "0" => '<button class="btn btn-primary btn-xs" onclick="mostrar(' . $datos->idalmacen . ')"><i class="fa fa-edit"></i></button> <button class="btn btn-warning btn-xs" onclick="eliminar(' . $datos->idalmacen . ')"><i class="fa fa-trash"></i></button>',
+                "0" => '<button class="btn btn-primary btn-xs" onclick="updateArticulo(' . $datos->idalmacen . ')"><i class="fa fa-edit"></i></button> <button class="btn btn-warning btn-xs" onclick="eliminar(' . $datos->idalmacen . ')"><i class="fa fa-trash"></i></button>',
                 "1" => $datos->codigo,
                 "2" => $datos->marca,
                 "3" => $datos->nombre,
@@ -47,7 +47,7 @@ class AlmacenController extends Controller
             'codigo' => 'required',
             'marca' => 'required',
             'nombre' => 'required',
-            'stock' => 'required',
+            'stock' => 'required|numeric',
             'descripcion' => 'required'
         ]);
 
@@ -70,5 +70,48 @@ class AlmacenController extends Controller
             new DateTime(),
             new DateTime()
         ]);
+    }
+
+    public function mostrar_articulo_update(Request $request)
+    {
+        $this->validate($request, [
+            'idarticulo' => 'required|numeric'
+        ]);
+
+        $selectArticulo = Almacen::find($request->idarticulo);
+
+        return response()->json($selectArticulo, status: 200);
+    }
+
+    public function update_articulo(Request $request)
+    {
+        $this->validate($request, [
+            'id_articulo' => 'required|numeric',
+            'codigo' => 'required',
+            'marca' => 'required',
+            'nombre' => 'required',
+            'stock' => 'required|numeric',
+            'descripcion' => 'required'
+        ]);
+
+        $selectArticulo = Almacen::find($request->id_articulo);
+
+        $selectArticulo->codigo = $request->codigo;
+        $selectArticulo->marca = $request->marca;
+        $selectArticulo->nombre = $request->nombre;
+        $selectArticulo->stock = $request->stock;
+        $selectArticulo->descripcion = $request->descripcion;
+
+        $selectArticulo->save();
+
+        return response()->json('Fino Pa', status: 200);
+    }
+    public function eliminar_articulo(Request $request)
+    {
+        $this->validate($request, [
+            'idarticulo' => 'required|numeric'
+        ]);
+        Almacen::destroy($request->idarticulo);
+        return response()->json('Fino Pa', status: 200);
     }
 }

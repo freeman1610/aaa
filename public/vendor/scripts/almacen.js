@@ -35,8 +35,8 @@ function listar() {
 function eliminar(idarticulo) {
 	bootbox.confirm("¿Esta seguro de eliminar este dato?", function (result) {
 		if (result) {
-			$.post("../controlador/articulo.php?op=eliminar", { idarticulo: idarticulo }, function (e) {
-				bootbox.alert(e);
+			$.post("eliminar_articulo", { idarticulo: idarticulo }, function (e) {
+				toastr.success('Datos Eliminados Correctamente')
 				tabla.ajax.reload();
 			});
 		}

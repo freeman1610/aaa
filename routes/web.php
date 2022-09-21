@@ -138,6 +138,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('registrar_articulo', [AlmacenController::class, 'registrar_articulo'])->name('registrar_articulo');
 
+    Route::post('mostrar_articulo_update', [AlmacenController::class, 'mostrar_articulo_update'])->name('mostrar_articulo_update');
+
+    Route::post('update_articulo', [AlmacenController::class, 'update_articulo'])->name('update_articulo');
+
+    Route::post('eliminar_articulo', [AlmacenController::class, 'eliminar_articulo'])->name('eliminar_articulo');
+
 
     // ----------------- FIN ALMACEN ------------------------
 
