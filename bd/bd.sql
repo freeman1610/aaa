@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-09-2022 a las 07:03:25
+-- Tiempo de generación: 21-09-2022 a las 08:30:57
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 
@@ -125,8 +125,8 @@ CREATE TABLE `almacen` (
 --
 
 INSERT INTO `almacen` (`idalmacen`, `idusuario`, `codigo`, `marca`, `nombre`, `stock`, `descripcion`, `created_at`, `updated_at`) VALUES
-(46, 1, '21312', '', 'XD', 22, 'fff', '2022-09-13 00:00:00', '2022-09-13 00:00:00'),
-(47, 21, '321222', '', 'dasda', 213, 'dasdad', '2022-09-14 06:59:39', '2022-09-14 06:59:39'),
+(46, 1, '21312', 'Listo', 'XD', 22, 'fff', '2022-09-13 00:00:00', '2022-09-20 19:48:54'),
+(47, 21, '321222', 'Ya Funciona', 'dasda', 213, 'dasdad', '2022-09-14 06:59:39', '2022-09-20 19:49:17'),
 (48, 1, '123554', 'Goodyear', 'Caucho', 4, 'Ring 20', '2022-09-20 00:57:59', '2022-09-20 00:57:59');
 
 -- --------------------------------------------------------
@@ -451,7 +451,8 @@ CREATE TABLE `departamento` (
   `iddepartamento` int(11) NOT NULL,
   `nombre` varchar(45) COLLATE utf8_bin NOT NULL,
   `descripcion` varchar(200) COLLATE utf8_bin NOT NULL,
-  `fechacreada` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `idusuario` int(11) NOT NULL,
   `estadod` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -460,10 +461,10 @@ CREATE TABLE `departamento` (
 -- Volcado de datos para la tabla `departamento`
 --
 
-INSERT INTO `departamento` (`iddepartamento`, `nombre`, `descripcion`, `fechacreada`, `idusuario`, `estadod`) VALUES
-(1, 'DEPARTAMENTO ADMINISTRATIVO', 'ENCARGADOS DE ADMINISTRACIÓN DE LA EMPRESA', '2020-10-31 15:25:45', 1, 1),
-(7, 'DEPARTAMENTO DE SISTEMA', 'ENCARGADOS DEL SOPORTE TÉCNICO', '2020-11-01 12:11:58', 1, 1),
-(8, 'DEPARTAMENTO DE TRANSPORTE', 'ENCARGADOS DEL TRANSPORTE EN LA EMPRESA ', '2022-07-08 07:38:14', 1, 1);
+INSERT INTO `departamento` (`iddepartamento`, `nombre`, `descripcion`, `created_at`, `updated_at`, `idusuario`, `estadod`) VALUES
+(1, 'DEPARTAMENTO ADMINISTRATIVO', 'ENCARGADOS DE ADMINISTRACIÓN DE LA EMPRESA', '2020-10-31 15:25:45', '2022-09-20 21:40:27', 1, 1),
+(7, 'DEPARTAMENTO DE SISTEMA', 'ENCARGADOS DEL SOPORTE TÉCNICO', '2020-11-01 12:11:58', '2022-09-20 21:40:27', 1, 1),
+(8, 'DEPARTAMENTO DE TRANSPORTE', 'ENCARGADOS DEL TRANSPORTE EN LA EMPRESA ', '2022-07-08 07:38:14', '2022-09-20 21:40:27', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1042,7 +1043,7 @@ ALTER TABLE `usuario_permiso`
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `idalmacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `idalmacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `asignacion_nomina`
@@ -1078,7 +1079,7 @@ ALTER TABLE `deduccion_nomina`
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `iddepartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `iddepartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `empleado`
