@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::view('nomina_personal', 'admin.nomina_personal')->name('nomina_personal');
 
+    Route::view('departamentos', 'admin.departamentos')->name('departamentos');
+
     Route::view('perfil', 'admin.perfil')->name('perfil');
 
     Route::view('salarios_base_administrativo', 'admin.salarios_base_administrativo')->name('salarios_base_administrativo');
