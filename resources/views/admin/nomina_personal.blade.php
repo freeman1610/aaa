@@ -9,7 +9,11 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Nómina <button class="btn btn-dark" onclick="clickAgregarNomina()" id="btnagregar"><i class="fa fa-plus-circle"></i>Realizar Pago</button> <button class="btn btn-dark" onclick="salarioBase()" id="btnagregar"><i class="fa fa-money-check-alt"></i> Salario Base</button></h3>
+                <h3 class="card-title">Nómina 
+                    <button class="btn btn-dark" onclick="clickAgregarNomina()" id="btnagregar"><i class="fa fa-plus-circle"></i>Realizar Pago</button>
+                    <button class="btn btn-dark" onclick="salarioBase()" id="btnagregar"><i class="fa fa-money-check-alt"></i> Salario Base</button>
+                    <button class="btn btn-dark" onclick="GenerarPDFXfechas()" id="btnagregar"><i class="fas fa-file-alt"></i> Generar PDF por rango de fechas</button>
+                </h3>
             </div><!-- /.card-header -->
             <div class="card-body" id="listadoregistros">
                 <table id="tbllistado" class="table table-bordered table-striped">
@@ -50,16 +54,57 @@
 </div><!-- /.row -->
 @endsection
 
-
 @section('agregarScriptsJS')
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function enviarConsultaPDFXfechas() {
+ 
+        let fecha_inicio = document.getElementById('fecha_inicio').value
+        let fecha_fin = document.getElementById('fecha_fin').value
+        // Compruebo fechas
+        if(fecha_inicio > fecha_fin){
+ 
+            toastr.error('No puedes realizar una busqueda desde el '+fecha_fin+' al '+fecha_inicio)
+ 
+        }else{
+
+            let datos = $('#formGenerarPDFXfechas').serialize();
+            window.open('generarPDFXfechas?'+datos, '_blank')     
+
+        }
+    }
+
+    function GenerarPDFXfechas() {
+        Swal.fire({
+            title: '<strong>Seleccione el rango de Fechas</strong>',
+            html:
+                '<form name="formGenerarPDFXfechas" id="formGenerarPDFXfechas" method="post">'+
+                    '<div class="d-flex justify-content-between">'+
+                        '<div>'+
+                            '<label for="">Fecha Inicio</label>'+
+                            '<input type="date" class="form-control" required id="fecha_inicio" name="fecha_inicio">'+
+                        '</div>'+
+                        '<div>'+
+                            '<label for="">Fecha Fin</label>'+
+                            '<input type="date" class="form-control" required id="fecha_fin" name="fecha_fin">'+
+                        '</div>'+
+                    '</div>'+
+                    '<br><button class="btn btn-success" type="submit">Generar</button>'+
+                '</form>',
+            showCloseButton: true,
+            showConfirmButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+        })
+        
+    }
 
     function salarioBase() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
         $.ajax({
             url: 'mostrar_salario',
             method: 'POST',
@@ -107,11 +152,6 @@
 
     function mostrarFormSalarioBase () {
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
         $.ajax({
             url: 'mostrar_salario',
             method: 'POST',
@@ -233,6 +273,11 @@
         if(ev.target.matches('#formularioSalarioBase')){
             ev.preventDefault()
             updateSalarioBase()
+        }
+
+        if(ev.target.matches('#formGenerarPDFXfechas')){
+            ev.preventDefault()
+            enviarConsultaPDFXfechas()
         }
         
     });

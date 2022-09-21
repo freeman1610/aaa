@@ -130,7 +130,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('pagoNominaPDF', [NominaController::class, 'pagoNominaPDF'])->name('pagoNominaPDF');
 
-    Route::get('AllPDF', [NominaController::class, 'AllPDF'])->name('AllPDF');
+    Route::get('generarPDFXfechas', [NominaController::class, 'generarPDFXfechas'])->name('generarPDFXfechas');
 
 
     // ----------------- DEPARTAMENTOS ------------------------
@@ -149,7 +149,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('eliminar_departamento', [DepartamentoController::class, 'eliminar_departamento'])->name('eliminar_departamento');
 
-
     // ----------------- FIN DEPARTAMENTOS ------------------------
 
     //  ---------------- FIN NOMINA PERSONAL ------------------------
@@ -165,7 +164,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('update_articulo', [AlmacenController::class, 'update_articulo'])->name('update_articulo');
 
     Route::post('eliminar_articulo', [AlmacenController::class, 'eliminar_articulo'])->name('eliminar_articulo');
-
 
     // ----------------- FIN ALMACEN ------------------------
 

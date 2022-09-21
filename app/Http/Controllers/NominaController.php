@@ -545,14 +545,38 @@ class NominaController extends Controller
         $fpdf->output("pago-nomina-" . $codigoHash . '.pdf', 'I');
         exit;
     }
-     // funcion que Imprime Todos Los PDF --
-    public function AllPDF(Fpdf $fpdf){
+    // funcion que Imprime Todos Los PDF --
+    public function generarPDFXfechas(Request $request, Fpdf $fpdf)
+    {
 
-        $cantidad = Nomina::where('inicio_pago','=','2022-10-01')->get()->count();
-        $fecha_inicio = Nomina::where('inicio_pago','=','2022-10-01')->get()->pluck('inicio_pago');
-        $PagoNomina = Nomina::select('id_nomina','nombre','apellido','cedula','cargo','fecha_ingreso','salario_mensual','fecha_nomina','inicio_pago','fin_pago','total_asignaciones','total_pago')->where('inicio_pago','=','2022-10-01')->join('empleado','pago_nomina.id_empleado','=','empleado.id_emp')->get();
+        $this->validate($request, [
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date'
+        ]);
 
-        for($i=0;$i<$cantidad;$i++){
+        if ($request->fecha_inicio > $request->fecha_fin) {
+            return response()->json(['message' => 'Error de Fechas'], status: 422);
+        }
+
+        $selectPagos = Nomina::all()
+            ->whereBetween('inicio_pago', [$request->fecha_inicio, $request->fecha_fin]);
+
+        $i = 0;
+        foreach ($selectPagos as $datos) {
+
+            $selectEmpleado = Empleado::find($datos->id_empleado);
+
+            $selectAsignacionNomina = AsignacionNomina::where('id_nomina', '=', $datos->id_nomina)
+                ->get();
+
+            $selectDeduccionNomina = DeduccionNomina::where('id_nomina', '=', $datos->id_nomina)
+                ->get();
+
+            $salarioMensual = number_format($datos->salario_mensual, 2);
+
+            $salarioQuincenal = number_format($salarioMensual / 2, 2);
+
+            $salarioDiario = number_format($salarioMensual / 30, 2);
 
             $fpdf->AddPage();
             $fpdf->SetFont('Arial', 'B', 20);
@@ -586,7 +610,7 @@ class NominaController extends Controller
 
             $fpdf->setY(35);
             $fpdf->setX($espaciadoLetrasDerecha);
-            $fpdf->Cell(5, $textypos, "DEL " . date_format(new DateTime($PagoNomina[$i]['inicio_pago']), 'Y/m/d') . "  AL " . date_format(new DateTime($PagoNomina[$i]['fin_pago']), 'Y/m/d'));
+            $fpdf->Cell(5, $textypos, "DEL " . date_format(new DateTime($datos->inicio_pago), 'Y/m/d') . "  AL " . date_format(new DateTime($datos->fin_pago), 'Y/m/d'));
 
             $fpdf->setY(45);
             $fpdf->setX($espacioIzquierda);
@@ -595,7 +619,7 @@ class NominaController extends Controller
             $fpdf->setY(45);
             $fpdf->setX($espaciadoLetrasDerecha);
             $fpdf->SetFont('Arial', '', 10);
-            $fpdf->Cell(5, $textypos, utf8_decode($PagoNomina[$i]['nombre'] . ' ' . $PagoNomina[$i]['apellido']));
+            $fpdf->Cell(5, $textypos, utf8_decode($selectEmpleado->nombre . ' ' . $selectEmpleado->apellido));
 
             $fpdf->setY(55);
             $fpdf->setX($espacioIzquierda);
@@ -605,7 +629,7 @@ class NominaController extends Controller
             $fpdf->setY(55);
             $fpdf->setX($espaciadoLetrasDerecha);
             $fpdf->SetFont('Arial', '', 10);
-            $fpdf->Cell(5, $textypos, $PagoNomina[$i]['cedula']);
+            $fpdf->Cell(5, $textypos, $selectEmpleado->cedula);
 
             $fpdf->setY(65);
             $fpdf->setX($espacioIzquierda);
@@ -615,9 +639,7 @@ class NominaController extends Controller
             $fpdf->setY(65);
             $fpdf->setX($espaciadoLetrasDerecha);
             $fpdf->SetFont('Arial', '', 10);
-            $fpdf->Cell(5, $textypos, "VES " . $PagoNomina[$i]['salario_mensual']);
-
-            $salarioQuincenal = number_format($PagoNomina[$i]['salario_mensual'] / 2, 2);
+            $fpdf->Cell(5, $textypos, "VES " . $selectEmpleado->salario_mensual);
 
             $fpdf->setY(75);
             $fpdf->setX($espacioIzquierda);
@@ -628,8 +650,6 @@ class NominaController extends Controller
             $fpdf->setX($espaciadoLetrasDerecha);
             $fpdf->SetFont('Arial', '', 10);
             $fpdf->Cell(5, $textypos, "VES " . $salarioQuincenal);
-
-            $salarioDiario = number_format($PagoNomina[$i]['salario_mensual']  / 30, 2);
 
             $fpdf->setY(85);
             $fpdf->setX($espacioIzquierda);
@@ -649,7 +669,7 @@ class NominaController extends Controller
             $fpdf->setY(95);
             $fpdf->setX($espaciadoLetrasDerecha);
             $fpdf->SetFont('Arial', '', 10);
-            $fpdf->Cell(5, $textypos, date_format(new DateTime($PagoNomina[$i]['fecha_nomina']), 'd-m-Y'));
+            $fpdf->Cell(5, $textypos, date_format(new DateTime($datos->fecha_nomina), 'd-m-Y'));
 
             $fpdf->setY(105);
             $fpdf->setX($espacioIzquierda);
@@ -659,7 +679,7 @@ class NominaController extends Controller
             $fpdf->setY(105);
             $fpdf->setX($espaciadoLetrasDerecha);
             $fpdf->SetFont('Arial', '', 10);
-            $fpdf->Cell(5, $textypos, utf8_decode($PagoNomina[$i]['cargo']));
+            $fpdf->Cell(5, $textypos, utf8_decode($selectEmpleado->cargo));
 
             $fpdf->setY(115);
             $fpdf->setX($espacioIzquierda);
@@ -669,34 +689,29 @@ class NominaController extends Controller
             $fpdf->setY(115);
             $fpdf->setX($espaciadoLetrasDerecha);
             $fpdf->SetFont('Arial', '', 10);
-            $fpdf->Cell(5, $textypos, date_format(new DateTime($PagoNomina[$i]['fecha_ingreso']), 'd-m-Y'));
+            $fpdf->Cell(5, $textypos, date_format(new DateTime($selectEmpleado->fecha_ingreso), 'd-m-Y'));
             // ------------------------------------------------------------Conceptos
             $fpdf->setY(130);
             $fpdf->setX(58);
             $fpdf->SetFont('Arial', 'B', 7);
             $fpdf->Cell(5, $textypos, "Conceptos");
 
-            // --------------------------- Asignaciones ------------------------------------------
-
-            $AsignacionNomina = AsignacionNomina::where('id_nomina', '=', $PagoNomina[$i]['id_nomina'])->get();
-
-
             $fpdf->setY(137);
             $fpdf->setX(30);
             $fpdf->SetFont('Arial', '', 8);
-            $fpdf->Cell(5, $textypos, $AsignacionNomina[0]['dias_lab']. " Dia(s) laborados Diurnos en la Semana");
+            $fpdf->Cell(5, $textypos, $selectAsignacionNomina[0]->dias_lab . " Dia(s) laborados Diurnos en la Semana");
 
             $fpdf->setY(142);
             $fpdf->setX(30);
-            $fpdf->Cell(5, $textypos, $AsignacionNomina[0]['dias_libres']. " Dia(s) de Descanso Remunerado");
+            $fpdf->Cell(5, $textypos, $selectAsignacionNomina[0]->dias_libres . " Dia(s) de Descanso Remunerado");
 
             $fpdf->setY(147);
             $fpdf->setX(30);
-            $fpdf->Cell(5, $textypos, $AsignacionNomina[0]['horas_extra_diurna']. " Horas Extras Diurnas");
+            $fpdf->Cell(5, $textypos, $selectAsignacionNomina[0]->horas_extra_diurna . " Horas Extras Diurnas");
 
             $fpdf->setY(152);
             $fpdf->setX(30);
-            $fpdf->Cell(5, $textypos, $AsignacionNomina[0]['horas_extra_noc']. " Horas Extras Nocturnas");
+            $fpdf->Cell(5, $textypos, $selectAsignacionNomina[0]->horas_extra_noc . " Horas Extras Nocturnas");
 
             $fpdf->setY(157);
             $fpdf->setX(30);
@@ -735,23 +750,19 @@ class NominaController extends Controller
             $fpdf->setY(137);
             $fpdf->setX(123);
             $fpdf->SetFont('Arial', '', 8);
-            $fpdf->Cell(5, $textypos, 'VES ' . number_format($AsignacionNomina[0]['pagos_diasLab'], 2));
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($selectAsignacionNomina[0]->pagos_diasLab, 2));
 
             $fpdf->setY(142);
             $fpdf->setX(123);
-            $fpdf->Cell(5, $textypos, 'VES ' . number_format($AsignacionNomina[0]['pagos_DiaLib'], 2));
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($selectAsignacionNomina[0]->pagos_DiaLib, 2));
 
             $fpdf->setY(147);
             $fpdf->setX(123);
-            $fpdf->Cell(5, $textypos, 'VES ' . number_format($AsignacionNomina[0]['pago_hr_extraD'], 2));
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($selectAsignacionNomina[0]->pago_hr_extraD, 2));
 
             $fpdf->setY(152);
             $fpdf->setX(123);
-            $fpdf->Cell(5, $textypos, 'VES ' . number_format($AsignacionNomina[0]['pago_hr_extra_noc'], 2));
-
-            // -------------------- Deducciones -------------------------------------------
-
-            $DeduccionNomina = DeduccionNomina::where('id_nomina', '=', $PagoNomina[$i]['id_nomina'])->get();
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($selectAsignacionNomina[0]->pago_hr_extra_noc, 2));
 
             $fpdf->setY(130);
             $fpdf->setX(167);
@@ -761,15 +772,15 @@ class NominaController extends Controller
             $fpdf->setY(157);
             $fpdf->setX(167);
             $fpdf->SetFont('Arial', '', 8);
-            $fpdf->Cell(5, $textypos, "VES " . number_format($DeduccionNomina[0]['sso'], 2));
+            $fpdf->Cell(5, $textypos, "VES " . number_format($selectDeduccionNomina[0]->sso, 2));
 
             $fpdf->setY(162);
             $fpdf->setX(167);
-            $fpdf->Cell(5, $textypos, "VES " . number_format($DeduccionNomina[0]['paro_forzoso'], 2));
+            $fpdf->Cell(5, $textypos, "VES " . number_format($selectDeduccionNomina[0]->paro_forzoso, 2));
 
             $fpdf->setY(167);
             $fpdf->setX(167);
-            $fpdf->Cell(5, $textypos, "VES " . number_format($DeduccionNomina[0]['lph'], 2));
+            $fpdf->Cell(5, $textypos, "VES " . number_format($selectDeduccionNomina[0]->lph, 2));
 
             // --------------------- Total ----------------------------------
 
@@ -783,14 +794,14 @@ class NominaController extends Controller
             $fpdf->setY(176);
             $fpdf->setX(123);
             $fpdf->SetFont('Arial', '', 9);
-            $fpdf->Cell(5, $textypos, 'VES ' . number_format($PagoNomina[$i]['total_asignaciones'], 2));
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($datos->total_asignaciones, 2));
 
             // ---------------- Total Deducciones --------------------------------------------
 
             $fpdf->setY(176);
             $fpdf->setX(167);
             $fpdf->SetFont('Arial', '', 9);
-            $fpdf->Cell(5, $textypos, 'VES ' . number_format($DeduccionNomina[0]['subtotal'], 2));
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($selectDeduccionNomina[0]->subtotal, 2));
 
             // Huella XD
 
@@ -815,7 +826,7 @@ class NominaController extends Controller
 
             $fpdf->setY(201);
             $fpdf->setX(140);
-            $fpdf->Cell(5, $textypos, 'VES ' . number_format($PagoNomina[$i]['total_pago'], 2));
+            $fpdf->Cell(5, $textypos, 'VES ' . number_format($datos->total_pago, 2));
 
             $fpdf->Line(90, 225, 150, 225);
 
@@ -827,7 +838,7 @@ class NominaController extends Controller
             $fpdf->setY(230);
             $fpdf->setX(110);
             $fpdf->SetFont('Arial', '', 7);
-            $fpdf->Cell(5, $textypos, utf8_decode($cantidad));
+            $fpdf->Cell(5, $textypos, utf8_decode($selectEmpleado->nombre . ' ' . $selectEmpleado->apellido));
 
 
             $fpdf->setY(241);
@@ -843,14 +854,12 @@ class NominaController extends Controller
             $fpdf->setX(15);
             $fpdf->SetFont('Arial', 'B', 10);
 
-            $codigoHash = random_int(100000, 9999999) . '-' . $cantidad;
+            $codigoHash = random_int(100000, 9999999) . '-' . $selectEmpleado->cedula . '-' . date_format(new DateTime($datos->inicio_pago), 'dmY') . '-' . date_format(new DateTime($datos->fin_pago), 'dmY') .  '-' . date_format(new DateTime($selectEmpleado->fin_pago), 'dmY');
+            // $codigoHash = random_int(100000, 9999999) . '-' . count($selectPagos);
 
             $fpdf->Cell(5, $textypos, "COD: " . $codigoHash);
-
         }
         $fpdf->output("pago-nomina-" . $codigoHash . '.pdf', 'I');
         exit;
-
     }
-
 }
