@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AlmacenController;
+use App\Http\Controllers\CavaController;
+use App\Http\Controllers\ChutoController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\InventarioController;
@@ -46,6 +48,10 @@ Route::middleware(['auth'])->group(function () {
     Route::view('nomina_personal', 'admin.nomina_personal')->name('nomina_personal');
 
     Route::view('departamentos', 'admin.departamentos')->name('departamentos');
+
+    Route::view('chutos', 'admin.chutos')->name('chutos');
+
+    Route::view('cavas', 'admin.cavas')->name('cavas');
 
     Route::view('perfil', 'admin.perfil')->name('perfil');
 
@@ -102,8 +108,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('mostrar_empleado', [EmpleadosController::class, 'mostrar_empleado'])->name('mostrar_empleado');
 
-    Route::post('muestra_empleados_select', [EmpleadosController::class, 'muestra_empleados_select'])->name('muestra_empleados_select');
-
     Route::post('crear_empleado', [EmpleadosController::class, 'crear_empleado'])->name('crear_empleado');
 
     Route::post('guardar_update_empleado', [EmpleadosController::class, 'guardar_update_empleado'])->name('guardar_update_empleado');
@@ -132,6 +136,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('generarPDFXfechas', [NominaController::class, 'generarPDFXfechas'])->name('generarPDFXfechas');
 
+    //  ---------------- FIN NOMINA PERSONAL ------------------------
 
     // ----------------- DEPARTAMENTOS ------------------------
 
@@ -151,7 +156,29 @@ Route::middleware(['auth'])->group(function () {
 
     // ----------------- FIN DEPARTAMENTOS ------------------------
 
-    //  ---------------- FIN NOMINA PERSONAL ------------------------
+    // ----------------- TRANSPORTE ------------------------
+
+    Route::get('listar_chutos', [ChutoController::class, 'listar_chutos'])->name('listar_chutos');
+
+    Route::post('registrar_chuto', [ChutoController::class, 'registrar_chuto'])->name('registrar_chuto');
+
+    Route::post('mostrar_chuto', [ChutoController::class, 'mostrar_chuto'])->name('mostrar_chuto');
+
+    Route::post('actualizar_chuto', [ChutoController::class, 'actualizar_chuto'])->name('actualizar_chuto');
+
+    Route::post('eliminar_chuto', [ChutoController::class, 'eliminar_chuto'])->name('eliminar_chuto');
+    // CAVAS
+    Route::get('listar_cavas', [CavaController::class, 'listar_cavas'])->name('listar_cavas');
+
+    Route::post('registrar_cava', [CavaController::class, 'registrar_cava'])->name('registrar_cava');
+
+    Route::post('mostrar_cava', [CavaController::class, 'mostrar_cava'])->name('mostrar_cava');
+
+    Route::post('actualizar_cava', [CavaController::class, 'actualizar_cava'])->name('actualizar_cava');
+
+    Route::post('eliminar_cava', [CavaController::class, 'eliminar_cava'])->name('eliminar_cava');
+
+    //  ---------------- FIN TRANSPORTE ------------------------
 
     // ----------------- ALMACEN ------------------------
 

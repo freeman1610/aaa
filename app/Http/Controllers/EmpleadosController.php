@@ -37,19 +37,12 @@ class EmpleadosController extends Controller
         return response()->json($results, status: 200);
     }
 
-    public function muestra_empleados(Request $request)
+    public function mostrar_empleado(Request $request)
     {
 
         $selectEmpleado = Empleado::find($request->id_emp);
 
         return $selectEmpleado;
-    }
-
-    public function muestra_empleados_select()
-    {
-        $seleccionarEmpleados = DB::table('empleado')->select('id_emp', 'nombre', 'apellido', 'tipo_documento', 'cedula', 'cargo')->get();
-
-        return response()->json($seleccionarEmpleados, status: 200);
     }
 
     public function guardar_update_empleado(Request $request)

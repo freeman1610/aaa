@@ -196,17 +196,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @endif
                         @if (Auth::user()->cargo == 'ADMINISTRADOR' || Auth::user()->cargo == 'ADMINISTRATIVO')
                         <li class="nav-item">
-                            <a href="#" class="nav-link" id="nom">
+                            <a href="#" class="nav-link" id="transporte">
                                 <i class="nav-icon fas fa-laptop"></i><p>Transporte<i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./chutos.php" class="nav-link" id="chutos">
+                                    <a href="{{ route('chutos') }}" class="nav-link" id="chutos">
                                         <i class="fas fa-address-card nav-icon"></i><p>Chutos</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./cavas.php" class="nav-link" id="cavas">
+                                    <a href="{{ route('cavas') }}" class="nav-link" id="cavas">
                                         <i class="fas fa-address-card nav-icon"></i><p>Cavas</p>
                                     </a>
                                 </li>
