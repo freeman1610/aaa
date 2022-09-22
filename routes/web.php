@@ -5,6 +5,7 @@ use App\Http\Controllers\CavaController;
 use App\Http\Controllers\ChutoController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EmpleadosController;
+use App\Http\Controllers\FleteController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\LoginAuthController;
 use App\Http\Controllers\LogoutController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\SalarioController;
 use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\UsuarioController;
+use App\Models\Flete;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
     Route::view('chutos', 'admin.chutos')->name('chutos');
 
     Route::view('cavas', 'admin.cavas')->name('cavas');
+
+    Route::view('fletes', 'admin.fletes')->name('fletes');
 
     Route::view('perfil', 'admin.perfil')->name('perfil');
 
@@ -157,7 +161,7 @@ Route::middleware(['auth'])->group(function () {
     // ----------------- FIN DEPARTAMENTOS ------------------------
 
     // ----------------- TRANSPORTE ------------------------
-
+    // CHUTOS
     Route::get('listar_chutos', [ChutoController::class, 'listar_chutos'])->name('listar_chutos');
 
     Route::post('registrar_chuto', [ChutoController::class, 'registrar_chuto'])->name('registrar_chuto');
@@ -177,6 +181,17 @@ Route::middleware(['auth'])->group(function () {
     Route::post('actualizar_cava', [CavaController::class, 'actualizar_cava'])->name('actualizar_cava');
 
     Route::post('eliminar_cava', [CavaController::class, 'eliminar_cava'])->name('eliminar_cava');
+    // FLETES
+    Route::get('listar_fletes', [FleteController::class, 'listar_fletes'])->name('listar_fletes');
+
+    Route::post('listar_estados', [FleteController::class, 'listar_estados'])->name('listar_estados');
+
+    Route::post('listar_municipios', [FleteController::class, 'listar_municipios'])->name('listar_municipios');
+
+    Route::post('listar_parroquias', [FleteController::class, 'listar_parroquias'])->name('listar_parroquias');
+
+    Route::post('registrar_flete', [FleteController::class, 'registrar_flete'])->name('registrar_flete');
+
 
     //  ---------------- FIN TRANSPORTE ------------------------
 

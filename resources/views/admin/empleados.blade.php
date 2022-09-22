@@ -217,12 +217,12 @@
 
     document.querySelector("#centro_central").addEventListener("submit", ev =>{
 	
-    if(ev.target.matches('#formularioCrearEmpleado')){
-        ev.preventDefault()
-        enviarFormCrearUsuario()
-    }
-        
-});
+        if(ev.target.matches('#formularioCrearEmpleado')){
+            ev.preventDefault()
+            enviarFormCrearUsuario()
+        }
+            
+    });
 </script>
 
 <script src="{{ asset('vendor/scripts/empleados.js') }}"></script>

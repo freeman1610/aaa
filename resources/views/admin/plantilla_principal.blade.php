@@ -211,7 +211,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./fletes.php" class="nav-link" id="fletes">
+                                    <a href="{{ route('fletes') }}" class="nav-link" id="fletes">
                                         <i class="fas fa-address-card nav-icon"></i><p>Fletes</p>
                                     </a>
                                 </li>
