@@ -83,11 +83,65 @@ function registrarFlete() {
 	});
 }
 
+function mostrarFlete(flete_id) {
+	$.post("mostrar_flete", { flete_id: flete_id }, function (res) {
+		Swal.fire({
+			title: '<strong>Actualizar Flete</strong>',
+			html:
+				'<form action="" name="formularioUpdateFlete" id="formularioUpdateFlete" method="POST">' +
+				'<input type="hidden" name="flete_id" id=flete_id"" value="' + res['flete'].flete_id + '">' +
+				'<br><label class="d-flex justify-content-start" for="">Codigo(*):</label><input type="text" name="flete_codigo" placeholder="Codigo" id="flete_codigo" class="form-control" value="' + res['flete'].flete_codigo + '" required>' +
+				'<br><label class="d-flex justify-content-start" for="">Destino: ESTADO(*):</label>' +
+				'<select class="form-control" required name="flete_destino_estado" id="flete_destino_estado">' +
+				res['estados'] +
+				'</select>' +
+				'<br><label class="d-flex justify-content-start" for="">Destino: MUNICIPIO(*):</label>' +
+				'<select class="form-control" required name="flete_destino_municipio" id="flete_destino_municipio">' + res['municipios'] + '</select>' +
+				'<br><label class="d-flex justify-content-start" for="">Destino: PARROQUIA(*):</label>' +
+				'<select class="form-control" required name="flete_destino_parroquia" id="flete_destino_parroquia">' + res['parroquias'] + '</select>' +
+				'<br><label class="d-flex justify-content-start" for="">Kilometros:</label><input type="text" name="flete_kilometros" placeholder="Kilometros del Flete" onkeypress="return SoloNumeros(event)" maxlength="10" id="flete_kilometros" class="form-control" value="' + res['flete'].flete_kilometros + '" required onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))">' +
+				'<br><label class="d-flex justify-content-start" for="">Valor en Carga:</label><input type="text" class="form-control" name="flete_valor_en_carga" id="flete_valor_en_carga" placeholder="Valor Carga" maxlength="10" value="' + res['flete'].flete_valor_en_carga + '" autocomplete="off" required onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))">' +
+				'<br><label class="d-flex justify-content-start" for="">Valor Sin Carga:</label><input type="text" class="form-control" name="flete_valor_sin_carga" id="flete_valor_sin_carga" placeholder="Valor Sin Carga" value="' + res['flete'].flete_valor_sin_carga + '" required maxlength="10" autocomplete="off" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))">' +
+				'<button class="btn btn-success mt-3" type="submit">' +
+				'Guardar Usuario' +
+				'</button>' +
+				'</form>',
+			showCloseButton: true,
+			showConfirmButton: false,
+			showCancelButton: false,
+			focusConfirm: false,
+		})
+	});
+}
+function updateFlete() {
+
+	let datos = $('#formularioUpdateFlete').serialize();
+
+	$.ajax({
+		url: 'update_flete',
+		method: 'POST',
+		data: datos,
+
+		success: function (res) {
+			toastr.success('Datos Guardados Correctamente')
+			tabla.ajax.reload();
+		},
+
+		error: function (err) {
+			toastr.error(err.responseJSON.message)
+		}
+
+	});
+}
 document.querySelector("#centro_central").addEventListener("submit", ev => {
 
 	if (ev.target.matches('#formularioCrearFlete')) {
 		ev.preventDefault()
 		registrarFlete()
+	}
+	if (ev.target.matches('#formularioUpdateFlete')) {
+		ev.preventDefault()
+		updateFlete()
 	}
 
 });

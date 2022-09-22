@@ -192,6 +192,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('registrar_flete', [FleteController::class, 'registrar_flete'])->name('registrar_flete');
 
+    Route::post('mostrar_flete', [FleteController::class, 'mostrar_flete'])->name('mostrar_flete');
+
+    Route::post('update_flete', [FleteController::class, 'update_flete'])->name('update_flete');
+
 
     //  ---------------- FIN TRANSPORTE ------------------------
 
