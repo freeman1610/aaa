@@ -108,9 +108,9 @@ class FleteController extends Controller
             'flete_destino_estado' => 'required|numeric',
             'flete_destino_municipio' => 'required|numeric',
             'flete_destino_parroquia' => 'required|numeric',
-            'flete_kilometros' => 'required|numeric',
-            'flete_valor_en_carga' => 'required|numeric',
-            'flete_valor_sin_carga' => 'required|numeric',
+            'flete_kilometros' => 'required',
+            'flete_valor_en_carga' => 'required',
+            'flete_valor_sin_carga' => 'required',
         ]);
         $verificarCodFlete = DB::table('fletes')
             ->select('flete_codigo')
@@ -186,9 +186,9 @@ class FleteController extends Controller
             'flete_destino_estado' => 'required|numeric',
             'flete_destino_municipio' => 'required|numeric',
             'flete_destino_parroquia' => 'required|numeric',
-            'flete_kilometros' => 'required|numeric',
-            'flete_valor_en_carga' => 'required|numeric',
-            'flete_valor_sin_carga' => 'required|numeric'
+            'flete_kilometros' => 'required',
+            'flete_valor_en_carga' => 'required',
+            'flete_valor_sin_carga' => 'required'
         ]);
 
         $selectFlete = Flete::find($request->flete_id);
@@ -203,6 +203,18 @@ class FleteController extends Controller
 
         $selectFlete->save();
 
+        return response()->json('Fino Pa', status: 200);
+    }
+    public function eliminar_flete(Request $request)
+    {
+        $this->validate($request, [
+            'flete_id' => 'required|numeric',
+        ]);
+        $comprobarEstado = Flete::find($request->flete_id);
+        if ($comprobarEstado->flete_estado == 1) {
+            return response()->json(['message' => 'El Flete no se puede Eliminar por que ya ha sido Asignado a un Viaje'], status: 422);
+        }
+        Flete::destroy($request->flete_id);
         return response()->json('Fino Pa', status: 200);
     }
 }

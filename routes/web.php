@@ -14,6 +14,7 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\SalarioController;
 use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ViajeController;
 use App\Models\Flete;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,8 @@ Route::middleware(['auth'])->group(function () {
     Route::view('cavas', 'admin.cavas')->name('cavas');
 
     Route::view('fletes', 'admin.fletes')->name('fletes');
+
+    Route::view('viajes', 'admin.viajes')->name('viajes');
 
     Route::view('perfil', 'admin.perfil')->name('perfil');
 
@@ -195,6 +198,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('mostrar_flete', [FleteController::class, 'mostrar_flete'])->name('mostrar_flete');
 
     Route::post('update_flete', [FleteController::class, 'update_flete'])->name('update_flete');
+
+    Route::post('eliminar_flete', [FleteController::class, 'eliminar_flete'])->name('eliminar_flete');
+    // VIAJES
+    Route::get('listar_viajes', [ViajeController::class, 'listar_viajes'])->name('listar_viajes');
 
 
     //  ---------------- FIN TRANSPORTE ------------------------

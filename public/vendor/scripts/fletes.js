@@ -18,9 +18,9 @@ function mostrarform() {
 				'<select class="form-control" required name="flete_destino_municipio" id="flete_destino_municipio" disabled></select>' +
 				'<br><label class="d-flex justify-content-start" for="">Destino: PARROQUIA(*):</label>' +
 				'<select class="form-control" required name="flete_destino_parroquia" id="flete_destino_parroquia" disabled></select>' +
-				'<br><label class="d-flex justify-content-start" for="">Kilometros:</label><input type="text" name="flete_kilometros" placeholder="Kilometros del Flete" onkeypress="return SoloNumeros(event)" maxlength="10" id="flete_kilometros" class="form-control" required onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))">' +
-				'<br><label class="d-flex justify-content-start" for="">Valor en Carga:</label><input type="text" class="form-control" name="flete_valor_en_carga" id="flete_valor_en_carga" placeholder="Valor Carga" maxlength="10" autocomplete="off" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))">' +
-				'<br><label class="d-flex justify-content-start" for="">Valor Sin Carga:</label><input type="text" class="form-control" name="flete_valor_sin_carga" id="flete_valor_sin_carga" placeholder="Valor Sin Carga" maxlength="10" autocomplete="off" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))">' +
+				'<br><label class="d-flex justify-content-start" for="">Kilometros:</label><input type="number" name="flete_kilometros" step="any" autocomplete="off" placeholder="Kilometros del Flete" id="flete_kilometros" class="form-control" required>' +
+				'<br><label class="d-flex justify-content-start" for="">Valor en Carga:</label><input type="text" class="form-control" name="flete_valor_en_carga" id="flete_valor_en_carga" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))" placeholder="Valor Carga" autocomplete="off">' +
+				'<br><label class="d-flex justify-content-start" for="">Valor Sin Carga:</label><input type="text" class="form-control" name="flete_valor_sin_carga" id="flete_valor_sin_carga" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))" placeholder="Valor Sin Carga" autocomplete="off">' +
 				'<button class="btn btn-success mt-3" type="submit">' +
 				'Guardar Usuario' +
 				'</button>' +
@@ -99,9 +99,9 @@ function mostrarFlete(flete_id) {
 				'<select class="form-control" required name="flete_destino_municipio" id="flete_destino_municipio">' + res['municipios'] + '</select>' +
 				'<br><label class="d-flex justify-content-start" for="">Destino: PARROQUIA(*):</label>' +
 				'<select class="form-control" required name="flete_destino_parroquia" id="flete_destino_parroquia">' + res['parroquias'] + '</select>' +
-				'<br><label class="d-flex justify-content-start" for="">Kilometros:</label><input type="text" name="flete_kilometros" placeholder="Kilometros del Flete" onkeypress="return SoloNumeros(event)" maxlength="10" id="flete_kilometros" class="form-control" value="' + res['flete'].flete_kilometros + '" required onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))">' +
-				'<br><label class="d-flex justify-content-start" for="">Valor en Carga:</label><input type="text" class="form-control" name="flete_valor_en_carga" id="flete_valor_en_carga" placeholder="Valor Carga" maxlength="10" value="' + res['flete'].flete_valor_en_carga + '" autocomplete="off" required onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))">' +
-				'<br><label class="d-flex justify-content-start" for="">Valor Sin Carga:</label><input type="text" class="form-control" name="flete_valor_sin_carga" id="flete_valor_sin_carga" placeholder="Valor Sin Carga" value="' + res['flete'].flete_valor_sin_carga + '" required maxlength="10" autocomplete="off" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))">' +
+				'<br><label class="d-flex justify-content-start" for="">Kilometros:</label><input type="number" name="flete_kilometros" step="any" autocomplete="off" placeholder="Kilometros del Flete" id="flete_kilometros" class="form-control" value="' + res['flete'].flete_kilometros + '" required>' +
+				'<br><label class="d-flex justify-content-start" for="">Valor en Carga:</label><input type="text" class="form-control" name="flete_valor_en_carga" id="flete_valor_en_carga" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))" placeholder="Valor Carga" value="' + res['flete'].flete_valor_en_carga + '" autocomplete="off" required>' +
+				'<br><label class="d-flex justify-content-start" for="">Valor Sin Carga:</label><input type="text" class="form-control" name="flete_valor_sin_carga" id="flete_valor_sin_carga" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))" placeholder="Valor Sin Carga" value="' + res['flete'].flete_valor_sin_carga + '" required autocomplete="off">' +
 				'<button class="btn btn-success mt-3" type="submit">' +
 				'Guardar Usuario' +
 				'</button>' +
@@ -228,25 +228,10 @@ function listar() {
 	}).DataTable();
 }
 
-function mostrar(flete_id) {
-	$.post("../controlador/fletes.php?op=mostrar", { flete_id: flete_id },
-		function (data, status) {
-			data = JSON.parse(data);
-			mostrarform(true);
-
-			$("#flete_id").val(data.flete_id);
-			$("#flete_destino").val(data.flete_destino);
-			$("#flete_kilometros").val(data.flete_kilometros);
-			$("#flete_valor_en_carga").val(data.flete_valor_en_carga);
-			$("#flete_valor_sin_carga").val(data.flete_valor_sin_carga);
-		})
-}
-
-
 function eliminar(flete_id) {
 	bootbox.confirm("¿Esta seguro de eliminar este dato?", function (result) {
 		if (result) {
-			$.post("../controlador/fletes.php?op=eliminar", { flete_id: flete_id }, function (e) {
+			$.post("eliminar_flete", { flete_id: flete_id }, function (e) {
 				bootbox.alert(e);
 				tabla.ajax.reload();
 			});

@@ -168,10 +168,10 @@ class NominaController extends Controller
             ->select('pago_nomina.*', 'empleado.nombre', 'empleado.apellido')
             ->get();
 
-        $arrayDeDatos = array();
+        $arrayDeDatos = [];
 
         foreach ($selecNomina as $dato) {
-            $arrayDeDatos[] = array(
+            $arrayDeDatos[] = [
                 "0" => '<button class="btn btn-danger btn-xs" title="Eliminar" onclick="eliminar(' . $dato->id_nomina . ')"><i class="fa fa-trash"></i></button><a target="_blank" href="pagoNominaPDF?idNomina=' . $dato->id_nomina . '" title="Generar PDF"> <button class="btn btn-info btn-xs"><i class="fa fa-file"></i></button></a>',
                 "1" => $dato->nombre . ' ' . $dato->apellido,
                 "2" => 'VES ' . $dato->salario_mensual,
@@ -181,7 +181,7 @@ class NominaController extends Controller
                 "6" => $dato->total_asignaciones,
                 "7" => '-' . $dato->total_deducciones,
                 "8" => $dato->total_pago
-            );
+            ];
         }
 
         $results = [

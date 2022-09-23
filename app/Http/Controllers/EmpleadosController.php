@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chofer;
 use App\Models\Empleado;
 use DateTime;
 use Illuminate\Http\Request;
@@ -62,7 +63,6 @@ class EmpleadosController extends Controller
             'direccion' => 'required'
         ]);
 
-
         $selectEmpleado = Empleado::find($request->id_emp);
 
         $selectEmpleado->nombre = $request->nombre;
@@ -77,6 +77,26 @@ class EmpleadosController extends Controller
         $selectEmpleado->fecha_ingreso = $request->fecha_ingreso;
 
         $selectEmpleado->save();
+
+        if ($request->iddepartamento != 8) {
+            $comprobarSiEraChofer = Chofer::where('chofer_idempleado', '=', $request->id_emp)->get();
+            if (!empty($comprobarSiEraChofer[0]->chofer_idempleado)) {
+                Chofer::destroy($comprobarSiEraChofer[0]->chofer_id);
+            }
+        }
+        if ($request->iddepartamento == 8) {
+            $comprobarSiEraChofer = Chofer::where('chofer_idempleado', '=', $request->id_emp)->get();
+            if (empty($comprobarSiEraChofer[0]->chofer_idempleado)) {
+                DB::insert(
+                    'insert into choferes (chofer_idempleado, created_at ,updated_at) values (?, ?, ?)',
+                    [
+                        $request->id_emp,
+                        new DateTime(),
+                        new DateTime()
+                    ]
+                );
+            }
+        }
     }
 
     public function crear_empleado(Request $request)
@@ -111,6 +131,18 @@ class EmpleadosController extends Controller
                 new DateTime()
             ]
         );
+
+        if ($request->iddepartamento_a == 8) {
+            $selectUltimoEmpleado = DB::table('empleado')->select('id_emp')->latest()->first();
+            DB::insert(
+                'insert into choferes (chofer_idempleado, created_at ,updated_at) values (?, ?, ?)',
+                [
+                    $selectUltimoEmpleado->id_emp,
+                    new DateTime(),
+                    new DateTime()
+                ]
+            );
+        }
     }
 
     public function eliminar_empleado(Request $request)
