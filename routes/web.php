@@ -203,6 +203,14 @@ Route::middleware(['auth'])->group(function () {
     // VIAJES
     Route::get('listar_viajes', [ViajeController::class, 'listar_viajes'])->name('listar_viajes');
 
+    Route::post('listar_crear_viaje', [ViajeController::class, 'listar_crear_viaje'])->name('listar_crear_viaje');
+
+    Route::post('listar_fletes_ida', [ViajeController::class, 'listar_fletes_ida'])->name('listar_fletes_ida');
+
+    Route::post('listar_fletes_retorno', [ViajeController::class, 'listar_fletes_retorno'])->name('listar_fletes_retorno');
+
+    Route::post('crear_viaje', [ViajeController::class, 'crear_viaje'])->name('crear_viaje');
+
 
     //  ---------------- FIN TRANSPORTE ------------------------
 
