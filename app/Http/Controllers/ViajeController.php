@@ -138,29 +138,84 @@ class ViajeController extends Controller
     public function listar_fletes_ida(Request $request)
     {
         if (isset($request->flete_no_mostrar)) {
-            $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
-                ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
-                ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
-                ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
-                ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
-                ->where('fletes.flete_id', 'not like', $request->flete_no_mostrar)
-                ->get();
-            if (count($selectFletesDisponibles) == 0) {
-                return response()->json(['message' => 'No Hay Fletes para Ida Disponibles, registre los Fletes Necesarios en el Modulo de FLetes'], status: 422);
+            // El isset($request->id_viaje_actual) es para la vista actualizar Viaje
+            // Se crea para mostrar el flete de ida actual y los que esten disponibles
+            if (isset($request->id_viaje_actual)) {
+                $selectViajeActual = Viaje::where('viajes_id', '=', $request->id_viaje_actual)
+                    ->select('viajes_idflete_ida')
+                    ->get();
+                $selectFleteActual = Flete::where('fletes.flete_id', '=', $selectViajeActual[0]->viajes_idflete_ida)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->where('fletes.flete_id', 'not like', $request->flete_no_mostrar)
+                    ->get();
+                $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->where('fletes.flete_id', 'not like', $request->flete_no_mostrar)
+                    ->get();
+                $optionFletesIda = '<option value="' . $selectFleteActual[0]->flete_id . '">COD: ' . $selectFleteActual[0]->flete_codigo . ' | ' . $selectFleteActual[0]->estado . ', ' . $selectFleteActual[0]->municipio . ', ' . $selectFleteActual[0]->parroquia . '</option>';
+            } else {
+                // Para crear
+                $selectFleteActual = Flete::where('fletes.flete_estado', '=', 0)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->where('fletes.flete_id', 'not like', $request->flete_no_mostrar)
+                    ->get();
+
+                $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->where('fletes.flete_id', 'not like', $request->flete_no_mostrar)
+                    ->get();
+                if (count($selectFletesDisponibles) == 0) {
+                    return response()->json(['message' => 'No Hay Fletes para Ida Disponibles, registre los Fletes Necesarios en el Modulo de FLetes'], status: 422);
+                }
+                $optionFletesIda = '<option value="">Seleccione</option>';
             }
         } else {
-            $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
-                ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
-                ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
-                ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
-                ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
-                ->get();
-            if (count($selectFletesDisponibles) == 0) {
-                return response()->json(['message' => 'No Hay Fletes para Ida Disponibles, registre los Fletes Necesarios en el Modulo de FLetes'], status: 422);
+            // Vista para Actualizar
+            if (isset($request->id_viaje_actual)) {
+                $selectViajeActual = Viaje::where('viajes_id', '=', $request->id_viaje_actual)
+                    ->select('viajes_idflete_ida')
+                    ->get();
+                $selectFleteActual = Flete::where('fletes.flete_id', '=', $selectViajeActual[0]->viajes_idflete_ida)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->get();
+                $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->get();
+
+                $optionFletesIda = '<option value="' . $selectFleteActual[0]->flete_id . '">COD: ' . $selectFleteActual[0]->flete_codigo . ' | ' . $selectFleteActual[0]->estado . ', ' . $selectFleteActual[0]->municipio . ', ' . $selectFleteActual[0]->parroquia . '</option>';
+            } else {
+                // Vista para Crear
+                $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->get();
+                if (count($selectFletesDisponibles) == 0) {
+                    return response()->json(['message' => 'No Hay Fletes para Ida Disponibles, registre los Fletes Necesarios en el Modulo de FLetes'], status: 422);
+                }
+                $optionFletesIda = '<option value="">Seleccione</option>';
             }
         }
 
-        $optionFletesIda = '<option value="">Seleccione</option>';
         foreach ($selectFletesDisponibles as $datos) {
             $optionFletesIda = $optionFletesIda . '<option value="' . $datos->flete_id . '">COD: ' . $datos->flete_codigo . ' | Destino: ' . $datos->estado  . ', ' . $datos->municipio  . ', ' . $datos->parroquia . '</option>';
         }
@@ -169,29 +224,73 @@ class ViajeController extends Controller
     public function listar_fletes_retorno(Request $request)
     {
         if (isset($request->flete_no_mostrar)) {
-            $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
-                ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
-                ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
-                ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
-                ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
-                ->where('fletes.flete_id', 'not like', $request->flete_no_mostrar)
-                ->get();
-            if (count($selectFletesDisponibles) == 0) {
-                return response()->json(['message' => 'No Hay Fletes para Retorno Disponibles, registre los Fletes Necesarios en el Modulo de FLetes'], status: 422);
+            // El isset($request->id_viaje_actual) es para la vista actualizar Viaje
+            // Se crea para mostrar el flete de ida actual y los que esten disponibles
+            if (isset($request->id_viaje_actual)) {
+                $selectViajeActual = Viaje::where('viajes_id', '=', $request->id_viaje_actual)
+                    ->select('viajes_idflete_retorno')
+                    ->get();
+                $selectFleteActual = Flete::where('fletes.flete_id', '=', $selectViajeActual[0]->viajes_idflete_retorno)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->get();
+                $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->where('fletes.flete_id', 'not like', $request->flete_no_mostrar)
+                    ->get();
+                $optionFletesRetorno = '<option value="' . $selectFleteActual[0]->flete_id . '">COD: ' . $selectFleteActual[0]->flete_codigo . ' | ' . $selectFleteActual[0]->estado . ', ' . $selectFleteActual[0]->municipio . ', ' . $selectFleteActual[0]->parroquia . '</option>';
+            } else {
+                $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->where('fletes.flete_id', 'not like', $request->flete_no_mostrar)
+                    ->get();
+                if (count($selectFletesDisponibles) == 0) {
+                    return response()->json(['message' => 'No Hay Fletes para Retorno Disponibles, registre los Fletes Necesarios en el Modulo de FLetes'], status: 422);
+                }
+                $optionFletesRetorno = '<option value="">Seleccione</option>';
             }
         } else {
-            $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
-                ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
-                ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
-                ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
-                ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
-                ->get();
-            if (count($selectFletesDisponibles) == 0) {
-                return response()->json(['message' => 'No Hay Fletes para Retorno Disponibles, registre los Fletes Necesarios en el Modulo de FLetes'], status: 422);
+            if (isset($request->id_viaje_actual)) {
+                $selectViajeActual = Viaje::where('viajes_id', '=', $request->id_viaje_actual)
+                    ->select('viajes_idflete_ida')
+                    ->get();
+                $selectFleteActual = Flete::where('fletes.flete_id', '=', $selectViajeActual[0]->viajes_idflete_retorno)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->get();
+                $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->get();
+
+                $optionFletesRetorno = '<option value="' . $selectFleteActual[0]->flete_id . '">COD: ' . $selectFleteActual[0]->flete_codigo . ' | ' . $selectFleteActual[0]->estado . ', ' . $selectFleteActual[0]->municipio . ', ' . $selectFleteActual[0]->parroquia . '</option>';
+            } else {
+                $selectFletesDisponibles = Flete::where('fletes.flete_estado', '=', 0)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select('fletes.flete_id', 'fletes.flete_codigo', 'estados.estado', 'municipios.municipio', 'parroquias.parroquia')
+                    ->get();
+                if (count($selectFletesDisponibles) == 0) {
+                    return response()->json(['message' => 'No Hay Fletes para Retorno Disponibles, registre los Fletes Necesarios en el Modulo de FLetes'], status: 422);
+                }
+                $optionFletesRetorno = '<option value="">Seleccione</option>';
             }
         }
 
-        $optionFletesRetorno = '<option value="">Seleccione</option>';
+
         foreach ($selectFletesDisponibles as $datos) {
             $optionFletesRetorno = $optionFletesRetorno . '<option value="' . $datos->flete_id . '">COD: ' . $datos->flete_codigo . ' | Destino: ' . $datos->estado  . ', ' . $datos->municipio  . ', ' . $datos->parroquia . '</option>';
         }
@@ -514,6 +613,34 @@ class ViajeController extends Controller
 
     public function update_viaje(Request $request)
     {
-        # code...
+        // Para actualizar un viaje hay que verificar de que cada uno de los select del form
+        // se hayan cambiado (Chofer, Chuto, Cava, Flete Ida, Flete Retorno)
+        // si se han cambiado, hay que actualizar cada unos de itemes mencionados
+        // pasando su estado a sin asignar (Disponible)
+        // de lo contrario, no se modifica nada
+
+        if ($request->comprobar_flete_ida == "si" && $request->comprobar_flete_retorno == "si") {
+            # code...
+        }
+        if ($request->comprobar_flete_ida == "no" && $request->comprobar_flete_retorno == "si") {
+            # code...
+        }
+        if ($request->comprobar_flete_ida == "si" && $request->comprobar_flete_retorno == "no") {
+            # code...
+        }
+
+        $this->validate($request, [
+            'id_viaje' => 'required|numeric',
+            'viaje_codigo' => 'required',
+            'viaje_chofer' => 'required|numeric',
+            'viaje_chuto' => 'required|numeric',
+            'viaje_cava' => 'required|numeric',
+            'viaje_flete_ida' => 'required|numeric',
+            'viaje_flete_retorno' => 'required|numeric',
+            'viaje_descripcion' => 'required',
+            'viaje_dia_salida' => 'required|date',
+            'viaje_dia_retorno' => 'required|date',
+            'viaje_observacion' => 'required'
+        ]);
     }
 }

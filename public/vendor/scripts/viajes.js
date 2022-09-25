@@ -144,94 +144,194 @@ function mostrarViaje(id) {
 function listarFletesIda() {
     // Verifico de que no se haya seleccionado un flete retorno para asi mostrar un flete distinto para cada tipo flete
     let flete_retorno_actual = document.getElementById('viaje_flete_retorno').value
-    if (flete_retorno_actual == '') {
-        $.ajax({
-            url: "listar_fletes_ida",
-            type: "POST",
-            success: function (res) {
-                let select = document.getElementById('viaje_flete_ida')
-                select.innerHTML = res.fletes_ida
-                select.setAttribute("requerid", "")
-                document.getElementById('divFleteIda').classList.remove('d-none')
-            },
-            error: function (err) {
-                toastr.error(err.responseJSON.message);
-                document.getElementById('comprobar_flete_ida').classList.remove('text-success')
-                document.getElementById('comprobar_flete_ida').classList.remove('text-danger')
-                document.getElementById('comprobar_flete_ida').classList.add('text-white')
-                document.getElementById('comprobar_flete_ida').classList.remove('text-white')
-                document.getElementById('comprobar_flete_ida').value = ""
-            }
-        });
+    if (document.getElementById('id_viaje') != undefined) {
+        // Vista Update Viaje
+        let id_viaje_actual = document.getElementById('id_viaje').value
+        if (flete_retorno_actual == '') {
+            $.ajax({
+                url: "listar_fletes_ida",
+                type: "POST",
+                data: 'id_viaje_actual=' + id_viaje_actual,
+                success: function (res) {
+                    let select = document.getElementById('viaje_flete_ida')
+                    select.innerHTML = res.fletes_ida
+                    select.setAttribute("requerid", "")
+                    document.getElementById('divFleteIda').classList.remove('d-none')
+                },
+                error: function (err) {
+                    toastr.error(err.responseJSON.message);
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-success')
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-danger')
+                    document.getElementById('comprobar_flete_ida').classList.add('text-white')
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-white')
+                    document.getElementById('comprobar_flete_ida').value = ""
+                }
+            });
 
+        }
+        if (flete_retorno_actual != '') {
+            $.ajax({
+                url: "listar_fletes_ida",
+                type: "POST",
+                data: "flete_no_mostrar=" + flete_retorno_actual + '&id_viaje_actual=' + id_viaje_actual,
+                success: function (res) {
+                    let select = document.getElementById('viaje_flete_ida')
+                    select.innerHTML = res.fletes_ida
+                    select.setAttribute("requerid", "")
+                    document.getElementById('divFleteIda').classList.remove('d-none')
+                },
+                error: function (err) {
+                    toastr.error(err.responseJSON.message);
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-success')
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-danger')
+                    document.getElementById('comprobar_flete_ida').classList.add('text-white')
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-white')
+                    document.getElementById('comprobar_flete_ida').value = ""
+                }
+            });
+        }
+    } else {
+        // Vista Crear Viaje
+        if (flete_retorno_actual == '') {
+            $.ajax({
+                url: "listar_fletes_ida",
+                type: "POST",
+                success: function (res) {
+                    let select = document.getElementById('viaje_flete_ida')
+                    select.innerHTML = res.fletes_ida
+                    select.setAttribute("requerid", "")
+                    document.getElementById('divFleteIda').classList.remove('d-none')
+                },
+                error: function (err) {
+                    toastr.error(err.responseJSON.message);
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-success')
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-danger')
+                    document.getElementById('comprobar_flete_ida').classList.add('text-white')
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-white')
+                    document.getElementById('comprobar_flete_ida').value = ""
+                }
+            });
+
+        }
+        if (flete_retorno_actual != '') {
+            $.ajax({
+                url: "listar_fletes_ida",
+                type: "POST",
+                data: "flete_no_mostrar=" + flete_retorno_actual,
+                success: function (res) {
+                    let select = document.getElementById('viaje_flete_ida')
+                    select.innerHTML = res.fletes_ida
+                    select.setAttribute("requerid", "")
+                    document.getElementById('divFleteIda').classList.remove('d-none')
+                },
+                error: function (err) {
+                    toastr.error(err.responseJSON.message);
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-success')
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-danger')
+                    document.getElementById('comprobar_flete_ida').classList.add('text-white')
+                    document.getElementById('comprobar_flete_ida').classList.remove('text-white')
+                    document.getElementById('comprobar_flete_ida').value = ""
+                }
+            });
+        }
     }
-    if (flete_retorno_actual != '') {
-        $.ajax({
-            url: "listar_fletes_ida",
-            type: "POST",
-            data: "flete_no_mostrar=" + flete_retorno_actual,
-            success: function (res) {
-                let select = document.getElementById('viaje_flete_ida')
-                select.innerHTML = res.fletes_ida
-                select.setAttribute("requerid", "")
-                document.getElementById('divFleteIda').classList.remove('d-none')
-            },
-            error: function (err) {
-                toastr.error(err.responseJSON.message);
-                document.getElementById('comprobar_flete_ida').classList.remove('text-success')
-                document.getElementById('comprobar_flete_ida').classList.remove('text-danger')
-                document.getElementById('comprobar_flete_ida').classList.add('text-white')
-                document.getElementById('comprobar_flete_ida').classList.remove('text-white')
-                document.getElementById('comprobar_flete_ida').value = ""
-            }
-        });
-    }
+
 }
 function listarFletesRetorno() {
     // Verifico de que no se haya seleccionado un flete ida para asi mostrar un flete distinto para cada tipo flete
     let flete_ida_actual = document.getElementById('viaje_flete_ida').value
-    if (flete_ida_actual == '') {
-        $.ajax({
-            url: "listar_fletes_retorno",
-            type: "POST",
-            success: function (res) {
-                let select = document.getElementById('viaje_flete_retorno')
-                select.innerHTML = res.fletes_retorno
-                select.setAttribute("requerid", "")
-                document.getElementById('divFleteRetorno').classList.remove('d-none')
-            },
-            error: function (err) {
-                toastr.error(err.responseJSON.message);
-                document.getElementById('comprobar_flete_retorno').classList.remove('text-success')
-                document.getElementById('comprobar_flete_retorno').classList.remove('text-danger')
-                document.getElementById('comprobar_flete_retorno').classList.add('text-white')
-                document.getElementById('comprobar_flete_retorno').classList.remove('text-white')
-                document.getElementById('comprobar_flete_retorno').value = ""
-            }
-        });
+    if (document.getElementById('id_viaje') != undefined) {
+        // Vista Update Viaje
+        let id_viaje_actual = document.getElementById('id_viaje').value
+        if (flete_ida_actual == '') {
+            $.ajax({
+                url: "listar_fletes_retorno",
+                type: "POST",
+                data: 'id_viaje_actual=' + id_viaje_actual,
+                success: function (res) {
+                    let select = document.getElementById('viaje_flete_retorno')
+                    select.innerHTML = res.fletes_retorno
+                    select.setAttribute("requerid", "")
+                    document.getElementById('divFleteRetorno').classList.remove('d-none')
+                },
+                error: function (err) {
+                    toastr.error(err.responseJSON.message);
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-success')
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-danger')
+                    document.getElementById('comprobar_flete_retorno').classList.add('text-white')
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-white')
+                    document.getElementById('comprobar_flete_retorno').value = ""
+                }
+            });
 
+        }
+        if (flete_ida_actual != '') {
+            $.ajax({
+                url: "listar_fletes_retorno",
+                type: "POST",
+                data: "flete_no_mostrar=" + flete_ida_actual + '&id_viaje_actual=' + id_viaje_actual,
+                success: function (res) {
+                    let select = document.getElementById('viaje_flete_retorno')
+                    select.innerHTML = res.fletes_retorno
+                    select.setAttribute("requerid", "")
+                    document.getElementById('divFleteRetorno').classList.remove('d-none')
+                },
+                error: function (err) {
+                    toastr.error(err.responseJSON.message);
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-success')
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-danger')
+                    document.getElementById('comprobar_flete_retorno').classList.add('text-white')
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-white')
+                    document.getElementById('comprobar_flete_retorno').value = ""
+                }
+            });
+        }
+    } else {
+        // Vista Crear Viaje
+        if (flete_ida_actual == '') {
+            $.ajax({
+                url: "listar_fletes_retorno",
+                type: "POST",
+                success: function (res) {
+                    let select = document.getElementById('viaje_flete_retorno')
+                    select.innerHTML = res.fletes_retorno
+                    select.setAttribute("requerid", "")
+                    document.getElementById('divFleteRetorno').classList.remove('d-none')
+                },
+                error: function (err) {
+                    toastr.error(err.responseJSON.message);
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-success')
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-danger')
+                    document.getElementById('comprobar_flete_retorno').classList.add('text-white')
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-white')
+                    document.getElementById('comprobar_flete_retorno').value = ""
+                }
+            });
+
+        }
+        if (flete_ida_actual != '') {
+            $.ajax({
+                url: "listar_fletes_retorno",
+                type: "POST",
+                data: "flete_no_mostrar=" + flete_ida_actual,
+                success: function (res) {
+                    let select = document.getElementById('viaje_flete_retorno')
+                    select.innerHTML = res.fletes_retorno
+                    select.setAttribute("requerid", "")
+                    document.getElementById('divFleteRetorno').classList.remove('d-none')
+                },
+                error: function (err) {
+                    toastr.error(err.responseJSON.message);
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-success')
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-danger')
+                    document.getElementById('comprobar_flete_retorno').classList.add('text-white')
+                    document.getElementById('comprobar_flete_retorno').classList.remove('text-white')
+                    document.getElementById('comprobar_flete_retorno').value = ""
+                }
+            });
+        }
     }
-    if (flete_ida_actual != '') {
-        $.ajax({
-            url: "listar_fletes_retorno",
-            type: "POST",
-            data: "flete_no_mostrar=" + flete_ida_actual,
-            success: function (res) {
-                let select = document.getElementById('viaje_flete_retorno')
-                select.innerHTML = res.fletes_retorno
-                select.setAttribute("requerid", "")
-                document.getElementById('divFleteRetorno').classList.remove('d-none')
-            },
-            error: function (err) {
-                toastr.error(err.responseJSON.message);
-                document.getElementById('comprobar_flete_retorno').classList.remove('text-success')
-                document.getElementById('comprobar_flete_retorno').classList.remove('text-danger')
-                document.getElementById('comprobar_flete_retorno').classList.add('text-white')
-                document.getElementById('comprobar_flete_retorno').classList.remove('text-white')
-                document.getElementById('comprobar_flete_retorno').value = ""
-            }
-        });
-    }
+
 }
 // Enviar Formc Crear Viaje
 function crearViaje() {
