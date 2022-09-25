@@ -73,6 +73,74 @@ function mostrarform() {
 
 }
 
+function mostrarViaje(id) {
+    $.ajax({
+        url: "mostrar_viaje",
+        type: "POST",
+        data: 'viaje_id=' + id,
+        success: function (res) {
+            Swal.fire({
+                title: '<strong>Crear Viaje</strong>',
+                html:
+                    '<form action="" name="formularioUpdateViaje" id="formularioUpdateViaje" method="POST">' +
+                    '<input type="hidden" name="id_viaje" id="id_viaje" value="' + res.id + '">' +
+                    '<br><label class="d-flex justify-content-between" for="">Codigo(*): </label><input type="text" name="viaje_codigo" autocomplete="off" placeholder="Codigo" id="viaje_codigo" class="form-control" required value="' + res.codigo + '">' +
+                    '<br><label class="d-flex justify-content-start" for="">Chofer (*):</label>' +
+                    '<select class="form-control" required name="viaje_chofer" id="viaje_chofer">' +
+                    res.choferes +
+                    '</select>' +
+                    '<br><label class="d-flex justify-content-start" for="">Chuto (*):</label>' +
+                    '<select class="form-control" required name="viaje_chuto" id="viaje_chuto">' +
+                    res.chutos +
+                    '</select>' +
+                    '<br><label class="d-flex justify-content-start" for="">Cava (*):</label>' +
+                    '<select class="form-control" required name="viaje_cava" id="viaje_cava">' +
+                    res.cavas +
+                    '</select>' +
+
+                    '<br><label class="d-flex justify-content-start" for=""><span>¿Este Viaje tiene Flete de <span class="text-primary"> IDA</span></span>?</label>' +
+                    '<select class="form-control" id="comprobar_flete_ida" name="comprobar_flete_ida" required>' + res.pregunta_ida + '</select>' +
+
+                    '<div class="d-none" id="divFleteIda"><br><label class="d-flex justify-content-start" for=""><span class="text-primary">Flete IDA: (*):</span></label>' +
+                    '<select class="form-control" name="viaje_flete_ida" id="viaje_flete_ida">' +
+                    res.flete_ida +
+                    '</select></div>' +
+
+                    '<br><label class="d-flex justify-content-start" for=""><span>¿Este Viaje tiene Flete de <span class="text-success"> RETORNO</span>?</span></label>' +
+                    '<select class="form-control" id="comprobar_flete_retorno" name="comprobar_flete_retorno" required>' + res.pregunta_retorno + '</select>' +
+
+                    '<div class="d-none" id="divFleteRetorno"><br><label class="d-flex justify-content-start" for=""><span class="text-success">Flete Retorno: (*):</span></label>' +
+                    '<select class="form-control" name="viaje_flete_retorno" id="viaje_flete_retorno">' + res.flete_retorno +
+                    '</select></div>' +
+
+                    '<br><label class="d-flex justify-content-start" for="">Descripcion de la Carga:</label><input type="text" name="viaje_descripcion" autocomplete="off" placeholder="Descripción Carga" id="viaje_descripcion" class="form-control" required value="' + res.descripcion_carga + '">' +
+                    '<br><label class="d-flex justify-content-start" for="">Dia de Salida:</label><input type="date" class="form-control" name="viaje_dia_salida" id="viaje_dia_salida"  autocomplete="off" value="' + res.dia_salida + '">' +
+                    '<br><label class="d-flex justify-content-start" for="">Dia de Retorno:</label><input type="date" class="form-control" name="viaje_dia_retorno" id="viaje_dia_retorno"  autocomplete="off" value="' + res.dia_retorno + '">' +
+                    '<br><label class="d-flex justify-content-start" for="">Observacion del Viaje:</label><input type="text" name="viaje_observacion" autocomplete="off" placeholder="Observación Viaje" id="viaje_observacion" class="form-control" required value="' + res.observacion + '">' +
+                    '<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" type="submit" id="boton_submit">' +
+                    'Guardar' +
+                    '</button></div>' +
+                    '</form>',
+                showCloseButton: true,
+                showConfirmButton: false,
+                showCancelButton: false,
+                focusConfirm: false,
+            })
+            if (res.flete_ida != null) {
+                document.getElementById('divFleteIda').classList.remove('d-none')
+                document.getElementById('viaje_flete_ida').setAttribute("requerid", "")
+            }
+            if (res.flete_retorno != null) {
+                document.getElementById('divFleteRetorno').classList.remove('d-none')
+                document.getElementById('viaje_flete_retorno').setAttribute("requerid", "")
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
 function listarFletesIda() {
     // Verifico de que no se haya seleccionado un flete retorno para asi mostrar un flete distinto para cada tipo flete
     let flete_retorno_actual = document.getElementById('viaje_flete_retorno').value
@@ -195,11 +263,46 @@ function crearViaje() {
     });
 }
 
+function updateViaje() {
+
+    let fleteIda = document.getElementById('viaje_flete_ida').value
+    let fleteRetorno = document.getElementById('viaje_flete_retorno').value
+
+    if (fleteIda == fleteRetorno) {
+        return toastr.error('El Flete de Ida no puede ser el Mismo que el Retorno. Origin: JS')
+    }
+
+    let datos = $('#formularioUpdateViaje').serialize();
+
+    $.ajax({
+
+        url: 'update_viaje',
+        method: 'POST',
+        data: datos,
+
+        success: function () {
+            toastr.success('Datos Actualizados Correctamente')
+            tabla.ajax.reload();
+        },
+
+        error: function (err) {
+            toastr.error(err.responseJSON.message)
+        }
+
+    });
+}
+
 document.querySelector("#centro_central").addEventListener("submit", ev => {
     if (ev.target.matches('#formularioCrearViaje')) {
         ev.preventDefault()
         crearViaje()
     }
+
+    if (ev.target.matches('#formularioUpdateViaje')) {
+        ev.preventDefault()
+        updateViaje()
+    }
+
 });
 
 document.querySelector("#centro_central").addEventListener("change", ev => {

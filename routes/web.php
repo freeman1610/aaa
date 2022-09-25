@@ -211,6 +211,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('crear_viaje', [ViajeController::class, 'crear_viaje'])->name('crear_viaje');
 
+    Route::post('mostrar_viaje', [ViajeController::class, 'mostrar_viaje'])->name('mostrar_viaje');
+
+    Route::post('update_viaje', [ViajeController::class, 'update_viaje'])->name('update_viaje');
+
 
     //  ---------------- FIN TRANSPORTE ------------------------
 

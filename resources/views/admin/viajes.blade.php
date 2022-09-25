@@ -43,6 +43,7 @@
         </div><!-- /.card -->
     </div><!-- /.col -->
 </div><!-- /.row -->
+
 @endsection
 @section('agregarScriptsJS')
 <script src="{{ asset('vendor/scripts/viajes.js') }}"></script>
