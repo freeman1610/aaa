@@ -28,7 +28,7 @@ function mostrarform() {
                     '</select>' +
 
                     '<br><label class="d-flex justify-content-start" for=""><span>¿Este Viaje tiene Flete de <span class="text-primary"> IDA</span></span>?</label>' +
-                    '<select class="form-control" id="comprobar_flete_ida">' +
+                    '<select class="form-control" id="comprobar_flete_ida" name="comprobar_flete_ida" required>' +
                     '<option class="text-white" value="">Seleccione</option>' +
                     '<option class="text-success" value="si">Si</option>' +
                     '<option class="text-danger" value="no">No</option>' +
@@ -39,7 +39,7 @@ function mostrarform() {
                     '</select></div>' +
 
                     '<br><label class="d-flex justify-content-start" for=""><span>¿Este Viaje tiene Flete de <span class="text-success"> RETORNO</span>?</span></label>' +
-                    '<select class="form-control" id="comprobar_flete_retorno">' +
+                    '<select class="form-control" id="comprobar_flete_retorno" name="comprobar_flete_retorno" required>' +
                     '<option class="text-white" value="">Seleccione</option>' +
                     '<option class="text-success" value="si">Si</option>' +
                     '<option class="text-danger" value="no">No</option>' +
@@ -53,7 +53,7 @@ function mostrarform() {
                     '<br><label class="d-flex justify-content-start" for="">Dia de Salida:</label><input type="date" class="form-control" name="viaje_dia_salida" id="viaje_dia_salida"  autocomplete="off">' +
                     '<br><label class="d-flex justify-content-start" for="">Dia de Retorno:</label><input type="date" class="form-control" name="viaje_dia_retorno" id="viaje_dia_retorno"  autocomplete="off">' +
                     '<br><label class="d-flex justify-content-start" for="">Observacion del Viaje:</label><input type="text" name="viaje_observacion" autocomplete="off" placeholder="Observación Viaje" id="viaje_observacion" class="form-control" required>' +
-                    '<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" type="submit">' +
+                    '<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" type="submit" id="boton_submit">' +
                     'Guardar' +
                     '</button>' +
                     '<button class="btn btn-info mt-3 ml-2" onclick="limpiarFormulario()" type="button">' +
@@ -88,6 +88,11 @@ function listarFletesIda() {
             },
             error: function (err) {
                 toastr.error(err.responseJSON.message);
+                document.getElementById('comprobar_flete_ida').classList.remove('text-success')
+                document.getElementById('comprobar_flete_ida').classList.remove('text-danger')
+                document.getElementById('comprobar_flete_ida').classList.add('text-white')
+                document.getElementById('comprobar_flete_ida').classList.remove('text-white')
+                document.getElementById('comprobar_flete_ida').value = ""
             }
         });
 
@@ -105,6 +110,11 @@ function listarFletesIda() {
             },
             error: function (err) {
                 toastr.error(err.responseJSON.message);
+                document.getElementById('comprobar_flete_ida').classList.remove('text-success')
+                document.getElementById('comprobar_flete_ida').classList.remove('text-danger')
+                document.getElementById('comprobar_flete_ida').classList.add('text-white')
+                document.getElementById('comprobar_flete_ida').classList.remove('text-white')
+                document.getElementById('comprobar_flete_ida').value = ""
             }
         });
     }
@@ -124,6 +134,11 @@ function listarFletesRetorno() {
             },
             error: function (err) {
                 toastr.error(err.responseJSON.message);
+                document.getElementById('comprobar_flete_retorno').classList.remove('text-success')
+                document.getElementById('comprobar_flete_retorno').classList.remove('text-danger')
+                document.getElementById('comprobar_flete_retorno').classList.add('text-white')
+                document.getElementById('comprobar_flete_retorno').classList.remove('text-white')
+                document.getElementById('comprobar_flete_retorno').value = ""
             }
         });
 
@@ -141,6 +156,11 @@ function listarFletesRetorno() {
             },
             error: function (err) {
                 toastr.error(err.responseJSON.message);
+                document.getElementById('comprobar_flete_retorno').classList.remove('text-success')
+                document.getElementById('comprobar_flete_retorno').classList.remove('text-danger')
+                document.getElementById('comprobar_flete_retorno').classList.add('text-white')
+                document.getElementById('comprobar_flete_retorno').classList.remove('text-white')
+                document.getElementById('comprobar_flete_retorno').value = ""
             }
         });
     }
@@ -236,6 +256,29 @@ document.querySelector("#centro_central").addEventListener("change", ev => {
 
 });
 
+function resetInputsForm() {
+    $.ajax({
+
+        url: 'listar_crear_viaje',
+        method: 'POST',
+
+        success: function (res) {
+            document.getElementById('viaje_chofer').innerHTML = res.choferes
+            document.getElementById('viaje_chuto').innerHTML = res.chutos
+            document.getElementById('viaje_cava').innerHTML = res.cavas
+        },
+
+        error: function (err) {
+            toastr.error(err.responseJSON.message)
+            $("#viaje_chofer").prop("disabled", true);
+            $("#viaje_chuto").prop("disabled", true);
+            $("#viaje_cava").prop("disabled", true);
+            $("#boton_submit").prop("disabled", true);
+        }
+
+    });
+}
+
 function limpiarFormulario() {
     document.getElementById("formularioCrearViaje").reset();
     let divFleteIda = document.getElementById('divFleteIda').classList
@@ -263,6 +306,8 @@ function limpiarFormulario() {
     document.getElementById('comprobar_flete_retorno').classList.add('text-white')
     document.getElementById('comprobar_flete_retorno').classList.remove('text-white')
     retorno.classList.add('text-white')
+
+    resetInputsForm()
 
     document.getElementById('viaje_codigo').focus()
 }

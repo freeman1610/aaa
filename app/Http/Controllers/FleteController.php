@@ -29,21 +29,21 @@ class FleteController extends Controller
                     $tipo_flete = '<span class="btn btn-success">Sin Asignar</span>';
                     break;
                 case 1:
-                    $verificarCodFleteIda = DB::table('viajes')
-                        ->select('viajes_idflete_ida')
-                        ->where('flete_codigo', $datos->flete_id)
-                        ->get();
-                    $verificarCodFleteRetorno = DB::table('viajes')
-                        ->select('viajes_idflete_retorno')
-                        ->where('flete_codigo', $datos->flete_id)
-                        ->get();
-                    if (isset($verificarCodFleteIda[0]->viajes_idflete_ida)) {
-                        $estadoFlete = '<span class="btn btn-info" onclick="mostrarViaje(' . $datos->flete_id . ')">En Viaje</span>';
-                        $tipo_flete = '<span class="btn btn-info">Ida</span>';
+                    if ($datos->flete_tipo == 1) {
+                        $verificarCodFlete = DB::table('viajes')
+                            ->select('viajes_id')
+                            ->where('viajes_idflete_ida', $datos->flete_id)
+                            ->get();
+                        $estadoFlete = '<span class="btn btn-info" style="width:100px;cursor:default;" onclick="mostrarViaje(' . $verificarCodFlete[0]->viajes_id . ')">En Viaje</span>';
+                        $tipo_flete = '<span class="btn btn-info" style="cursor:default;">Ida</span>';
                     }
-                    if (isset($verificarCodFleteRetorno[0]->viajes_idflete_retorno)) {
-                        $estadoFlete = '<span class="btn btn-info" onclick="mostrarViaje(' . $datos->flete_id . ')">En Viaje</span>';
-                        $tipo_flete = '<span class="btn btn-info">Retorno</span>';
+                    if ($datos->flete_tipo == 2) {
+                        $verificarCodFlete = DB::table('viajes')
+                            ->select('viajes_id')
+                            ->where('viajes_idflete_retorno', $datos->flete_id)
+                            ->get();
+                        $estadoFlete = '<span class="btn btn-info" style="width:100px;cursor:default;" onclick="mostrarViaje(' . $verificarCodFlete[0]->viajes_id . ')">En Viaje</span>';
+                        $tipo_flete = '<span class="btn btn-info" style="cursor:default;">Retorno</span>';
                     }
                     break;
             }
@@ -119,17 +119,17 @@ class FleteController extends Controller
         if (isset($verificarCodFlete[0]->flete_codigo)) {
             return response()->json(['message' => 'La Codigo Ingresado Ya Ha Sido Registrado'], status: 422);
         }
-        DB::insert('insert into fletes (flete_idusuario, flete_codigo, flete_destino_estado, flete_destino_municipio, flete_destino_parroquia, flete_kilometros, flete_valor_en_carga, flete_valor_sin_carga, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-            Auth::user()->idusuario,
-            $request->flete_codigo,
-            $request->flete_destino_estado,
-            $request->flete_destino_municipio,
-            $request->flete_destino_parroquia,
-            $request->flete_kilometros,
-            $request->flete_valor_en_carga,
-            $request->flete_valor_sin_carga,
-            new DateTime(),
-            new DateTime()
+        DB::table('fletes')->insert([
+            'flete_idusuario' => Auth::user()->idusuario,
+            'flete_codigo' => $request->flete_codigo,
+            'flete_destino_estado' => $request->flete_destino_estado,
+            'flete_destino_municipio' => $request->flete_destino_municipio,
+            'flete_destino_parroquia' => $request->flete_destino_parroquia,
+            'flete_kilometros' => $request->flete_kilometros,
+            'flete_valor_en_carga' => $request->flete_valor_en_carga,
+            'flete_valor_sin_carga' => $request->flete_valor_sin_carga,
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime()
         ]);
     }
     public function mostrar_flete(Request $request)

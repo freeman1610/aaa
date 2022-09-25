@@ -9,7 +9,7 @@ function mostrarform() {
 			title: '<strong>Crear Flete</strong>',
 			html:
 				'<form action="" name="formularioCrearFlete" id="formularioCrearFlete" method="POST">' +
-				'<br><label class="d-flex justify-content-start" for="">Codigo(*):</label><input type="text" name="flete_codigo" placeholder="Codigo" id="flete_codigo" class="form-control" required>' +
+				'<br><label class="d-flex justify-content-between" for="">Codigo(*): <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><input type="text" name="flete_codigo" placeholder="Codigo" id="flete_codigo" class="form-control" required autocomplete="off">' +
 				'<br><label class="d-flex justify-content-start" for="">Destino: ESTADO(*):</label>' +
 				'<select class="form-control" required name="flete_destino_estado" id="flete_destino_estado">' +
 				res.estados +
@@ -21,9 +21,12 @@ function mostrarform() {
 				'<br><label class="d-flex justify-content-start" for="">Kilometros:</label><input type="number" name="flete_kilometros" step="any" autocomplete="off" placeholder="Kilometros del Flete" id="flete_kilometros" class="form-control" required>' +
 				'<br><label class="d-flex justify-content-start" for="">Valor en Carga:</label><input type="text" class="form-control" name="flete_valor_en_carga" id="flete_valor_en_carga" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))" placeholder="Valor Carga" autocomplete="off">' +
 				'<br><label class="d-flex justify-content-start" for="">Valor Sin Carga:</label><input type="text" class="form-control" name="flete_valor_sin_carga" id="flete_valor_sin_carga" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))" placeholder="Valor Sin Carga" autocomplete="off">' +
-				'<button class="btn btn-success mt-3" type="submit">' +
-				'Guardar Usuario' +
+				'<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" type="submit">' +
+				'Guardar' +
 				'</button>' +
+				'<button class="btn btn-info mt-3 ml-2" onclick="limpiarFormulario()" type="button">' +
+				'Limpiar' +
+				'</button></div>' +
 				'</form>',
 			showCloseButton: true,
 			showConfirmButton: false,
@@ -190,12 +193,20 @@ function numeracionDeMil(donde, caracter) {
 	}
 }
 
+function limpiarFormulario() {
+	document.getElementById("formularioCrearFlete").reset();
+	document.getElementById("flete_destino_municipio").innerHTML = ""
+	$("#flete_destino_municipio").prop("disabled", true);
+	document.getElementById("flete_destino_parroquia").innerHTML = ""
+	$("#flete_destino_parroquia").prop("disabled", true);
+	document.getElementById('flete_codigo').focus()
+}
+
 var tabla;
 
 //funcion que se ejecuta al inicio
 function init() {
 	$("#fletes").addClass(" active");
-
 	listar();
 }
 
