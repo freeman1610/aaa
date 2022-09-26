@@ -80,7 +80,7 @@ function mostrarViaje(id) {
         data: 'viaje_id=' + id,
         success: function (res) {
             Swal.fire({
-                title: '<strong>Crear Viaje</strong>',
+                title: '<strong>Actualizar Viaje</strong>',
                 html:
                     '<form action="" name="formularioUpdateViaje" id="formularioUpdateViaje" method="POST">' +
                     '<input type="hidden" name="id_viaje" id="id_viaje" value="' + res.id + '">' +
@@ -380,8 +380,8 @@ function updateViaje() {
         method: 'POST',
         data: datos,
 
-        success: function () {
-            toastr.success('Datos Actualizados Correctamente')
+        success: function (res) {
+            toastr.success(res.message)
             tabla.ajax.reload();
         },
 
