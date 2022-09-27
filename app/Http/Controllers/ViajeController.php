@@ -584,10 +584,12 @@ class ViajeController extends Controller
             foreach ($selectFletesDisponibles as $datos) {
                 $optionFleteIda = $optionFleteIda . '<option value="' . $datos->flete_id . '">COD: ' . $datos->flete_codigo . ' | ' . $datos->estado . ', ' . $datos->municipio . ', ' . $datos->parroquia . '</option>';
             }
-            $preguntaFleteRetorno = '<option class="text-danger" value="no">No</option><option class="text-success" value="si">Si</option>';
+            $preguntaFleteRetorno = '<option class="text-success" value="si">Si</option><option class="text-danger" value="no">No</option>';
         } else {
             $optionFleteIda = NULL;
+
             $preguntaFleteRetorno = '<option class="text-success" value="si">Si</option><option class="text-danger" value="no">No</option>';
+            $preguntaFleteIda = '<option class="text-danger" value="no">No</option><option class="text-success" value="si">Si</option>';
         }
 
         if ($viaje->viajes_idflete_retorno != NULL) {
@@ -610,11 +612,12 @@ class ViajeController extends Controller
             foreach ($selectFletesDisponibles as $datos) {
                 $optionFleteRetorno = $optionFleteRetorno . '<option value="' . $datos->flete_id . '">COD: ' . $datos->flete_codigo . ' | ' . $datos->estado . ', ' . $datos->municipio . ', ' . $datos->parroquia . '</option>';
             }
-            $preguntaFleteIda = '<option class="text-danger" value="no">No</option><option class="text-success" value="si">Si</option>';
+            $preguntaFleteIda = '<option class="text-success" value="si">Si</option><option class="text-danger" value="no">No</option>';
         } else {
             $optionFleteRetorno = NULL;
 
             $preguntaFleteIda = '<option class="text-success" value="si">Si</option><option class="text-danger" value="no">No</option>';
+            $preguntaFleteRetorno = '<option class="text-danger" value="no">No</option><option class="text-success" value="si">Si</option>';
         }
 
         return response()->json([
@@ -712,10 +715,11 @@ class ViajeController extends Controller
                 'viaje_flete_retorno' => 'required|numeric'
             ]);
             if ($request->viaje_flete_ida != $selectViaje->viajes_idflete_ida) {
-
-                $fleteIda = Flete::find($selectViaje->viajes_idflete_ida);
-                $fleteIda->flete_estado = 0;
-                $fleteIda->flete_tipo = 0;
+                if ($selectViaje->viajes_idflete_ida != NULL) {
+                    $fleteIda = Flete::find($selectViaje->viajes_idflete_ida);
+                    $fleteIda->flete_estado = 0;
+                    $fleteIda->flete_tipo = 0;
+                }
 
                 $selectViaje->viajes_idflete_ida = $request->viaje_flete_ida;
 
@@ -727,9 +731,11 @@ class ViajeController extends Controller
             }
             if ($request->viaje_flete_retorno != $selectViaje->viajes_idflete_retorno) {
 
-                $fleteRetorno = Flete::find($selectViaje->viajes_idflete_retorno);
-                $fleteRetorno->flete_estado = 0;
-                $fleteRetorno->flete_tipo = 0;
+                if ($selectViaje->viajes_idflete_retorno != NULL) {
+                    $fleteRetorno = Flete::find($selectViaje->viajes_idflete_retorno);
+                    $fleteRetorno->flete_estado = 0;
+                    $fleteRetorno->flete_tipo = 0;
+                }
 
                 $selectViaje->viajes_idflete_retorno = $request->viaje_flete_retorno;
 
@@ -746,9 +752,11 @@ class ViajeController extends Controller
             ]);
             if ($request->viaje_flete_ida != $selectViaje->viajes_idflete_ida) {
 
-                $fleteIda = Flete::find($selectViaje->viajes_idflete_ida);
-                $fleteIda->flete_estado = 0;
-                $fleteIda->flete_tipo = 0;
+                if ($selectViaje->viajes_idflete_ida != NULL) {
+                    $fleteIda = Flete::find($selectViaje->viajes_idflete_ida);
+                    $fleteIda->flete_estado = 0;
+                    $fleteIda->flete_tipo = 0;
+                }
 
                 $selectViaje->viajes_idflete_ida = $request->viaje_flete_ida;
 
@@ -774,9 +782,11 @@ class ViajeController extends Controller
             ]);
             if ($request->viaje_flete_retorno != $selectViaje->viajes_idflete_retorno) {
 
-                $fleteRetorno = Flete::find($selectViaje->viajes_idflete_retorno);
-                $fleteRetorno->flete_estado = 0;
-                $fleteRetorno->flete_tipo = 0;
+                if ($selectViaje->viajes_idflete_retorno != NULL) {
+                    $fleteRetorno = Flete::find($selectViaje->viajes_idflete_retorno);
+                    $fleteRetorno->flete_estado = 0;
+                    $fleteRetorno->flete_tipo = 0;
+                }
 
                 $selectViaje->viajes_idflete_retorno = $request->viaje_flete_retorno;
 
@@ -829,7 +839,9 @@ class ViajeController extends Controller
         }
 
         if ($cambioFleteIda != 0) {
-            $fleteIda->save();
+            if (isset($fleteIda)) {
+                $fleteIda->save();
+            }
             if (isset($fleteIdaNuevo)) {
                 $fleteIdaNuevo->save();
             }
