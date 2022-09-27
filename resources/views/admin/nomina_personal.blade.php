@@ -115,19 +115,19 @@
                     '<tbody>'+
                             '<tr>'+
                                 '<td>Salario Mensual:</td>'+
-                                '<td> VES '+res.salarioMensual+'</td>'+
+                                '<td> Bs '+res.salarioMensual+'</td>'+
                             '</tr>'+
                             '<tr>'+
                                 '<td>Salario Quincenal:</td>'+
-                                '<td> VES '+res.salarioQuincenal+'</td>'+
+                                '<td> Bs '+res.salarioQuincenal+'</td>'+
                             '</tr>'+
                             '<tr>'+
                                 '<td>Salario Diario:</td>'+
-                                '<td> VES '+res.salarioDiario+'</td>'+
+                                '<td> Bs '+res.salarioDiario+'</td>'+
                             '</tr>'+
                             '<tr>'+
                                 '<td>Salario Hora:</td>'+
-                                '<td> VES '+res.salarioHora+'</td>'+
+                                '<td> Bs '+res.salarioHora+'</td>'+
                             '</tr>'+
                         '</tbody>'+
                     '</table>',

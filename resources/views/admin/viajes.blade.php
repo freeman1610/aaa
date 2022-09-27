@@ -20,7 +20,7 @@
                             <th>Camion</th>
                             <th>Destino</th>
                             <th>Descripcion de la Carga</th>
-                            <th>Fecha de Ida y Retorno</th>
+                            <th>Fecha de Ida y de  Retorno</th>
                             <th>Observaciones del Viaje</th>
                         </tr>
                     </thead>
@@ -34,7 +34,7 @@
                             <th>Camion</th>
                             <th>Destino</th>
                             <th>Descripcion de la Carga</th>
-                            <th>Fecha de Ida y Retorno</th>
+                            <th>Fecha de Ida y de Retorno</th>
                             <th>Observaciones del Viaje</th>
                         </tr>
                     </tfoot>
