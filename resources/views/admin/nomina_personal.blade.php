@@ -126,7 +126,7 @@
                                 '<td> Bs '+res.salarioDiario+'</td>'+
                             '</tr>'+
                             '<tr>'+
-                                '<td>Salario Hora:</td>'+
+                                '<td>Salario por Hora:</td>'+
                                 '<td> Bs '+res.salarioHora+'</td>'+
                             '</tr>'+
                         '</tbody>'+
