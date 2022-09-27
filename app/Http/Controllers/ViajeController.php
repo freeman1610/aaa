@@ -327,6 +327,9 @@ class ViajeController extends Controller
     public function crear_viaje(Request $request)
     {
         // Si el viaje tiene flete de ida y retorno
+        if ($request->comprobar_flete_ida == "no" && $request->comprobar_flete_retorno == "no") {
+            return response()->json(['message' => 'Tienes que seleccionar un flete ya sea de IDA o de RETORNO'], status: 422);
+        }
         if ($request->comprobar_flete_ida == "si" && $request->comprobar_flete_retorno == "si") {
 
             if ($request->viaje_flete_ida == $request->viaje_flete_retorno) {
@@ -708,7 +711,9 @@ class ViajeController extends Controller
 
             $cambioCava++;
         }
-
+        if ($request->comprobar_flete_ida == "no" && $request->comprobar_flete_retorno == "no") {
+            return response()->json(['message' => 'Tienes que seleccionar un flete ya sea de IDA o de RETORNO'], status: 422);
+        }
         if ($request->comprobar_flete_ida == "si" && $request->comprobar_flete_retorno == "si") {
             $this->validate($request, [
                 'viaje_flete_ida' => 'required|numeric',
