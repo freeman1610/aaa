@@ -866,4 +866,14 @@ class ViajeController extends Controller
             return response()->json(['message' => 'No se han detectado cambios'], status: 200);
         }
     }
+    public function viaje_completado(Request $request)
+    {
+        $this->validate($request, [
+            'id_viaje' => 'required|numeric'
+        ]);
+        $viajeCompletado = Viaje::find($request);
+        // Compruebo de que en este viaje exista flete ida
+        if ($viajeCompletado->viajes_idflete_ida != NULL) {
+        }
+    }
 }

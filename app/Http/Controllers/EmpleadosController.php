@@ -46,6 +46,12 @@ class EmpleadosController extends Controller
         return $selectEmpleado;
     }
 
+    public function muestra_empleados_select()
+    {
+        $selectAllEmpleados = Empleado::all();
+        return $selectAllEmpleados;
+    }
+
     public function guardar_update_empleado(Request $request)
     {
 
