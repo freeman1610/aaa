@@ -115,19 +115,19 @@
                     '<tbody>'+
                             '<tr>'+
                                 '<td>Salario Mensual:</td>'+
-                                '<td> VES '+res.salarioMensual+'</td>'+
+                                '<td> Bs '+res.salarioMensual+'</td>'+
                             '</tr>'+
                             '<tr>'+
                                 '<td>Salario Quincenal:</td>'+
-                                '<td> VES '+res.salarioQuincenal+'</td>'+
+                                '<td> Bs '+res.salarioQuincenal+'</td>'+
                             '</tr>'+
                             '<tr>'+
                                 '<td>Salario Diario:</td>'+
-                                '<td> VES '+res.salarioDiario+'</td>'+
+                                '<td> Bs '+res.salarioDiario+'</td>'+
                             '</tr>'+
                             '<tr>'+
-                                '<td>Salario Hora:</td>'+
-                                '<td> VES '+res.salarioHora+'</td>'+
+                                '<td>Salario por Hora:</td>'+
+                                '<td> Bs '+res.salarioHora+'</td>'+
                             '</tr>'+
                         '</tbody>'+
                     '</table>',
@@ -237,7 +237,7 @@
                 '<form action="" name="formularioCrearNomina" id="formularioCrearNomina" method="POST">'+
                     '@csrf'+
                     '<br><label class="d-flex justify-content-between" for="">Empleado(*): <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><select name="id_empleado_a" id="id_empleado_a" class="form-control select2" required data-Live-search="true" ><option value="">Seleccione</option>'+id_empleado_select+'</select>'+
-                    '<br><label for="" class="d-flex justify-content-start">Salario Mensual(*):</label><input type="text" class="form-control" value="VES '+salario_value+'" readonly>'+
+                    '<br><label for="" class="d-flex justify-content-start">Salario Mensual(*):</label><input type="text" class="form-control" value="Bs '+salario_value+'" readonly>'+
                     '<br><label for="" class="d-flex justify-content-start">Tipo de Nómina(*):</label><select name="tipo_nomina_a" id="tipo_nomina_a" class="form-control select2" required data-Live-search="true"><option value="">Seleccione</option>'+
                         '<option value="mensual">Mensual</option>'+
                         '<option value="quincenal">Quincenal</option>'+
