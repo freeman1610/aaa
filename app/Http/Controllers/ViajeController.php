@@ -871,9 +871,90 @@ class ViajeController extends Controller
         $this->validate($request, [
             'id_viaje' => 'required|numeric'
         ]);
-        $viajeCompletado = Viaje::find($request);
+        $viajeCompletado = Viaje::find($request->id_viaje);
+
+        $chofer = Chofer::find($viajeCompletado->viajes_idchofer);
+        $chofer->chofer_estado = 0;
+
+        $chuto = Chuto::find($viajeCompletado->viajes_idchuto);
+        $chuto->chuto_asignado = 0;
+
+        $cava = Cava::find($viajeCompletado->viajes_idcava);
+        $cava->cava_asignada = 0;
+
+        $fleteIda = $fleteRetorno = false;
+
         // Compruebo de que en este viaje exista flete ida
         if ($viajeCompletado->viajes_idflete_ida != NULL) {
+            $selectFleteIda = Flete::find($viajeCompletado->viajes_idflete_ida);
+            // El flete en estado del tipo 2 significa de que ha sido completado
+            $selectFleteIda->flete_estado = 2;
+            $fleteIda = true;
         }
+        if ($viajeCompletado->viajes_idflete_retorno != NULL) {
+            $selectFleteRetorno = Flete::find($viajeCompletado->viajes_idflete_retorno);
+            // El flete en estado del tipo 2 significa de que ha sido completado
+            $selectFleteRetorno->flete_estado = 2;
+            $fleteRetorno = true;
+        }
+        // Viaje esta con el valor de 1 significa que ha sido completado
+        $viajeCompletado->viajes_estado = 1;
+
+        $chofer->save();
+
+        $chuto->save();
+
+        $cava->save();
+
+        if ($fleteIda) {
+            $selectFleteIda->save();
+        }
+        if ($fleteRetorno) {
+            $selectFleteRetorno->save();
+        }
+
+        $viajeCompletado->save();
+    }
+    public function viaje_delete(Request $request)
+    {
+        $this->validate($request, [
+            'id_viaje' => 'required|numeric'
+        ]);
+
+        $viaje = Viaje::find($request->id_viaje);
+
+        if ($viaje->viajes_estado == 1) {
+            return response()->json([
+                'message' => 'No puedes Eliminar un Viaje Completado'
+            ], status: 422);
+        }
+
+        $chofer = Chofer::find($viaje->viajes_idchofer);
+        $chofer->chofer_estado = 0;
+
+        $chuto = Chuto::find($viaje->viajes_idchuto);
+        $chuto->chuto_asignado = 0;
+
+        $cava = Cava::find($viaje->viajes_idcava);
+        $cava->cava_asignada = 0;
+
+        // Compruebo de que en este viaje exista flete ida
+        if ($viaje->viajes_idflete_ida != NULL) {
+            $selectFleteIda = Flete::find($viaje->viajes_idflete_ida);
+            $selectFleteIda->flete_estado = 0;
+        }
+        if ($viaje->viajes_idflete_retorno != NULL) {
+            $selectFleteRetorno = Flete::find($viaje->viajes_idflete_retorno);
+            $selectFleteRetorno->flete_estado = 0;
+        }
+        $chofer->save();
+
+        $chuto->save();
+
+        $cava->save();
+
+        Viaje::destroy($request->id_viaje);
+
+        return response()->json('Fino Pa', status: 200);
     }
 }
