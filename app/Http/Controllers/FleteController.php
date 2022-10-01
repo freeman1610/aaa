@@ -25,8 +25,8 @@ class FleteController extends Controller
             $strDestino = $selectEstado->estado . ', ' . $selectMunicipio->municipio . ', ' . $selectParroquia->parroquia;
             switch ($datos->flete_estado) {
                 case 0:
-                    $estadoFlete = '<span class="btn btn-success">Sin Asignar</span>';
-                    $tipo_flete = '<span class="btn btn-success">Sin Asignar</span>';
+                    $estadoFlete = '<span class="btn btn-warning">Sin Asignar</span>';
+                    $tipo_flete = '<span class="btn btn-warning">Sin Asignar</span>';
                     break;
                 case 1:
                     if ($datos->flete_tipo == 1) {
@@ -44,6 +44,24 @@ class FleteController extends Controller
                             ->get();
                         $estadoFlete = '<span class="btn btn-info" style="width:100px;cursor:default;" onclick="mostrarViaje(' . $verificarCodFlete[0]->viajes_id . ')">En Viaje</span>';
                         $tipo_flete = '<span class="btn btn-info" style="cursor:default;">Retorno</span>';
+                    }
+                    break;
+                case 2:
+                    if ($datos->flete_tipo == 1) {
+                        $verificarCodFlete = DB::table('viajes')
+                            ->select('viajes_id')
+                            ->where('viajes_idflete_ida', $datos->flete_id)
+                            ->get();
+                        $estadoFlete = '<span class="btn btn-success" style="cursor:default;" onclick="mostrarViaje(' . $verificarCodFlete[0]->viajes_id . ')">Completado</span>';
+                        $tipo_flete = '<span class="btn btn-success" style="cursor:default;">Ida</span>';
+                    }
+                    if ($datos->flete_tipo == 2) {
+                        $verificarCodFlete = DB::table('viajes')
+                            ->select('viajes_id')
+                            ->where('viajes_idflete_retorno', $datos->flete_id)
+                            ->get();
+                        $estadoFlete = '<span class="btn btn-success" style="cursor:default;" onclick="mostrarViaje(' . $verificarCodFlete[0]->viajes_id . ')">Completado</span>';
+                        $tipo_flete = '<span class="btn btn-success" style="cursor:default;">Retorno</span>';
                     }
                     break;
             }

@@ -17,13 +17,14 @@ class ViajeCompletadoController extends Controller
         $arrayDatos = [];
         foreach ($selectViajesCompletados as $datos) {
             // $botonVerDetalles = '<button class="btn btn-primary btn-xs" title="Detalles" onclick="detallesViaje(' . $datos->viajes_id . ')"><i class="fa fa-edit"></i></button>';
-            $botonVerDetalles = '<button class="btn btn-primary btn-xs" title="Detalles" onclick="detallesViaje(' . $datos->viajes_id . ')"><i class="fa fa-edit"></i></button>';
-            $botonPDF = '<button class="btn btn-primary btn-xs" title="Imprimir PDF" onclick="pdfViajeCompletado(' . $datos->viajes_id . ')"><i class="fa fa-edit"></i></button>';
+            $botonVerDetalles = '<button class="btn btn-primary btn-xs" title="Detalles" onclick="detallesViaje(' . $datos->viajes_id . ')"><i class="fas fa-eye"></i></button>';
+            $botonPDF = '<button class="btn btn-primary btn-xs" title="Imprimir PDF" onclick="pdfViajeCompletado(' . $datos->viajes_id . ')"><i class="fas fa-file-pdf"></i></button>';
 
             $arrayDatos[] = [
                 "0" => $botonPDF,
                 "1" => $datos->viajes_codigo,
-                "2" => $botonVerDetalles
+                "2" => $botonVerDetalles . ' Ver Detalles',
+                "3" => 'Sin Cancelar'
 
             ];
         }

@@ -3,7 +3,6 @@ var tabla;
 //funcion que se ejecuta al inicio
 function init() {
 	$("#emp").addClass("active");
-	$("#nom").addClass("active");
 	mostrarform(false);
 	listar();
 

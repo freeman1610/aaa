@@ -18,6 +18,7 @@
                             <th>Opciones</th>
                             <th>Codigo del Viaje</th>
                             <th>Detalles del Viaje</th>
+                            <th>Pago del Chofer</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,6 +28,7 @@
                             <th>Opciones</th>
                             <th>Codigo del Viaje</th>
                             <th>Detalles del Viaje</th>
+                            <th>Pago del Chofer</th>
                         </tr>
                     </tfoot>
                 </table>

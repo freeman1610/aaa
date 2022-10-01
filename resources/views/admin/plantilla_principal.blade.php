@@ -173,7 +173,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link" id="nom">
-                                <i class="nav-icon fas fa-laptop"></i><p>Nómina Administrativa<i class="right fas fa-angle-left"></i></p>
+                                <i class="nav-icon fas fa-file-alt"></i><p>Nómina Administrativa<i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -197,32 +197,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @if (Auth::user()->cargo == 'ADMINISTRADOR' || Auth::user()->cargo == 'ADMINISTRATIVO')
                         <li class="nav-item">
                             <a href="#" class="nav-link" id="transporte">
-                                <i class="nav-icon fas fa-laptop"></i><p>Transporte<i class="right fas fa-angle-left"></i></p>
+                                <i class="nav-icon fas fa-truck"></i><p>Transporte<i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('chutos') }}" class="nav-link" id="chutos">
-                                        <i class="fas fa-address-card nav-icon"></i><p>Chutos</p>
+                                        <i class="fas fa-truck-pickup nav-icon"></i><p>Chutos</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('cavas') }}" class="nav-link" id="cavas">
-                                        <i class="fas fa-address-card nav-icon"></i><p>Cavas</p>
+                                        <i class="fas fa-trailer nav-icon"></i><p>Cavas</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('fletes') }}" class="nav-link" id="fletes">
-                                        <i class="fas fa-address-card nav-icon"></i><p>Fletes</p>
+                                        <i class="fas fa-th-list nav-icon"></i><p>Fletes</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('viajes') }}" class="nav-link" id="viajes">
-                                        <i class="fas fa-address-card nav-icon"></i><p>Viajes</p>
+                                        <i class="fas fa-shipping-fast nav-icon"></i><p>Viajes</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('viajes_completados') }}" class="nav-link" id="viajes_comp">
-                                        <i class="fas fa-address-card nav-icon"></i><p>Viajes Completados</p>
+                                        <i class="fas fa-flag-checkered nav-icon"></i><p>Viajes Completados</p>
                                     </a>
                                 </li>
                             </ul>
@@ -251,12 +251,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @if(session()->get('almacen') == 1 || Auth::user()->cargo == 'DEPOSITARIO')
                         <li class="nav-item">
                             <a href="#" class="nav-link" id="alm">
-                                <i class="nav-icon fas fa-shopping-bag"></i><p>Almacen<i class="right fas fa-angle-left"></i></p>
+                                <i class="nav-icon fas fa-database"></i><p>Almacen<i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('almacen') }}" class="nav-link" id="art">
-                                        <i class="fas fa-user-circle nav-icon"></i><p>Articulos</p>
+                                        <i class="nav-icon fas fa-layer-group"></i><p>Articulos</p>
                                     </a>
                                 </li>
                             </ul>
