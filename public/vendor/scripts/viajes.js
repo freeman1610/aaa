@@ -333,6 +333,40 @@ function listarFletesRetorno() {
     }
 
 }
+
+function enviarViajeCompletado(id) {
+    $.ajax({
+        url: 'viaje_completado',
+        method: 'POST',
+        data: 'id_viaje=' + id,
+
+        success: function () {
+            toastr.success('Viaje Completado Exitosamente')
+            tabla.ajax.reload();
+        },
+
+        error: function (err) {
+            toastr.error(err.responseJSON.message)
+        }
+
+    });
+}
+
+function viajeCompletado(id) {
+
+    Swal.fire({
+        title: '¿Desea Completar este Viaje?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No',
+        preConfirm: () => {
+            enviarViajeCompletado(id)
+        }
+    })
+}
+
+
 // Enviar Formc Crear Viaje
 function crearViaje() {
 
@@ -518,8 +552,8 @@ var tabla;
 
 //funcion que se ejecuta al inicio
 function init() {
-    $("#fletes").addClass(" active");
-
+    $("#viajes").addClass("active");
+    $("#transporte").addClass("active");
     listar();
 }
 

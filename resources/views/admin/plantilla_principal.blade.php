@@ -182,7 +182,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="#" class="nav-link" id="nom_chofer">
                                         <i class="fas fa-address-card nav-icon"></i><p>Nómina Choferes</p>
                                     </a>
                                 </li>
@@ -216,12 +216,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('viajes') }}" class="nav-link">
+                                    <a href="{{ route('viajes') }}" class="nav-link" id="viajes">
                                         <i class="fas fa-address-card nav-icon"></i><p>Viajes</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('viajes_completados') }}" class="nav-link" id="viajes_comp">
                                         <i class="fas fa-address-card nav-icon"></i><p>Viajes Completados</p>
                                     </a>
                                 </li>
@@ -236,12 +236,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./consulta_bitacora.php" class="nav-link" id="audM">
+                                    <a href="#" class="nav-link" id="audM">
                                         <i class="fas fa-user-circle nav-icon"></i><p>Mov. Usuarios</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./registros_log.php" class="nav-link" id="audR">
+                                    <a href="#" class="nav-link" id="audR">
                                         <i class="fas fa-book nav-icon"></i><p>Cambios. Usuarios</p>
                                     </a>
                                 </li>

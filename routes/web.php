@@ -14,6 +14,7 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\SalarioController;
 use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ViajeCompletadoController;
 use App\Http\Controllers\ViajeController;
 use App\Models\Flete;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,8 @@ Route::middleware(['auth'])->group(function () {
     Route::view('fletes', 'admin.fletes')->name('fletes');
 
     Route::view('viajes', 'admin.viajes')->name('viajes');
+
+    Route::view('viajes_completados', 'admin.viajes_completados')->name('viajes_completados');
 
     Route::view('perfil', 'admin.perfil')->name('perfil');
 
@@ -214,6 +217,28 @@ Route::middleware(['auth'])->group(function () {
     Route::post('mostrar_viaje', [ViajeController::class, 'mostrar_viaje'])->name('mostrar_viaje');
 
     Route::post('update_viaje', [ViajeController::class, 'update_viaje'])->name('update_viaje');
+
+    Route::post('viaje_completado', [ViajeController::class, 'viaje_completado'])->name('viaje_completado');
+
+    Route::post('viaje_delete', [ViajeController::class, 'viaje_delete'])->name('viaje_delete');
+
+
+    // VIAJE COMPLETADOS
+    Route::get(
+        'listar_viaje_completado',
+        [
+            ViajeCompletadoController::class,
+            'listar_viaje_completado'
+        ]
+    )->name('listar_viaje_completado');
+
+    Route::get(
+        'detalle_viaje_completado',
+        [
+            ViajeCompletadoController::class,
+            'detalle_viaje_completado'
+        ]
+    )->name('detalle_viaje_completado');
 
 
     //  ---------------- FIN TRANSPORTE ------------------------

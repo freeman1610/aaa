@@ -6,23 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Cava;
 use App\Models\Chofer;
 use App\Models\Chuto;
-use App\Models\Empleado;
-use App\Models\Estado;
 use App\Models\Flete;
-use App\Models\Municipio;
-use App\Models\Parroquia;
 use App\Models\Viaje;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Mockery\Undefined;
 
 class ViajeController extends Controller
 {
     public function listar_viajes()
     {
-        $selectViajes = Viaje::all();
+        $selectViajes = Viaje::where('viajes_estado', '=', 0)->get();
         $arrayDatos = [];
         foreach ($selectViajes as $datos) {
 
@@ -44,30 +39,40 @@ class ViajeController extends Controller
             $datosCamion = '<table class="table table-bordered table-striped dtr-inline" style="width: 250px;"><tr><td>Chuto: </td><td>' . $datosChuto . '</td></tr><tr><td>Cava: </td><td>' . $datosCava . '</td></tr></table>';
 
             if ($datos->viajes_idflete_ida != NULL) {
-                $fleteIda = Flete::find($datos->viajes_idflete_ida);
+                $datosDestinoFleteIda = Flete::where('fletes.flete_id', '=', $datos->viajes_idflete_ida)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select(
+                        'estados.estado',
+                        'municipios.municipio',
+                        'parroquias.parroquia'
+                    )
+                    ->get();
 
-                $selectEstado = Estado::find($fleteIda->flete_destino_estado);
-                $selectMunicipio = Municipio::find($fleteIda->flete_destino_municipio);
-                $selectParroquia = Parroquia::find($fleteIda->flete_destino_parroquia);
-
-                $destinoIda = $selectEstado->estado . ', ' . $selectMunicipio->municipio . ', ' . $selectParroquia->parroquia;
+                $destinoIda = $datosDestinoFleteIda[0]->estado . ', ' . $datosDestinoFleteIda[0]->municipio . ', ' . $datosDestinoFleteIda[0]->parroquia;
             } else {
                 $destinoIda = '(No Aplica) Solo Retorno';
             }
             if ($datos->viajes_idflete_retorno != NULL) {
-                $fleteRetorno = Flete::find($datos->viajes_idflete_retorno);
+                $datosDetinoFleteRetorno = Flete::where('fletes.flete_id', '=', $datos->viajes_idflete_retorno)
+                    ->join('estados', 'estados.id_estado', '=', 'fletes.flete_destino_estado')
+                    ->join('municipios', 'municipios.id_municipio', '=', 'fletes.flete_destino_municipio')
+                    ->join('parroquias', 'parroquias.id_parroquia', '=', 'fletes.flete_destino_parroquia')
+                    ->select(
+                        'estados.estado',
+                        'municipios.municipio',
+                        'parroquias.parroquia'
+                    )
+                    ->get();
 
-                $selectEstado = Estado::find($fleteRetorno->flete_destino_estado);
-                $selectMunicipio = Municipio::find($fleteRetorno->flete_destino_municipio);
-                $selectParroquia = Parroquia::find($fleteRetorno->flete_destino_parroquia);
-
-                $destinoRetorno = $selectEstado->estado . ', ' . $selectMunicipio->municipio . ', ' . $selectParroquia->parroquia;
+                $destinoRetorno = $datosDetinoFleteRetorno[0]->estado . ', ' . $datosDetinoFleteRetorno[0]->municipio . ', ' . $datosDetinoFleteRetorno[0]->parroquia;
             } else {
                 $destinoRetorno = '(No Aplica) Solo Ida';
             }
 
             $arrayDatos[] = [
-                "0" => '<button class="btn btn-primary btn-xs" title="Editar" onclick="mostrarViaje(' . $datos->viajes_id . ')"><i class="fa fa-edit"></i></button>' . ' ' . '<button class="btn btn-danger btn-xs" title="Eliminar" onclick="eliminar(' . $datos->viajes_id . ')"><i class="fa fa-trash"></i></button>',
+                "0" => '<button class="btn btn-primary btn-xs" title="Editar" onclick="mostrarViaje(' . $datos->viajes_id . ')"><i class="fa fa-edit"></i></button> <button class="btn btn-danger btn-xs" title="Eliminar" onclick="eliminar(' . $datos->viajes_id . ')"><i class="fa fa-trash"></i></button> <button class="btn btn-success btn-xs" title="Finalizar Viaje" onclick="viajeCompletado(' . $datos->viajes_id . ')"><i class="fa fa-check"></i></button>',
                 "1" => $datos->viajes_codigo,
                 "2" => $datosChofer,
                 "3" => $datosCamion,
@@ -873,8 +878,8 @@ class ViajeController extends Controller
         ]);
         $viajeCompletado = Viaje::find($request->id_viaje);
 
-        $chofer = Chofer::find($viajeCompletado->viajes_idchofer);
-        $chofer->chofer_estado = 0;
+        $chofer = Chofer::where('chofer_idempleado', '=', $viajeCompletado->viajes_idchofer)->get();
+        $chofer[0]->chofer_estado = 0;
 
         $chuto = Chuto::find($viajeCompletado->viajes_idchuto);
         $chuto->chuto_asignado = 0;
@@ -900,7 +905,7 @@ class ViajeController extends Controller
         // Viaje esta con el valor de 1 significa que ha sido completado
         $viajeCompletado->viajes_estado = 1;
 
-        $chofer->save();
+        $chofer[0]->save();
 
         $chuto->save();
 
@@ -914,6 +919,7 @@ class ViajeController extends Controller
         }
 
         $viajeCompletado->save();
+        return response()->json('Fino Pa', status: 200);
     }
     public function viaje_delete(Request $request)
     {
