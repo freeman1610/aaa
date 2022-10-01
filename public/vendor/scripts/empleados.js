@@ -1,50 +1,51 @@
 var tabla;
 
 //funcion que se ejecuta al inicio
-function init(){
-	$("#emp").addClass(" active");
-   mostrarform(false);
-   listar();
+function init() {
+	$("#emp").addClass("active");
+	$("#nom").addClass("active");
+	mostrarform(false);
+	listar();
 
-   $("#formulario").on("submit",function(e){
-	e.preventDefault();
-	if($("[name='nombre']").val()=="" || $("[name='apellido']").val()=="" 
-	|| $("[name='cedula']").val()=="" || $("[name='direccion']").val()=="" 
-	|| $("[name='telefono']").val()==""|| $("[name='fecha_nac']").val()=="" 
-	|| $("[name='cargo']").val()==""){
-		toastr.warning('Asegúrate de llenar todo los campos');
-	}
-	else{
-		guardar(e);
-	}
-   })
-   $('[data-mask]').inputmask();
-   //Datemask dd/mm/yyyy
-   $('#datemask').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd'});
-   //cargamos los items al select Departamento
-   
-   let select = document.getElementById("iddepartamento")
-   
-   $.ajaxSetup({
+	$("#formulario").on("submit", function (e) {
+		e.preventDefault();
+		if ($("[name='nombre']").val() == "" || $("[name='apellido']").val() == ""
+			|| $("[name='cedula']").val() == "" || $("[name='direccion']").val() == ""
+			|| $("[name='telefono']").val() == "" || $("[name='fecha_nac']").val() == ""
+			|| $("[name='cargo']").val() == "") {
+			toastr.warning('Asegúrate de llenar todo los campos');
+		}
+		else {
+			guardar(e);
+		}
+	})
+	$('[data-mask]').inputmask();
+	//Datemask dd/mm/yyyy
+	$('#datemask').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd' });
+	//cargamos los items al select Departamento
+
+	let select = document.getElementById("iddepartamento")
+
+	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	});
- 
+
 	$.ajax({
 		url: 'mostrar_departamentos',
 		type: 'POST',
 
-		success: function(res){
-			
-			res.forEach(function(dato){
+		success: function (res) {
+
+			res.forEach(function (dato) {
 
 				let option = document.createElement('option');
-		
+
 				option.value = dato.iddepartamento;
 				option.text = dato.nombre;
 				select.appendChild(option);
-				
+
 			});
 
 			$("#iddepartamento").select2();
@@ -53,7 +54,7 @@ function init(){
 }
 
 //funcion limpiar
-function limpiar(){
+function limpiar() {
 	$("#iddepartamento").val("");
 	$("#nombre").val("");
 	$("#apellido").val("");
@@ -64,17 +65,17 @@ function limpiar(){
 	$("#telefono").val("");
 	$("#direccion").val("");
 }
- 
+
 //funcion mostrar formulario
-function mostrarform(flag){
+function mostrarform(flag) {
 	limpiar();
-	if(flag){
+	if (flag) {
 		$("#listadoregistros").hide();
-		$("#formularioregistros").css("z-index","0");
+		$("#formularioregistros").css("z-index", "0");
 		$("#formularioregistros").show();
-		$("#btnGuardar").prop("disabled",false);
+		$("#btnGuardar").prop("disabled", false);
 		$("#btnagregar").hide();
-	}else{
+	} else {
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
 		$("#btnagregar").show();
@@ -82,74 +83,73 @@ function mostrarform(flag){
 }
 
 //cancelar form
-function cancelarform(){
+function cancelarform() {
 	limpiar();
 	mostrarform(false);
 }
 
 //funcion listar
-function listar(){
-	tabla=$('#tbllistado').dataTable({
+function listar() {
+	tabla = $('#tbllistado').dataTable({
 		"aProcessing": true,//activamos el procedimiento del datatable
 		"aServerSide": true,//paginacion y filrado realizados por el server
 		"responsive": true, "lengthChange": false, "autoWidth": false,
 		dom: 'Bfrtip',//definimos los elementos del control de la tabla
 		buttons: [
-                  'copy',
-                  'excel',
-                  'pdf',
-				  'print',
-				  'colvis'
+			'copy',
+			'excel',
+			'pdf',
+			'print',
+			'colvis'
 		],
 		"ajax":
 		{
-			url:'listar_empleados',
+			url: 'listar_empleados',
 			type: "get",
-			dataType : "json",
-			error:function(e){
+			dataType: "json",
+			error: function (e) {
 				console.log(e.responseText);
 			}
 		},
-		"bDestroy":true,
-		"iDisplayLength":10,//paginacion
-		"order":[[0,"desc"]]//ordenar (columna, orden)
+		"bDestroy": true,
+		"iDisplayLength": 10,//paginacion
+		"order": [[0, "desc"]]//ordenar (columna, orden)
 	}).DataTable();
 }
 //funcion para guardar
-function guardar(e){
+function guardar(e) {
 
-	
 
-     e.preventDefault();//no se activara la accion predeterminada 
-     $("#btnGuardar").prop("disabled",true);
-     
+
+	e.preventDefault();//no se activara la accion predeterminada 
+	$("#btnGuardar").prop("disabled", true);
+
 	let datos = $('#formulario').serialize();
 
-	 $.ajaxSetup({
+	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	});
 
-     $.ajax({
-     	url: "guardar_update_empleado",
-     	type: "POST",
-     	data: datos,
+	$.ajax({
+		url: "guardar_update_empleado",
+		type: "POST",
+		data: datos,
 
-     	success: function(){
+		success: function () {
 			toastr.success('Empleado Actualizado');
-     		mostrarform(false);
-     		tabla.ajax.reload();
-     	}
-     });
+			mostrarform(false);
+			tabla.ajax.reload();
+		}
+	});
 
-     limpiar();
+	limpiar();
 }
 
-function mostrar(id_emp){
-	$.post("mostrar_empleado",{id_emp : id_emp},
-		function(data)
-		{
+function mostrar(id_emp) {
+	$.post("mostrar_empleado", { id_emp: id_emp },
+		function (data) {
 
 			mostrarform(true);
 
@@ -168,10 +168,10 @@ function mostrar(id_emp){
 }
 
 
-function eliminar(id_emp){
-	bootbox.confirm("¿Esta seguro de eliminar este dato?" , function(result){
+function eliminar(id_emp) {
+	bootbox.confirm("¿Esta seguro de eliminar este dato?", function (result) {
 		if (result) {
-			$.post("eliminar_empleado" , {id_emp : id_emp}, function(){
+			$.post("eliminar_empleado", { id_emp: id_emp }, function () {
 				toastr.success('Empleado Eliminado');
 				tabla.ajax.reload();
 			});

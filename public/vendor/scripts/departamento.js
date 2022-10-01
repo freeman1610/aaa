@@ -1,6 +1,7 @@
 var tabla;
 //funcion que se ejecuta al inicio
 function init() {
+	$("#dep").addClass("active");
 	listar();
 }
 //funcion listar

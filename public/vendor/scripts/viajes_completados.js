@@ -3,7 +3,7 @@ var tabla;
 //funcion que se ejecuta al inicio
 function init() {
     $("#viajes_comp").addClass("active");
-
+    $("#transporte").addClass("active");
     listar();
 }
 

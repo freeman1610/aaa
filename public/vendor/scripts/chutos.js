@@ -2,6 +2,8 @@ var tabla;
 
 //funcion que se ejecuta al inicio
 function init() {
+	$("#chutos").addClass("active");
+	$("#transporte").addClass("active");
 	listar();
 }
 

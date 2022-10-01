@@ -207,6 +207,7 @@ var tabla;
 //funcion que se ejecuta al inicio
 function init() {
 	$("#fletes").addClass(" active");
+	$("#transporte").addClass("active");
 	listar();
 }
 

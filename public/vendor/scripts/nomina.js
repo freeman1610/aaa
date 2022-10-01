@@ -26,6 +26,8 @@ var tabla;
 //funcion que se ejecuta al inicio
 function init() {
 
+	$("#nom").addClass("active");
+	$("#nom_a").addClass("active");
 	listar();
 
 	let select = document.getElementById("id_empleado")
