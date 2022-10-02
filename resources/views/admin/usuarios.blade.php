@@ -9,7 +9,11 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Usuarios  <button class="btn btn-dark" onclick="clickAgregarUsuario()" id="btnagregar"><i class="fa fa-plus-circle"></i>Agregar</button></h3>
+                <h3 class="card-title">Usuarios  
+                    <button class="btn btn-dark" onclick="clickAgregarUsuario()" id="btnagregar"><i class="fa fa-plus-circle"></i> Agregar</button>
+                    <button class="btn btn-dark" onclick="backUpDataBase()"><i class="fas fa-server"></i> Respaldo de la Base de Datos</button>
+                    {{-- <button class="btn btn-dark" onclick="restoreDataBase()"><i class="fas fa-file-import"></i> Restaurar la Base de Datos</button> --}}
+                </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body" id="listadoregistros">
@@ -278,7 +282,6 @@
             
     });
 
-    
 
 </script>
 <script src="{{ asset('vendor/scripts/usuario.js') }}"></script>

@@ -1,13 +1,105 @@
 
+$.ajaxSetup({
+	headers: {
+		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	}
+});
+
+
+function backUpDataBase() {
+	$.ajax({
+		url: 'backupsql',
+		type: 'POST',
+
+		success: function (res) {
+			let ht = '<div class="d-flex justify-content-center">' + res.boton + '</div>'
+			Swal.fire({
+				icon: 'success',
+				title: 'Base de Datos Respaldada Existosamente!',
+				html: ht,
+				showConfirmButton: false,
+				showCloseButton: true
+			})
+		},
+		error: function (err) {
+			toastr.error(err.responseJSON.message)
+		}
+	});
+}
+
+// function restoreSQL() {
+
+// 	// $imagen = $('#imagen');
+// 	// let formData = new FormData();
+// 	// let datos = $('#formularioCrearUsuario').serialize();
+// 	// formData.append('imagen', $imagen[0].files[0]);
+
+
+// 	// $.ajax({
+// 	// 	url: 'crear_usuario' + '?' + datos,
+// 	// 	method: 'POST',
+// 	// 	data: formData,
+// 	// 	processData: false,
+// 	// 	contentType: false,
+
+
+
+// 	newSql = $('#newSql');
+// 	let formData = new FormData();
+// 	formData.append('newSql', newSql[0].files[0]);
+// 	// let datos = $('#formRestoreDB').serialize();
+
+// 	$.ajax({
+// 		url: 'restore_db',
+// 		type: 'POST',
+// 		data: formData,
+// 		processData: false,
+// 		contentType: false,
+// 		success: function () {
+// 			Swal.fire({
+// 				icon: 'success',
+// 				title: 'Base de Datos Actualizada Existosamente!',
+// 				showConfirmButton: false,
+// 				showCloseButton: true
+// 			})
+// 		},
+// 		error: function (err) {
+// 			toastr.error(err.responseJSON.message)
+// 		}
+// 	})
+// }
+
+// function restoreDataBase() {
+
+// 	let ht = '<form method="POST" id="formRestoreDB" name="formRestoreDB" enctype="multipart/form-data">' +
+// 		'<input type="file" id="newSql" name="newSql" required accept=".sql">' +
+// 		'<br><button type="submit" class="btn btn-primary mt-3">Enviar</button>' +
+// 		'</form>'
+
+// 	Swal.fire({
+// 		title: 'Inserte el Archivo SQL para restaurar los Datos',
+// 		html: ht,
+// 		showConfirmButton: false,
+// 		showCancelButton: false,
+// 		showCloseButton: true
+// 	})
+// }
+
+// document.querySelector("#centro_central").addEventListener("submit", ev => {
+// 	if (ev.target.matches('#formRestoreDB')) {
+// 		ev.preventDefault()
+// 		restoreSQL()
+// 	}
+
+// });
+
+function limpiarBackUp() {
+	$.post("limpieza_backup_db");
+}
+
 function mostrarTipoUsuario() {
 
 	let select = document.getElementById("idtipousuario")
-
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
 
 	$.ajax({
 		url: 'mostrar_tipo_usuario',
@@ -39,12 +131,6 @@ function mostrarDepartamentos() {
 
 	let select = document.getElementById("iddepartamento")
 
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
 	$.ajax({
 		url: 'mostrar_departamentos',
 		type: 'POST',
@@ -72,12 +158,6 @@ function mostrarDepartamentos() {
 function mostrarPermisos(id_user) {
 	let ulll = document.getElementById("permisos")
 	ulll.innerHTML = ""
-
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
 	let indice = 0
 	$.ajax({
 		url: 'mostrar_permisos?id_user=' + id_user,
@@ -323,12 +403,6 @@ function guardar(e) {
 
 function mostrar(idusuario) {
 
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
 	$.ajax({
 		url: 'lista_usuarios_editar?id_user=' + idusuario,
 		type: 'POST',
@@ -367,12 +441,6 @@ function mostrar(idusuario) {
 function editar_clave() {
 
 	let datos = $('#formularioCambiarContra').serialize();
-
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
 
 	$.ajax({
 		url: "editar_clave_usuario",

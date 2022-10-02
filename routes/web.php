@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlmacenController;
+use App\Http\Controllers\BackUpAndRestoreDBController;
 use App\Http\Controllers\CavaController;
 use App\Http\Controllers\ChutoController;
 use App\Http\Controllers\DepartamentoController;
@@ -240,6 +241,13 @@ Route::middleware(['auth'])->group(function () {
         ]
     )->name('detalle_viaje_completado');
 
+    // ---------------------- SISTEMA ------------------------
+
+    Route::post('backupsql', [BackUpAndRestoreDBController::class, 'backupsql'])->name('backupsql');
+
+    Route::post('limpieza_backup_db', [BackUpAndRestoreDBController::class, 'limpieza_backup_db'])->name('limpieza_backup_db');
+
+    // Route::post('restore_db', [BackUpAndRestoreDBController::class, 'restore_db'])->name('restore_db');
 
     //  ---------------- FIN TRANSPORTE ------------------------
 
