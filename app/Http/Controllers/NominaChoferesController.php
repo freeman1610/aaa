@@ -13,7 +13,7 @@ class NominaChoferesController extends Controller
 {
     public function listar_nomina_chofer()
     {
-        $selectNominaChofer = NominaChofer::where('estado', '=', 1);
+        $selectNominaChofer = NominaChofer::where('estado', '=', 1)->get();
 
         $arrayDatos = [];
 
@@ -23,12 +23,12 @@ class NominaChoferesController extends Controller
             $selectCodViaje = Viaje::where('viajes_id', '=', $datos->id_viaje)
                 ->select('viajes_codigo')
                 ->get();
-            $viaje = 'Codigo del Viaje: ' . $selectCodViaje[0]->viajes_codigo . '<hr class="border-primary"><div class="d-flex justify-content-center"><button class="btn btn-primary" onclick="verViaje(' . $datos->id_viaje . ')">Ver Viaje</button></div>';
+            $viaje = 'Codigo del Viaje: <span class="text-warning">' . $selectCodViaje[0]->viajes_codigo . '</span><hr class="border-primary"><div class="d-flex justify-content-center"><button class="btn btn-primary" onclick="verViaje(' . $datos->id_viaje . ')">Ver Viaje</button></div>';
             $arrayDatos[] = [
                 '0' => 'Icons',
                 '1' => $datosChofer,
                 '2' => $viaje,
-                '3' => $datos->pago_total
+                '3' => 'VES ' . $datos->pago_total
             ];
         }
 
@@ -91,18 +91,29 @@ class NominaChoferesController extends Controller
         $selectChofer = Empleado::where('id_emp', '=', $selectViaje[0]->viajes_idchofer)
             ->select('nombre', 'apellido', 'cedula')
             ->get();
+        $idNomina = NominaChofer::where('id_viaje', '=', $request->viaje_id)
+            ->select('id_nomina_chofer')
+            ->get();
         return response()->json([
+            'idNomina' => $idNomina[0]->id_nomina_chofer,
             'datosChofer' => $selectChofer[0]->nombre . ' ' . $selectChofer[0]->apellido . '<br> C.I: ' . $selectChofer[0]->cedula,
             'cod_flete_ida' => $fleteIdaCod,
             'cod_flete_retorno' => $fleteRetornoCod,
-            'suma_valores_fletes' => 'VES ' . $sumaTotal,
-            'total_chofer' => 'VES ' . $totalChofer
+            'suma_valores_fletes' => $sumaTotal,
+            'total_chofer' => $totalChofer
         ], status: 200);
     }
     public function crear_pago_nomina_chofer(Request $request)
     {
         $this->validate($request, [
-            'salario_base' => 'required'
+            'viaje_id' => 'required|numeric',
+            'id_nomina' => 'required|numeric',
+            'value_pago_chofer' => 'required'
         ]);
+        $selectPagoNominaChofer = NominaChofer::find($request->id_nomina);
+        $selectPagoNominaChofer->pago_total = $request->value_pago_chofer;
+        $selectPagoNominaChofer->estado = 1;
+        $selectPagoNominaChofer->save();
+        return response()->json('Fino Pa', status: 200);
     }
 }

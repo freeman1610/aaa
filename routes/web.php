@@ -160,6 +160,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('listar_datos_viaje', [NominaChoferesController::class, 'listar_datos_viaje'])->name('listar_datos_viaje');
 
+    Route::post('crear_pago_nomina_chofer', [NominaChoferesController::class, 'crear_pago_nomina_chofer'])->name('crear_pago_nomina_chofer');
+
 
     //  ---------------- FIN NOMINA CHOFER ------------------------
 
