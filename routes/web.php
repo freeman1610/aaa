@@ -10,6 +10,7 @@ use App\Http\Controllers\FleteController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\LoginAuthController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\NominaChoferesController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\SalarioController;
@@ -51,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::view('empleados', 'admin.empleados')->name('empleados');
 
     Route::view('nomina_personal', 'admin.nomina_personal')->name('nomina_personal');
+
+    Route::view('nomina_chofer', 'admin.nomina_chofer')->name('nomina_chofer');
 
     Route::view('departamentos', 'admin.departamentos')->name('departamentos');
 
@@ -148,6 +151,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('generarPDFXfechas', [NominaController::class, 'generarPDFXfechas'])->name('generarPDFXfechas');
 
     //  ---------------- FIN NOMINA PERSONAL ------------------------
+
+    // ----------------- NOMINA CHOFER ------------------------
+
+    Route::get('listar_nomina_chofer', [NominaChoferesController::class, 'listar_nomina_chofer'])->name('listar_nomina_chofer');
+
+    Route::post('mostrar_pagos_disponibles', [NominaChoferesController::class, 'mostrar_pagos_disponibles'])->name('mostrar_pagos_disponibles');
+
+    Route::post('listar_datos_viaje', [NominaChoferesController::class, 'listar_datos_viaje'])->name('listar_datos_viaje');
+
+
+    //  ---------------- FIN NOMINA CHOFER ------------------------
 
     // ----------------- DEPARTAMENTOS ------------------------
 

@@ -902,6 +902,7 @@ class ViajeController extends Controller
             $selectFleteRetorno->flete_estado = 2;
             $fleteRetorno = true;
         }
+
         // Viaje esta con el valor de 1 significa que ha sido completado
         $viajeCompletado->viajes_estado = 1;
 
@@ -919,6 +920,18 @@ class ViajeController extends Controller
         }
 
         $viajeCompletado->save();
+
+        // Inserto los datos del viaje en la tabla nomina_choferes
+        // Se hace este proceso para optimizar la consulta para luego realizar
+        // Tanto el pago como la busqueda datos relacionados a nomina choferes
+
+        DB::table('nomina_choferes')->insert([
+            'id_chofer'  => $viajeCompletado->viajes_idchofer,
+            'id_viaje'   => $viajeCompletado->viajes_id,
+            'pago_total' => 0,
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime()
+        ]);
         return response()->json('Fino Pa', status: 200);
     }
     public function viaje_delete(Request $request)

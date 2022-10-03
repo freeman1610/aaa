@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-09-2022 a las 07:28:07
+-- Tiempo de generación: 03-10-2022 a las 07:13:43
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 
@@ -307,8 +307,10 @@ CREATE TABLE `cavas` (
 
 INSERT INTO `cavas` (`cava_id`, `cava_idusuario`, `cava_placa`, `cava_modelo`, `cava_marca`, `cava_estado`, `cava_asignada`, `created_at`, `updated_at`) VALUES
 (10, 1, '000AA3', 'GANDOLA 15M', 'VOLSKVAGEN', 'ACTIVO', 1, '2022-07-26 14:47:29', '2022-09-24 20:30:06'),
-(11, 1, 'DDDa', 'dadad', '21313', 'ACTIVO', 1, '2022-09-21 21:24:56', '2022-09-24 20:52:08'),
-(12, 1, 'elmen123', 'Grande', 'Nose', 'ACTIVO', 0, '2022-09-24 20:56:43', '2022-09-24 20:56:43');
+(11, 1, 'DDDa', 'dadad', '21313', 'ACTIVO', 0, '2022-09-21 21:24:56', '2022-10-02 19:21:18'),
+(12, 1, 'elmen123', 'Grande', 'Nose', 'ACTIVO', 0, '2022-09-24 20:56:43', '2022-09-30 20:43:33'),
+(13, 1, '147ACAD', 'Volock', 'Carga', 'ACTIVO', 0, '2022-09-27 00:41:13', '2022-10-03 00:49:53'),
+(14, 1, '233648', '44-6', 'ColCo', 'ACTIVO', 0, '2022-09-27 00:41:46', '2022-09-30 20:43:05');
 
 -- --------------------------------------------------------
 
@@ -330,8 +332,10 @@ CREATE TABLE `choferes` (
 
 INSERT INTO `choferes` (`chofer_id`, `chofer_idempleado`, `chofer_estado`, `created_at`, `updated_at`) VALUES
 (8, 14, 1, '2022-09-23 22:45:50', '2022-09-24 20:30:05'),
-(9, 10, 1, '2022-09-23 22:46:13', '2022-09-24 20:52:08'),
-(10, 12, 0, '2022-09-24 20:56:09', '2022-09-24 20:56:09');
+(9, 10, 0, '2022-09-23 22:46:13', '2022-10-03 00:44:45'),
+(10, 12, 0, '2022-09-24 20:56:09', '2022-10-03 00:49:53'),
+(11, 19, 0, '2022-09-27 00:39:07', '2022-09-30 20:43:05'),
+(12, 20, 0, '2022-09-27 00:40:02', '2022-09-27 00:40:02');
 
 -- --------------------------------------------------------
 
@@ -357,9 +361,9 @@ CREATE TABLE `chutos` (
 
 INSERT INTO `chutos` (`chuto_id`, `chuto_idusuario`, `chuto_placa`, `chuto_modelo`, `chuto_marca`, `chuto_estado`, `chuto_asignado`, `created_at`, `updated_at`) VALUES
 (6, 21, '0A-DAA0', '350', 'FORD', 'ACTIVO', 1, '2022-07-24 14:59:49', '2022-09-24 20:30:06'),
-(7, 21, '044ADA33', 'F-750', 'FORD', 'ACTIVO', 1, '2022-07-24 15:20:47', '2022-09-24 20:52:08'),
-(8, 21, 'DDD32', 'F-450', 'FORD', 'ACTIVO', 0, '2022-07-24 15:31:15', '2022-09-24 20:12:49'),
-(9, 21, 'C455AA', 'SUPER DUTY', 'FORD', 'ACTIVO', 0, '2022-07-24 15:33:41', '2022-09-23 22:16:29');
+(7, 21, '044ADA33', 'F-750', 'FORD', 'ACTIVO', 0, '2022-07-24 15:20:47', '2022-10-02 19:21:18'),
+(8, 21, 'DDD32', 'F-450', 'FORD', 'ACTIVO', 0, '2022-07-24 15:31:15', '2022-09-30 20:43:33'),
+(9, 21, 'C455AA', 'SUPER DUTY', 'FORD', 'ACTIVO', 0, '2022-07-24 15:33:41', '2022-10-03 00:49:53');
 
 -- --------------------------------------------------------
 
@@ -445,7 +449,9 @@ INSERT INTO `empleado` (`id_emp`, `nombre`, `apellido`, `tipo_documento`, `cedul
 (9, 'Gabriel', 'Montilva', 'Cedula', '30159951', '2000-07-05', 1, 'Apoyo', '(424) 782-9126', 'Vega de Aza', '2019-08-25', '2022-08-25 13:21:17', '2022-08-27 00:27:27'),
 (10, 'Jose', 'P', 'Cedula', '1115564', '2001-10-16', 8, 'dadasd', '(111) 111-1111', 'adasd', '2022-05-15', '2022-08-25 19:52:25', '2022-09-23 22:46:13'),
 (12, 'Pedro', 'Perez', 'Cedula', '2313', '0123-03-12', 8, '3123', '(424) 763-3369', 'Caracas', '0123-03-12', '2022-09-05 20:16:21', '2022-09-24 20:56:09'),
-(14, 'otro xd', 'mas', 'Cedula', '1232134311', '2000-10-18', 8, 'alguno', '(222) 222-2222', 'algun lugar', '2018-08-15', '2022-09-21 19:24:56', '2022-09-23 22:36:19');
+(14, 'otro xd', 'mas', 'Cedula', '1232134311', '2000-10-18', 8, 'alguno', '(222) 222-2222', 'algun lugar', '2018-08-15', '2022-09-21 19:24:56', '2022-09-23 22:36:19'),
+(19, 'Luis', 'Lopez', 'Cedula', '27444564', '2000-02-10', 8, 'Chofer', '(111) 111-1111', 'Casita', '2018-05-15', '2022-09-27 00:39:07', '2022-09-27 00:39:07'),
+(20, 'Pablo', 'Perez', 'Cedula', '14556784', '1974-02-10', 8, 'Chofer', '(111) 111-1111', 'Casita', '2016-05-15', '2022-09-27 00:40:02', '2022-09-27 00:40:02');
 
 -- --------------------------------------------------------
 
@@ -505,7 +511,7 @@ CREATE TABLE `fletes` (
   `flete_kilometros` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `flete_valor_en_carga` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `flete_valor_sin_carga` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `flete_estado` int(11) NOT NULL DEFAULT 0 COMMENT 'Se refiere si ha sido asignado a un viaje o no, 0 para no, 1 para si',
+  `flete_estado` int(11) NOT NULL DEFAULT 0 COMMENT 'Se refiere si ha sido asignado a un viaje o no, 0 para no, 1 para si, 2 si ha sido completado',
   `flete_tipo` int(11) NOT NULL DEFAULT 0 COMMENT 'Si es de ida(1) o de retorno(2), 0 sin asignar',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
@@ -516,9 +522,16 @@ CREATE TABLE `fletes` (
 --
 
 INSERT INTO `fletes` (`flete_id`, `flete_idusuario`, `flete_codigo`, `flete_destino_estado`, `flete_destino_municipio`, `flete_destino_parroquia`, `flete_kilometros`, `flete_valor_en_carga`, `flete_valor_sin_carga`, `flete_estado`, `flete_tipo`, `created_at`, `updated_at`) VALUES
-(15, 1, 'FLETE-22092022-1', 2, 3, 3, '100.111', '200.000', '50.000', 0, 0, '2022-07-26 15:56:35', '2022-09-26 01:01:38'),
+(15, 1, 'FLETE-22092022-1', 2, 3, 3, '100.111', '200.000', '50.000', 2, 1, '2022-07-26 15:56:35', '2022-09-30 20:43:33'),
 (16, 1, 'flete2', 1, 1, 5, '130.1', '15.000', '5.000', 1, 2, '2022-09-24 19:46:07', '2022-09-24 20:30:06'),
-(17, 1, 'flete3', 12, 144, 458, '800', '30.000', '10.000', 1, 1, '2022-09-24 19:55:46', '2022-09-24 20:52:08');
+(17, 1, 'flete3', 12, 144, 458, '800', '30.000', '10.000', 2, 1, '2022-09-24 19:55:46', '2022-10-02 19:21:18'),
+(18, 1, '123', 1, 2, 7, '123', '23.333', '213.123', 1, 1, '2022-09-26 22:37:51', '2022-09-27 00:34:24'),
+(19, 1, 'flete23', 4, 52, 150, '16541', '15.000', '5.000', 2, 1, '2022-09-27 00:35:57', '2022-10-03 00:44:45'),
+(20, 1, 'flete-44', 6, 73, 244, '1500', '60.000', '4.000', 2, 2, '2022-09-27 00:36:43', '2022-10-03 00:44:45'),
+(21, 1, '12467', 15, 268, 695, '100', '14.000', '4.000', 2, 1, '2022-09-27 00:37:12', '2022-09-30 20:43:05'),
+(22, 1, '12478', 3, 29, 82, '300', '50.000', '10.000', 2, 2, '2022-09-27 00:37:44', '2022-09-30 20:43:05'),
+(23, 1, 'flelte03102022', 13, 190, 557, '100', '14.890', '4.350', 2, 1, '2022-10-03 00:47:13', '2022-10-03 00:49:53'),
+(24, 1, 'flete03102022-2', 19, 363, 873, '100', '12.680', '4.250', 2, 2, '2022-10-03 00:48:16', '2022-10-03 00:49:53');
 
 -- --------------------------------------------------------
 
@@ -872,6 +885,31 @@ INSERT INTO `municipios` (`id_municipio`, `id_estado`, `municipio`) VALUES
 (460, 23, 'Sucre'),
 (461, 23, 'Valmore Rodríguez'),
 (462, 24, 'Libertador');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nomina_choferes`
+--
+
+CREATE TABLE `nomina_choferes` (
+  `id_nomina_chofer` int(11) NOT NULL,
+  `id_chofer` int(11) NOT NULL,
+  `id_viaje` int(11) NOT NULL,
+  `pago_total` varchar(50) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 0 COMMENT '0 significa de que no ha sido cancelado el pago, 1 para si',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `nomina_choferes`
+--
+
+INSERT INTO `nomina_choferes` (`id_nomina_chofer`, `id_chofer`, `id_viaje`, `pago_total`, `estado`, `created_at`, `updated_at`) VALUES
+(1, 10, 8, '0', 0, '2022-10-02 19:21:19', '2022-10-02 19:21:19'),
+(2, 10, 11, '0', 0, '2022-10-03 00:44:45', '2022-10-03 00:44:45'),
+(3, 12, 12, '0', 0, '2022-10-03 00:49:53', '2022-10-03 00:49:53');
 
 -- --------------------------------------------------------
 
@@ -2286,26 +2324,6 @@ INSERT INTO `salario_base` (`salario_base_id`, `id_usuario`, `salario`, `created
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sueldos`
---
-
-CREATE TABLE `sueldos` (
-  `id_sueldos` int(11) NOT NULL,
-  `sueldo_base` double(8,2) UNSIGNED NOT NULL,
-  `fecha_sueldo` date NOT NULL,
-  `estado` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `sueldos`
---
-
-INSERT INTO `sueldos` (`id_sueldos`, `sueldo_base`, `fecha_sueldo`, `estado`) VALUES
-(5, 136544.34, '2022-09-04', 'Activo');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tipousuario`
 --
 
@@ -2351,7 +2369,7 @@ CREATE TABLE `usuarios` (
   `iddepartamento` int(11) NOT NULL,
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(255) NOT NULL,
-  `imagen` varchar(50) NOT NULL,
+  `imagen` varchar(200) NOT NULL,
   `condicion` tinyint(4) NOT NULL DEFAULT 1,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
@@ -2362,7 +2380,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`idusuario`, `nombre`, `apellido`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`, `cargo`, `login`, `idtipousuario`, `iddepartamento`, `password`, `remember_token`, `imagen`, `condicion`, `created_at`, `updated_at`) VALUES
-(1, 'Islender Denilson', 'Montilva Marquez', 'Cedula', '28195178', 'San Josecito', '(424) 765-0285', 'islenderdenilson@gmail.com', 'ADMINISTRADOR', 'admin', 1, 1, '$2y$10$mRR/J9g.SPg2XaBfrftS7.65COnn1HPS8wxeLlNMF9T0HBWZ9aaBm', '', '1661283153-1635476098.png', 1, '2022-08-17 13:06:32', '2022-08-26 13:11:30'),
+(1, 'Islender Denilson', 'Montilva Marquez', 'Cedula', '28195178', 'San Josecito', '(424) 765-0285', 'islenderdenilson@gmail.com', 'ADMINISTRADOR', 'admin', 1, 1, '$2y$10$mRR/J9g.SPg2XaBfrftS7.65COnn1HPS8wxeLlNMF9T0HBWZ9aaBm', '', '1664677526-1635476098.png', 1, '2022-08-17 13:06:32', '2022-10-01 22:25:26'),
 (21, 'Jose Manuel', 'Gonzalez', 'RIF', '30145587', 'San Josecito', '(424) 777-7777', 'joseinvestigue@gmail.com', 'Sistema', 'jose', 9, 1, '8df6a5a36dd94925883e78879c6a3721af43d6880c3da6c53ed47234f665047c', '', '1661220207-3123.jpg', 1, '2022-08-17 13:06:32', '2022-08-22 22:07:03'),
 (22, 'Cesar', 'Colmenares', 'Cedula', '28195144', 'La E.................---', '(424) 589-6552', 'cesarcolmenares@gmail.com', 'Administrativos', 'Cesar', 5, 1, '63d1a75b61a05d3c76c840449a47f888c81260982cb8a7dd7b5ea9aaa7c63539', '', 'user_icon_default.png', 1, '2022-08-17 13:06:32', '2022-08-17 13:06:32'),
 (24, 'Gabriel', 'Montilva', 'Cedula', '30159951', 'Vega de Aza', '(424) 765-0285', 'gmontilva@gmail.com', 'APOYO', 'gabriel', 1, 7, '142b1770f7426daaf0a03c03afbc3fe6c023de163a31b5d87517cf78d16dffdb', '', 'user_icon_default.png', 1, '2022-08-17 13:06:32', '2022-08-22 23:45:56'),
@@ -2370,7 +2388,8 @@ INSERT INTO `usuarios` (`idusuario`, `nombre`, `apellido`, `tipo_documento`, `nu
 (26, 'aa', 'aaa', 'Cedula', '222321', 'aaaa', '(323) 232-323_', 'aa@aa.caa', 'adasd', 'pruebasss', 1, 1, '$2y$10$nkKnqJOOGsyrD5k4CC1V2OfLQpJ4mN3ydv3e65p1ejHYoQhjOPY.G', 'NULL', 'user_icon_default.png', 1, '2022-08-24 00:42:25', '2022-08-24 00:42:25'),
 (27, 'Pedro', 'Perez', 'Cedula', '1115564', 'Caracas', '(424) 744-6555', 'pedro@g.com', 'Analista', 'pedros', 1, 7, '$2y$10$sZbPFfde/LBtjLcKRc8TTO1xwOMHk4/Snb2IZq1WbxZvKgv6MWCsm', '3UH3V1oJRoBWgjjuPAOVLA2wLSoF2zxnWuCw3xZqI48LpMWFZswRNxAY8tYS', 'user_icon_default.png', 1, '2022-08-24 00:44:52', '2022-08-24 21:18:17'),
 (28, 'aaa', 'Perez', 'Cedula', '3333', 'Caracasaa', '(111) 445-____', 'asas@a.com', 'addd', 'otro', 1, 1, '$2y$10$Ff5jWHS53WwgQ7/Fll.J4.rW8HXuVg.hleL26pcT18jzEAnc9ktQW', 'NULL', 'user_icon_default.png', 0, '2022-08-24 13:59:36', '2022-08-24 21:24:53'),
-(34, 'asdsad', 'asdda', 'Cedula', '231231', '3123123sd', '(123) 123-123_', 'nnn@dad.com', 'adsdada', 'aaa', 1, 1, '$2y$10$cRmDx87wNhZPy.mcTH8/wePcqqMeOol9jhxzYK1FUUBN8DOk/zsoK', 'NULL', 'user_icon_default.png', 1, '2022-08-25 22:55:06', '2022-08-25 22:55:06');
+(34, 'asdsad', 'asdda', 'Cedula', '231231', '3123123sd', '(123) 123-123_', 'nnn@dad.com', 'adsdada', 'aaa', 1, 1, '$2y$10$cRmDx87wNhZPy.mcTH8/wePcqqMeOol9jhxzYK1FUUBN8DOk/zsoK', 'NULL', 'user_icon_default.png', 1, '2022-08-25 22:55:06', '2022-08-25 22:55:06'),
+(35, 'aa', 'dada', 'Cedula', '32424', 'Caracas', '(323) 232-323_', 'aa@aa.caa', 'adada', '3432', 1, 1, '$2y$10$3h1flHm5e44vHgCdHyhDYurNTypc9GrLKbShHB5DMpXBHu.WGtPoe', 'NULL', 'user_icon_default.png', 1, '2022-10-01 20:18:46', '2022-10-01 20:18:46');
 
 -- --------------------------------------------------------
 
@@ -2445,8 +2464,12 @@ CREATE TABLE `viajes` (
 --
 
 INSERT INTO `viajes` (`viajes_id`, `viajes_idusuario`, `viajes_codigo`, `viajes_idchofer`, `viajes_idchuto`, `viajes_idcava`, `viajes_idflete_ida`, `viajes_idflete_retorno`, `viajes_descripciondelacargar`, `viajes_dia_salida`, `viajes_dia_retorno`, `viajes_observaciones`, `viajes_estado`, `created_at`, `updated_at`) VALUES
-(7, 1, 'flete4', 14, 6, 10, NULL, 16, 'carga', '2022-09-24', '2022-10-08', 'adada', 0, '2022-09-24 20:30:05', '2022-09-26 01:01:38'),
-(8, 1, 'flete2', 10, 7, 11, 17, NULL, 'arroz', '2022-09-24', '2022-10-01', 'adasda', 0, '2022-09-24 20:52:08', '2022-09-24 20:52:08');
+(7, 1, 'flete23', 14, 6, 10, 18, 16, 'carga', '2022-09-24', '2022-10-08', 'adada', 0, '2022-09-24 20:30:05', '2022-09-27 22:27:43'),
+(8, 1, 'flete2', 10, 7, 11, 17, NULL, 'arroz', '2022-09-24', '2022-10-01', 'adasda', 1, '2022-09-24 20:52:08', '2022-10-02 19:21:19'),
+(9, 1, 'flete5', 12, 8, 12, 15, NULL, 'Balas', '2022-10-01', '2022-10-01', 'algo', 1, '2022-09-26 01:32:15', '2022-09-30 20:43:33'),
+(10, 1, '12265', 19, 9, 14, 21, 22, 'Marimba', '2022-09-28', '2022-10-06', 'Suerte', 1, '2022-09-27 00:42:57', '2022-09-30 20:43:05'),
+(11, 1, 'viaje03102022', 10, 9, 13, 19, 20, 'arroz', '2022-10-03', '2022-10-06', 'sin manifiestos', 1, '2022-10-03 00:44:36', '2022-10-03 00:44:45'),
+(12, 1, 'viaje03102022-1', 12, 9, 13, 23, 24, 'Cauchos', '2022-10-03', '2022-10-07', '150 cauchos', 1, '2022-10-03 00:49:43', '2022-10-03 00:49:53');
 
 --
 -- Índices para tablas volcadas
@@ -2545,6 +2568,14 @@ ALTER TABLE `municipios`
   ADD KEY `id_estado` (`id_estado`);
 
 --
+-- Indices de la tabla `nomina_choferes`
+--
+ALTER TABLE `nomina_choferes`
+  ADD PRIMARY KEY (`id_nomina_chofer`),
+  ADD KEY `id_chofer` (`id_chofer`),
+  ADD KEY `id_viaje` (`id_viaje`);
+
+--
 -- Indices de la tabla `pago_nomina`
 --
 ALTER TABLE `pago_nomina`
@@ -2577,12 +2608,6 @@ ALTER TABLE `registros_log`
 ALTER TABLE `salario_base`
   ADD PRIMARY KEY (`salario_base_id`),
   ADD KEY `id_usuario` (`id_usuario`);
-
---
--- Indices de la tabla `sueldos`
---
-ALTER TABLE `sueldos`
-  ADD PRIMARY KEY (`id_sueldos`);
 
 --
 -- Indices de la tabla `tipousuario`
@@ -2646,13 +2671,13 @@ ALTER TABLE `bitacora`
 -- AUTO_INCREMENT de la tabla `cavas`
 --
 ALTER TABLE `cavas`
-  MODIFY `cava_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `cava_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `choferes`
 --
 ALTER TABLE `choferes`
-  MODIFY `chofer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `chofer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `chutos`
@@ -2676,7 +2701,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `id_emp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_emp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -2688,13 +2713,19 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `fletes`
 --
 ALTER TABLE `fletes`
-  MODIFY `flete_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `flete_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `municipios`
 --
 ALTER TABLE `municipios`
   MODIFY `id_municipio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=463;
+
+--
+-- AUTO_INCREMENT de la tabla `nomina_choferes`
+--
+ALTER TABLE `nomina_choferes`
+  MODIFY `id_nomina_chofer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pago_nomina`
@@ -2727,12 +2758,6 @@ ALTER TABLE `salario_base`
   MODIFY `salario_base_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `sueldos`
---
-ALTER TABLE `sueldos`
-  MODIFY `id_sueldos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- AUTO_INCREMENT de la tabla `tipousuario`
 --
 ALTER TABLE `tipousuario`
@@ -2742,7 +2767,7 @@ ALTER TABLE `tipousuario`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_permiso`
@@ -2754,7 +2779,7 @@ ALTER TABLE `usuario_permiso`
 -- AUTO_INCREMENT de la tabla `viajes`
 --
 ALTER TABLE `viajes`
-  MODIFY `viajes_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `viajes_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
@@ -2827,6 +2852,13 @@ ALTER TABLE `fletes`
 --
 ALTER TABLE `municipios`
   ADD CONSTRAINT `municipios_ibfk_1` FOREIGN KEY (`id_estado`) REFERENCES `estados` (`id_estado`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `nomina_choferes`
+--
+ALTER TABLE `nomina_choferes`
+  ADD CONSTRAINT `nomina_choferes_ibfk_1` FOREIGN KEY (`id_chofer`) REFERENCES `empleado` (`id_emp`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nomina_choferes_ibfk_2` FOREIGN KEY (`id_viaje`) REFERENCES `viajes` (`viajes_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pago_nomina`

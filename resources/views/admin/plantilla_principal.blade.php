@@ -182,7 +182,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link" id="nom_chofer">
+                                    <a href="{{ route('nomina_chofer') }}" class="nav-link" id="nom_chofer">
                                         <i class="fas fa-address-card nav-icon"></i><p>Nómina Choferes</p>
                                     </a>
                                 </li>

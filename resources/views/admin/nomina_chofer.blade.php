@@ -9,16 +9,18 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Fletes  <button class="btn btn-dark" onclick="mostrarform()" id="btnagregar"><i class="fa fa-plus-circle"></i>Registrar Flete</button></h3>
+                <h3 class="card-title">Nómina Chofer
+                    <button class="btn btn-dark" onclick="generarPago()" id="btnagregar"><i class="fa fa-plus-circle"></i>Generar Pago</button>
+                 </h3>
             </div><!-- /.card-header -->
             <div class="card-body" id="listadoregistros">
                 <table id="tbllistado" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Opciones</th>
-                            <th>Codigo del Viaje</th>
-                            <th>Detalles del Viaje</th>
-                            <th>Pago al Chofer</th>
+                            <th>Chofer</th>
+                            <th>Viaje</th>
+                            <th>Pago Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,9 +28,9 @@
                     <tfoot>
                         <tr>
                             <th>Opciones</th>
-                            <th>Codigo del Viaje</th>
-                            <th>Detalles del Viaje</th>
-                            <th>Pago al Chofer</th>
+                            <th>Chofer</th>
+                            <th>Viaje</th>
+                            <th>Pago Total</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -38,6 +40,6 @@
 </div><!-- /.row -->
 @endsection
 @section('agregarScriptsJS')
-<script src="{{ asset('vendor/scripts/viajes_completados.js') }}"></script>
-<script src="{{ asset('vendor/scripts/libreria.js') }}"></script> 
+<script src="{{ asset('vendor/scripts/nomina_chofer.js') }}"></script>
+<script src="{{ asset('vendor/scripts/libreria.js') }}"></script>
 @endsection
