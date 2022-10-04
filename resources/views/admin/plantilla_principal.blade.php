@@ -74,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img id="imgUser1" src="vendor/img-users/{{ Auth::user()->imagen }}" class="user-image img-circle elevation-2" alt="User Image">
-                        <span class="d-none d-md-inline">{{ Auth::user()->nombre }}</span>
+                        <span class="d-md-inline">{{ Auth::user()->nombre }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->

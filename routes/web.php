@@ -12,6 +12,7 @@ use App\Http\Controllers\LoginAuthController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NominaChoferesController;
 use App\Http\Controllers\NominaController;
+use App\Http\Controllers\PdfNominaChoferController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\SalarioController;
 use App\Http\Controllers\TipoUsuarioController;
@@ -161,6 +162,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('listar_datos_viaje', [NominaChoferesController::class, 'listar_datos_viaje'])->name('listar_datos_viaje');
 
     Route::post('crear_pago_nomina_chofer', [NominaChoferesController::class, 'crear_pago_nomina_chofer'])->name('crear_pago_nomina_chofer');
+
+    Route::post('boton_ver_detalles', [NominaChoferesController::class, 'boton_ver_detalles'])->name('boton_ver_detalles');
+    // ------------------- PDF'S -----------------------
+    Route::get('pdfNominaChofer', [PdfNominaChoferController::class, 'pdfNominaChofer'])->name('pdfNominaChofer');
 
 
     //  ---------------- FIN NOMINA CHOFER ------------------------
