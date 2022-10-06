@@ -8,6 +8,7 @@ use App\Models\Flete;
 use App\Models\NominaChofer;
 use App\Models\Viaje;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class NominaChoferesController extends Controller
 {
@@ -23,8 +24,9 @@ class NominaChoferesController extends Controller
             $selectCodViaje = Viaje::where('viajes_id', '=', $datos->id_viaje)
                 ->select('viajes_codigo')
                 ->get();
+            $urlPdf = URL::signedRoute('pdfNominaChofer', ['id' => $datos->id_nomina_chofer]);
             $viaje = 'Codigo del Viaje: <span class="text-warning" id="text_cod_viaje">' . $selectCodViaje[0]->viajes_codigo . '</span><hr class="border-primary"><div class="d-flex justify-content-center"><button class="btn btn-primary" onclick="verViaje(' . $datos->id_viaje . ', `' . $selectCodViaje[0]->viajes_codigo . '`)">Ver Viaje</button></div>';
-            $icons = '<a class="btn btn-info btn-xs" title="Reporte" href="pdfNominaChofer?id=' . $datos->id_nomina_chofer . '"><i class="fas fa-file-pdf"></i></a>';
+            $icons = '<a target="_blank" class="btn btn-info btn-xs" title="Reporte" href="' . $urlPdf . '"><i class="fas fa-file-pdf"></i></a>';
             $arrayDatos[] = [
                 '0' => $icons,
                 '1' => $datosChofer,

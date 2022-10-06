@@ -12,6 +12,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class NominaController extends Controller
 {
@@ -171,8 +172,11 @@ class NominaController extends Controller
         $arrayDeDatos = [];
 
         foreach ($selecNomina as $dato) {
+
+            $urlPdf = URL::signedRoute('pagoNominaPDF', ['idNomina' => $dato->id_nomina]);
+
             $arrayDeDatos[] = [
-                "0" => '<button class="btn btn-danger btn-xs" title="Eliminar" onclick="eliminar(' . $dato->id_nomina . ')"><i class="fa fa-trash"></i></button><a target="_blank" href="pagoNominaPDF?idNomina=' . $dato->id_nomina . '" title="Generar PDF"> <button class="btn btn-info btn-xs"><i class="fa fa-file"></i></button></a>',
+                "0" => '<button class="btn btn-danger btn-xs" title="Eliminar" onclick="eliminar(' . $dato->id_nomina . ')"><i class="fa fa-trash"></i></button><a target="_blank" href="' . $urlPdf . '" title="Generar PDF"> <button class="btn btn-info btn-xs"><i class="fa fa-file"></i></button></a>',
                 "1" => $dato->nombre . ' ' . $dato->apellido,
                 "2" => 'VES ' . $dato->salario_mensual,
                 "3" => $dato->tipo_nomina,
@@ -245,7 +249,9 @@ class NominaController extends Controller
 
     public function pagoNominaPDF(Request $request, Fpdf $fpdf)
     {
-
+        if (!$request->hasValidSignature()) {
+            abort(401);
+        }
         $this->validate($request, [
             'idNomina' => 'required|numeric',
         ]);
