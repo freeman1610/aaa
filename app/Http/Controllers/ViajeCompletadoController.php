@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Flete;
+use App\Models\NominaChofer;
 use App\Models\Viaje;
 use Illuminate\Http\Request;
 
@@ -12,19 +13,33 @@ class ViajeCompletadoController extends Controller
     public function listar_viaje_completado()
     {
         $selectViajesCompletados = Viaje::where('viajes_estado', '=', 1)
-            ->select('viajes_id', 'viajes_codigo')
+            ->select('viajes_id', 'viajes_codigo', 'viajes_idchofer')
             ->get();
+
         $arrayDatos = [];
         foreach ($selectViajesCompletados as $datos) {
+            $comprobarPagoChofer = NominaChofer::where('id_viaje', '=', $datos->viajes_id)
+                ->select('estado')
+                ->get();
+            // return $comprobarPagoChofer;
+            if (isset($comprobarPagoChofer[0])) {
+                if ($comprobarPagoChofer[0]->estado == 1) {
+                    $pago = '<div class="d-flex justify-content-center"><span class="btn btn-success">Cancelado</span></div>';
+                }
+                if ($comprobarPagoChofer[0]->estado == 0) {
+                    $pago = '<div class="d-flex justify-content-center"><span class="btn btn-warning">Sin Cancelar</span></div>';
+                }
+            }
+
             // $botonVerDetalles = '<button class="btn btn-primary btn-xs" title="Detalles" onclick="detallesViaje(' . $datos->viajes_id . ')"><i class="fa fa-edit"></i></button>';
-            $botonVerDetalles = '<button class="btn btn-primary btn-xs" title="Detalles" onclick="detallesViaje(' . $datos->viajes_id . ')"><i class="fas fa-eye"></i></button>';
+            $botonVerDetalles = '<div class="d-flex justify-content-center"><button class="btn btn-primary" title="Detalles" onclick="detallesViaje(' . $datos->viajes_id . ', `' . $datos->viajes_codigo . '`)"><i class="fas fa-eye"></i> Ver Detalles</button></div>';
             $botonPDF = '<button class="btn btn-primary btn-xs" title="Imprimir PDF" onclick="pdfViajeCompletado(' . $datos->viajes_id . ')"><i class="fas fa-file-pdf"></i></button>';
 
             $arrayDatos[] = [
                 "0" => $botonPDF,
                 "1" => $datos->viajes_codigo,
-                "2" => $botonVerDetalles . ' Ver Detalles',
-                "3" => 'Sin Cancelar'
+                "2" => $botonVerDetalles,
+                "3" => $pago
 
             ];
         }

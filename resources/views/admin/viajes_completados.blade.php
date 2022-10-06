@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Fletes  <button class="btn btn-dark" onclick="mostrarform()" id="btnagregar"><i class="fa fa-plus-circle"></i>Registrar Flete</button></h3>
+                <h3 class="card-title">Viajes Completados</h3>
             </div><!-- /.card-header -->
             <div class="card-body" id="listadoregistros">
                 <table id="tbllistado" class="table table-bordered table-striped">
