@@ -377,6 +377,13 @@ function crearViaje() {
         return toastr.error('El Flete de Ida no puede ser el Mismo que el Retorno. Origin: JS')
     }
 
+    let diaSalida = new Date(document.getElementById('viaje_dia_salida').value)
+    let diaRetorno = new Date(document.getElementById('viaje_dia_retorno').value)
+
+    if (diaSalida >= diaRetorno) {
+        return toastr.error('La Fecha de Retorno no puede ser anterior a la de Salida. Origin: JS')
+    }
+
     let datos = $('#formularioCrearViaje').serialize();
 
     $.ajax({

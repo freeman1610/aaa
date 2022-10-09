@@ -14,6 +14,7 @@ use App\Http\Controllers\NominaChoferesController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\PdfNominaChoferController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\PruebaController;
 use App\Http\Controllers\SalarioController;
 use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\UsuarioController;
@@ -189,7 +190,7 @@ Route::middleware(['auth'])->group(function () {
     // ----------------- FIN DEPARTAMENTOS ------------------------
 
     // ----------------- TRANSPORTE ------------------------
-    // CHUTOS
+    // ----------------- CHUTOS
     Route::get('listar_chutos', [ChutoController::class, 'listar_chutos'])->name('listar_chutos');
 
     Route::post('registrar_chuto', [ChutoController::class, 'registrar_chuto'])->name('registrar_chuto');
@@ -199,7 +200,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('actualizar_chuto', [ChutoController::class, 'actualizar_chuto'])->name('actualizar_chuto');
 
     Route::post('eliminar_chuto', [ChutoController::class, 'eliminar_chuto'])->name('eliminar_chuto');
-    // CAVAS
+    // ----------------- CAVAS
     Route::get('listar_cavas', [CavaController::class, 'listar_cavas'])->name('listar_cavas');
 
     Route::post('registrar_cava', [CavaController::class, 'registrar_cava'])->name('registrar_cava');
@@ -209,7 +210,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('actualizar_cava', [CavaController::class, 'actualizar_cava'])->name('actualizar_cava');
 
     Route::post('eliminar_cava', [CavaController::class, 'eliminar_cava'])->name('eliminar_cava');
-    // FLETES
+    // ----------------- FLETES
     Route::get('listar_fletes', [FleteController::class, 'listar_fletes'])->name('listar_fletes');
 
     Route::post('listar_estados', [FleteController::class, 'listar_estados'])->name('listar_estados');
@@ -225,7 +226,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('update_flete', [FleteController::class, 'update_flete'])->name('update_flete');
 
     Route::post('eliminar_flete', [FleteController::class, 'eliminar_flete'])->name('eliminar_flete');
-    // VIAJES
+    // ----------------- VIAJES
     Route::get('listar_viajes', [ViajeController::class, 'listar_viajes'])->name('listar_viajes');
 
     Route::post('listar_crear_viaje', [ViajeController::class, 'listar_crear_viaje'])->name('listar_crear_viaje');
@@ -244,8 +245,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('viaje_delete', [ViajeController::class, 'viaje_delete'])->name('viaje_delete');
 
-
-    // VIAJE COMPLETADOS
+    // ----------------- VIAJE COMPLETADOS 
     Route::get(
         'listar_viaje_completado',
         [
@@ -262,15 +262,15 @@ Route::middleware(['auth'])->group(function () {
         ]
     )->name('detalle_viaje_completado');
 
+    //  ---------------- FIN TRANSPORTE ------------------------
+
     // ---------------------- SISTEMA ------------------------
 
     Route::post('backupsql', [BackUpAndRestoreDBController::class, 'backupsql'])->name('backupsql');
 
     Route::post('limpieza_backup_db', [BackUpAndRestoreDBController::class, 'limpieza_backup_db'])->name('limpieza_backup_db');
 
-    // Route::post('restore_db', [BackUpAndRestoreDBController::class, 'restore_db'])->name('restore_db');
-
-    //  ---------------- FIN TRANSPORTE ------------------------
+    // ---------------------- FIN SISTEMA ------------------------
 
     // ----------------- ALMACEN ------------------------
 
