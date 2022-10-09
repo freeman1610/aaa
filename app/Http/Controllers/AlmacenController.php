@@ -60,16 +60,14 @@ class AlmacenController extends Controller
             return response()->json(['message' => 'El Codigo Ingresado Ya Ha Sido Registrado'], status: 422);
         }
 
-        DB::insert('insert into almacen (idusuario, codigo, marca, nombre, stock, descripcion, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?)', [
-            Auth::user()->idusuario,
-            $request->codigo,
-            $request->marca,
-            $request->nombre,
-            $request->stock,
-            $request->descripcion,
-            new DateTime(),
-            new DateTime()
-        ]);
+        $newAlmacen = new Almacen;
+        $newAlmacen->idusuario = Auth::user()->idusuario;
+        $newAlmacen->codigo = $request->codigo;
+        $newAlmacen->marca =  $request->marca;
+        $newAlmacen->nombre = $request->nombre;
+        $newAlmacen->stock = $request->stock;
+        $newAlmacen->descripcion = $request->descripcion;
+        $newAlmacen->save();
     }
 
     public function mostrar_articulo_update(Request $request)

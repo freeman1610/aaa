@@ -42,15 +42,9 @@ class PerfilController extends Controller
             'clavec' => 'required|min:6'
         ]);
 
-        $usuarios = Usuario::all();
+        $actu = Usuario::find(Auth::user()->idusuario);
 
-        $id_u = Auth::user()->idusuario;
-
-        $actu = $usuarios->find($id_u);
-
-        $contra_cifrada = bcrypt($request->clavec);
-
-        $actu->password = $contra_cifrada;
+        $actu->password = bcrypt($request->clavec);
 
         $actu->save();
     }
@@ -78,13 +72,7 @@ class PerfilController extends Controller
 
     public function guardar_perfil_editado(Request $request)
     {
-
-        $usuarios = Usuario::all();
-
-        $id_u = Auth::user()->idusuario;
-
-        $actu = $usuarios->find($id_u);
-
+        $actu = Usuario::find(Auth::user()->idusuario);
         $actu->nombre = $request->nombre;
         $actu->apellido = $request->apellido;
         $actu->tipo_documento = $request->tipo_documento;

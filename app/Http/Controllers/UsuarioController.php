@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
-use DateTime;
+use App\Models\UsuarioPermiso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +12,7 @@ class UsuarioController extends Controller
 {
     public function mostrar_listar_usuarios()
     {
-        $seleccionDeUsuarios = DB::table('usuarios')->select(
+        $seleccionDeUsuarios = Usuario::select(
             'idusuario',
             'nombre',
             'apellido',
@@ -137,10 +137,13 @@ class UsuarioController extends Controller
         $selectUsuario->login = $request->login;
         $selectUsuario->save();
 
-        $borrarPermisosDelUsuario = DB::table('usuario_permiso')->where('idusuario', $request->idusuario)->delete();
+        UsuarioPermiso::where('idusuario', $request->idusuario)->delete();
 
         foreach ($request->permiso as $dato) {
-            DB::insert('insert into usuario_permiso (idusuario, idpermiso) values (?, ?)', [$request->idusuario, $dato]);
+            $permisoNew = new UsuarioPermiso;
+            $permisoNew->idusuario = $request->idusuario;
+            $permisoNew->idpermiso = $dato;
+            $permisoNew->save();
         }
     }
 
@@ -174,38 +177,36 @@ class UsuarioController extends Controller
             $imagen_n = $request->file('imagen_a');
             $rutaDeGuardado = 'vendor/img-users/';
             $nombreImagenNuevo = time() . '-' . $imagen_n->getClientOriginalName();
-            $moverImagen = $request->file('imagen_a')->move($rutaDeGuardado, $nombreImagenNuevo);
+            $request->file('imagen_a')->move($rutaDeGuardado, $nombreImagenNuevo);
         }
 
         $contra_cifrada = bcrypt($request->clave_a);
 
-        DB::insert(
-            'insert into usuarios (nombre,apellido,tipo_documento,num_documento,direccion,telefono,email,cargo,login,idtipousuario,iddepartamento,password,remember_token,imagen,condicion,created_at,updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [
-                $request->nombre_a,
-                $request->apellido_a,
-                $request->tipo_documento_a,
-                $request->num_documento_a,
-                $request->direccion_a,
-                $request->telefono_a,
-                $request->email_a,
-                $request->cargo_a,
-                $request->login_a,
-                $request->idtipousuario_a,
-                $request->iddepartamento_a,
-                $contra_cifrada,
-                'NULL',
-                $nombreImagenNuevo,
-                '1',
-                new DateTime(),
-                new DateTime()
-            ]
-        );
+        $usuarioNew = new Usuario;
+        $usuarioNew->nombre = $request->nombre_a;
+        $usuarioNew->apellido = $request->apellido_a;
+        $usuarioNew->tipo_documento =  $request->tipo_documento_a;
+        $usuarioNew->num_documento =  $request->num_documento_a;
+        $usuarioNew->direccion = $request->direccion_a;
+        $usuarioNew->telefono = $request->telefono_a;
+        $usuarioNew->email = $request->email_a;
+        $usuarioNew->cargo = $request->cargo_a;
+        $usuarioNew->login = $request->login_a;
+        $usuarioNew->idtipousuario = $request->idtipousuario_a;
+        $usuarioNew->iddepartamento = $request->iddepartamento_a;
+        $usuarioNew->password = $contra_cifrada;
+        $usuarioNew->remember_token = 'NULL';
+        $usuarioNew->imagen = $nombreImagenNuevo;
+        $usuarioNew->condicion = '1';
+        $usuarioNew->save();
 
         if (isset($request->permiso)) {
-            $usuarioNuevo = DB::table('usuarios')->select('idusuario')->latest()->first();
+            $usuarioNuevo = Usuario::select('idusuario')->latest()->first();
             foreach ($request->permiso as $dato) {
-                DB::insert('insert into usuario_permiso (idusuario, idpermiso) values (?, ?)', [$usuarioNuevo->idusuario, $dato]);
+                $permisoNew = new UsuarioPermiso;
+                $permisoNew->idusuario = $usuarioNuevo->idusuario;
+                $permisoNew->idpermiso = $dato;
+                $permisoNew->save();
             }
         }
     }
@@ -262,7 +263,7 @@ class UsuarioController extends Controller
             'idusuario' => 'required'
         ]);
 
-        $borrarUsuario = DB::table('usuarios')->where('idusuario', $request->idusuario)->delete();
+        Usuario::destroy($request->idusuario);
 
         return 'Datos Eliminados Correctamente';
     }

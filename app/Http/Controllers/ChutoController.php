@@ -49,15 +49,14 @@ class ChutoController extends Controller
         if (isset($comprobarPlaca[0]->chuto_placa)) {
             return response()->json(['message' => 'La Placa Ingresado Ya Ha Sido Registrado'], status: 422);
         }
-        DB::insert('insert into chutos (chuto_idusuario, chuto_placa, chuto_modelo, chuto_marca, chuto_estado, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?)', [
-            Auth::user()->idusuario,
-            $request->chuto_placa,
-            $request->chuto_modelo,
-            $request->chuto_marca,
-            $request->chuto_estado,
-            new DateTime(),
-            new DateTime()
-        ]);
+
+        $newChuto = new Chuto;
+        $newChuto->chuto_idusuario = Auth::user()->idusuario;
+        $newChuto->chuto_placa = $request->chuto_placa;
+        $newChuto->chuto_modelo = $request->chuto_modelo;
+        $newChuto->chuto_marca = $request->chuto_marca;
+        $newChuto->chuto_estado = $request->chuto_estado;
+        $newChuto->save();
     }
     public function mostrar_chuto(Request $request)
     {

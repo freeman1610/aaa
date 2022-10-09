@@ -7,20 +7,17 @@ use App\Http\Controllers\ChutoController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\FleteController;
-use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\LoginAuthController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NominaChoferesController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\PdfNominaChoferController;
 use App\Http\Controllers\PerfilController;
-use App\Http\Controllers\PruebaController;
 use App\Http\Controllers\SalarioController;
 use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ViajeCompletadoController;
 use App\Http\Controllers\ViajeController;
-use App\Models\Flete;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -264,14 +261,6 @@ Route::middleware(['auth'])->group(function () {
 
     //  ---------------- FIN TRANSPORTE ------------------------
 
-    // ---------------------- SISTEMA ------------------------
-
-    Route::post('backupsql', [BackUpAndRestoreDBController::class, 'backupsql'])->name('backupsql');
-
-    Route::post('limpieza_backup_db', [BackUpAndRestoreDBController::class, 'limpieza_backup_db'])->name('limpieza_backup_db');
-
-    // ---------------------- FIN SISTEMA ------------------------
-
     // ----------------- ALMACEN ------------------------
 
     Route::get('listar_almacen', [AlmacenController::class, 'listar_almacen'])->name('listar_almacen');
@@ -297,6 +286,14 @@ Route::middleware(['auth'])->group(function () {
     //  ---------------- FIN PERFIL ------------------------
 
     Route::get('logout', [LogoutController::class, 'exitt'])->name('logout.exitt');
+
+    // ---------------------- SISTEMA ------------------------
+
+    Route::post('backupsql', [BackUpAndRestoreDBController::class, 'backupsql'])->name('backupsql');
+
+    Route::post('limpieza_backup_db', [BackUpAndRestoreDBController::class, 'limpieza_backup_db'])->name('limpieza_backup_db');
+
+    // ---------------------- FIN SISTEMA ------------------------
 });
 
 require __DIR__ . '/auth.php';

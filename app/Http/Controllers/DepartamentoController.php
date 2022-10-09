@@ -53,13 +53,12 @@ class DepartamentoController extends Controller
             'nombre' => 'required',
             'descripcion' => 'required'
         ]);
-        DB::insert('insert into departamento (nombre, descripcion, created_at, updated_at, idusuario) values (?, ?, ?, ?, ?)', [
-            $request->nombre,
-            $request->descripcion,
-            new DateTime(),
-            new DateTime(),
-            Auth::user()->idusuario
-        ]);
+
+        $newDepartamento = new Departamento;
+        $newDepartamento->nombre = $request->nombre;
+        $newDepartamento->descripcion = $request->descripcion;
+        $newDepartamento->idusuario = Auth::user()->idusuario;
+        $newDepartamento->save();
     }
     public function update_departamento(Request $request)
     {

@@ -362,21 +362,19 @@ class ViajeController extends Controller
                 return response()->json(['message' => 'El Codigo Ingresado Ya Ha Sido Registrado'], status: 422);
             }
 
-            DB::table('viajes')->insert([
-                'viajes_idusuario'     =>   Auth::user()->idusuario,
-                'viajes_codigo'   =>   $request->viaje_codigo,
-                'viajes_idchofer' => $request->viaje_chofer,
-                'viajes_idchuto' => $request->viaje_chuto,
-                'viajes_idcava' => $request->viaje_cava,
-                'viajes_idflete_ida' => $request->viaje_flete_ida,
-                'viajes_idflete_retorno' => $request->viaje_flete_retorno,
-                'viajes_descripciondelacargar' => $request->viaje_descripcion,
-                'viajes_dia_salida' => $request->viaje_dia_salida,
-                'viajes_dia_retorno' => $request->viaje_dia_retorno,
-                'viajes_observaciones' => $request->viaje_observacion,
-                'created_at' => new DateTime(),
-                'updated_at' => new DateTime()
-            ]);
+            $newViaje = new Viaje;
+            $newViaje->viajes_idusuario = Auth::user()->idusuario;
+            $newViaje->viajes_codigo = $request->viaje_codigo;
+            $newViaje->viajes_idchofer = $request->viaje_chofer;
+            $newViaje->viajes_idchuto = $request->viaje_chuto;
+            $newViaje->viajes_idcava = $request->viaje_cava;
+            $newViaje->viajes_idflete_ida = $request->viaje_flete_ida;
+            $newViaje->viajes_idflete_retorno = $request->viaje_flete_retorno;
+            $newViaje->viajes_descripciondelacargar = $request->viaje_descripcion;
+            $newViaje->viajes_dia_salida = $request->viaje_dia_salida;
+            $newViaje->viajes_dia_retorno = $request->viaje_dia_retorno;
+            $newViaje->viajes_observaciones = $request->viaje_observacion;
+            $newViaje->save();
 
             $chofer = Chofer::where('chofer_idempleado', '=', $request->viaje_chofer)->get();
             $chofer[0]->chofer_estado = 1;
@@ -425,20 +423,18 @@ class ViajeController extends Controller
                 return response()->json(['message' => 'El Codigo Ingresado Ya Ha Sido Registrado'], status: 422);
             }
 
-            DB::table('viajes')->insert([
-                'viajes_idusuario'     =>   Auth::user()->idusuario,
-                'viajes_codigo'   =>   $request->viaje_codigo,
-                'viajes_idchofer' => $request->viaje_chofer,
-                'viajes_idchuto' => $request->viaje_chuto,
-                'viajes_idcava' => $request->viaje_cava,
-                'viajes_idflete_ida' => $request->viaje_flete_ida,
-                'viajes_descripciondelacargar' => $request->viaje_descripcion,
-                'viajes_dia_salida' => $request->viaje_dia_salida,
-                'viajes_dia_retorno' => $request->viaje_dia_retorno,
-                'viajes_observaciones' => $request->viaje_observacion,
-                'created_at' => new DateTime(),
-                'updated_at' => new DateTime()
-            ]);
+            $newViaje = new Viaje;
+            $newViaje->viajes_idusuario = Auth::user()->idusuario;
+            $newViaje->viajes_codigo = $request->viaje_codigo;
+            $newViaje->viajes_idchofer = $request->viaje_chofer;
+            $newViaje->viajes_idchuto = $request->viaje_chuto;
+            $newViaje->viajes_idcava = $request->viaje_cava;
+            $newViaje->viajes_idflete_ida = $request->viaje_flete_ida;
+            $newViaje->viajes_descripciondelacargar = $request->viaje_descripcion;
+            $newViaje->viajes_dia_salida = $request->viaje_dia_salida;
+            $newViaje->viajes_dia_retorno = $request->viaje_dia_retorno;
+            $newViaje->viajes_observaciones = $request->viaje_observacion;
+            $newViaje->save();
 
             $chofer = Chofer::where('chofer_idempleado', '=', $request->viaje_chofer)->get();
             $chofer[0]->chofer_estado = 1;
@@ -482,20 +478,18 @@ class ViajeController extends Controller
                 return response()->json(['message' => 'El Codigo Ingresado Ya Ha Sido Registrado'], status: 422);
             }
 
-            DB::table('viajes')->insert([
-                'viajes_idusuario'     =>   Auth::user()->idusuario,
-                'viajes_codigo'   =>   $request->viaje_codigo,
-                'viajes_idchofer' => $request->viaje_chofer,
-                'viajes_idchuto' => $request->viaje_chuto,
-                'viajes_idcava' => $request->viaje_cava,
-                'viajes_idflete_retorno' => $request->viaje_flete_retorno,
-                'viajes_descripciondelacargar' => $request->viaje_descripcion,
-                'viajes_dia_salida' => $request->viaje_dia_salida,
-                'viajes_dia_retorno' => $request->viaje_dia_retorno,
-                'viajes_observaciones' => $request->viaje_observacion,
-                'created_at' => new DateTime(),
-                'updated_at' => new DateTime()
-            ]);
+            $newViaje = new Viaje;
+            $newViaje->viajes_idusuario = Auth::user()->idusuario;
+            $newViaje->viajes_codigo = $request->viaje_codigo;
+            $newViaje->viajes_idchofer = $request->viaje_chofer;
+            $newViaje->viajes_idchuto = $request->viaje_chuto;
+            $newViaje->viajes_idcava = $request->viaje_cava;
+            $newViaje->viajes_idflete_retorno = $request->viaje_flete_retorno;
+            $newViaje->viajes_descripciondelacargar = $request->viaje_descripcion;
+            $newViaje->viajes_dia_salida = $request->viaje_dia_salida;
+            $newViaje->viajes_dia_retorno = $request->viaje_dia_retorno;
+            $newViaje->viajes_observaciones = $request->viaje_observacion;
+            $newViaje->save();
 
             $chofer = Chofer::where('chofer_idempleado', '=', $request->viaje_chofer)->get();
             $chofer[0]->chofer_estado = 1;
@@ -962,6 +956,7 @@ class ViajeController extends Controller
             $selectFleteIda = Flete::find($viaje->viajes_idflete_ida);
             $selectFleteIda->flete_estado = 0;
         }
+        // Compruebo de que en este viaje exista flete retorno
         if ($viaje->viajes_idflete_retorno != NULL) {
             $selectFleteRetorno = Flete::find($viaje->viajes_idflete_retorno);
             $selectFleteRetorno->flete_estado = 0;

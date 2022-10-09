@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Salario extends Model implements Auditable
+class UsuarioPermiso extends Model implements Auditable
 {
     use HasFactory;
     use \OwenIt\Auditing\Auditable;
-    protected $table = 'salario_base';
-    protected $primaryKey = 'salario_base_id';
+    protected $table = 'usuario_permiso';
+    protected $primaryKey = 'idusuario_permiso';
 }

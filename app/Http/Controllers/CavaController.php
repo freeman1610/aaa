@@ -49,15 +49,14 @@ class CavaController extends Controller
         if (isset($comprobarPlaca[0]->cava_placa)) {
             return response()->json(['message' => 'La Placa Ingresado Ya Ha Sido Registrado'], status: 422);
         }
-        DB::insert('insert into cavas (cava_idusuario, cava_placa, cava_modelo, cava_marca, cava_estado, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?)', [
-            Auth::user()->idusuario,
-            $request->cava_placa,
-            $request->cava_modelo,
-            $request->cava_marca,
-            $request->cava_estado,
-            new DateTime(),
-            new DateTime()
-        ]);
+
+        $newCava = new Cava;
+        $newCava->cava_idusuario =  Auth::user()->idusuario;
+        $newCava->cava_placa = $request->cava_placa;
+        $newCava->cava_modelo = $request->cava_modelo;
+        $newCava->cava_marca = $request->cava_marca;
+        $newCava->cava_estado = $request->cava_estado;
+        $newCava->save();
     }
     public function mostrar_cava(Request $request)
     {

@@ -137,18 +137,17 @@ class FleteController extends Controller
         if (isset($verificarCodFlete[0]->flete_codigo)) {
             return response()->json(['message' => 'La Codigo Ingresado Ya Ha Sido Registrado'], status: 422);
         }
-        DB::table('fletes')->insert([
-            'flete_idusuario' => Auth::user()->idusuario,
-            'flete_codigo' => $request->flete_codigo,
-            'flete_destino_estado' => $request->flete_destino_estado,
-            'flete_destino_municipio' => $request->flete_destino_municipio,
-            'flete_destino_parroquia' => $request->flete_destino_parroquia,
-            'flete_kilometros' => $request->flete_kilometros,
-            'flete_valor_en_carga' => $request->flete_valor_en_carga,
-            'flete_valor_sin_carga' => $request->flete_valor_sin_carga,
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime()
-        ]);
+
+        $newFlete = new Flete;
+        $newFlete->flete_idusuario = Auth::user()->idusuario;
+        $newFlete->flete_codigo = $request->flete_codigo;
+        $newFlete->flete_destino_estado = $request->flete_destino_estado;
+        $newFlete->flete_destino_municipio = $request->flete_destino_municipio;
+        $newFlete->flete_destino_parroquia = $request->flete_destino_parroquia;
+        $newFlete->flete_kilometros = $request->flete_kilometros;
+        $newFlete->flete_valor_en_carga = $request->flete_valor_en_carga;
+        $newFlete->flete_valor_sin_carga = $request->flete_valor_sin_carga;
+        $newFlete->save();
     }
     public function mostrar_flete(Request $request)
     {

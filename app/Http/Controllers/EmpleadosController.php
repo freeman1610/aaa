@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Chofer;
 use App\Models\Empleado;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +11,7 @@ class EmpleadosController extends Controller
 {
     public function listar_empleados()
     {
-        $selecEmpleados = DB::table('empleado')->select()->get();
+        $selecEmpleados = Empleado::all();
 
         $arrayDeDatos = array();
 
@@ -93,14 +92,9 @@ class EmpleadosController extends Controller
         if ($request->iddepartamento == 8) {
             $comprobarSiEraChofer = Chofer::where('chofer_idempleado', '=', $request->id_emp)->get();
             if (empty($comprobarSiEraChofer[0]->chofer_idempleado)) {
-                DB::insert(
-                    'insert into choferes (chofer_idempleado, created_at ,updated_at) values (?, ?, ?)',
-                    [
-                        $request->id_emp,
-                        new DateTime(),
-                        new DateTime()
-                    ]
-                );
+                $newChofer = new Chofer;
+                $newChofer->chofer_idempleado = $request->id_emp;
+                $newChofer->save();
             }
         }
     }
@@ -120,34 +114,25 @@ class EmpleadosController extends Controller
             'direccion_a' => 'required'
         ]);
 
-        DB::insert(
-            'insert into empleado (nombre,apellido,tipo_documento,cedula,fecha_nac,iddepartamento,cargo,telefono,direccion,fecha_ingreso,created_at,updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [
-                $request->nombre_a,
-                $request->apellido_a,
-                $request->tipo_documento_a,
-                $request->num_documento_a,
-                $request->fecha_nac,
-                $request->iddepartamento_a,
-                $request->cargo_a,
-                $request->telefono_a,
-                $request->direccion_a,
-                $request->fecha_ingreso,
-                new DateTime(),
-                new DateTime()
-            ]
-        );
+        $newEmpleado = new Empleado;
+        $newEmpleado->nombre = $request->nombre_a;
+        $newEmpleado->apellido = $request->apellido_a;
+        $newEmpleado->tipo_documento = $request->tipo_documento_a;
+        $newEmpleado->cedula = $request->num_documento_a;
+        $newEmpleado->fecha_nac = $request->fecha_nac;
+        $newEmpleado->iddepartamento = $request->iddepartamento_a;
+        $newEmpleado->cargo = $request->cargo_a;
+        $newEmpleado->telefono =  $request->telefono_a;
+        $newEmpleado->direccion = $request->direccion_a;
+        $newEmpleado->fecha_ingreso =  $request->fecha_ingreso;
+        $newEmpleado->save();
 
         if ($request->iddepartamento_a == 8) {
             $selectUltimoEmpleado = DB::table('empleado')->select('id_emp')->latest()->first();
-            DB::insert(
-                'insert into choferes (chofer_idempleado, created_at ,updated_at) values (?, ?, ?)',
-                [
-                    $selectUltimoEmpleado->id_emp,
-                    new DateTime(),
-                    new DateTime()
-                ]
-            );
+
+            $newChofer = new Chofer;
+            $newChofer->chofer_idempleado = $selectUltimoEmpleado->id_emp;
+            $newChofer->save();
         }
     }
 
@@ -157,6 +142,8 @@ class EmpleadosController extends Controller
             'id_emp' => 'required'
         ]);
 
-        $borrarEmpleado = DB::table('empleado')->where('id_emp', $request->id_emp)->delete();
+        Empleado::destroy($request->id_emp);
+
+        return response()->json('fino pa', status: 200);
     }
 }

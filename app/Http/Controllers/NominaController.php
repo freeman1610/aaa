@@ -108,58 +108,42 @@ class NominaController extends Controller
         //Total a Pagar
         $total_pago = $subtotalAsignacion - $subTotalDeduccion;
 
-        DB::insert(
-            'insert into pago_nomina (id_empleado,id_usuario,salario_mensual,tipo_nomina,inicio_pago,fin_pago,total_asignaciones,total_deducciones,total_pago,fecha_nomina,created_at,updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [
-                $request->id_empleado_a,
-                Auth::user()->idusuario,
-                $salario_mensual,
-                $tipo_nomina,
-                $inicio_pago,
-                $fin_pago,
-                $subtotalAsignacion,
-                $subTotalDeduccion,
-                $total_pago,
-                new DateTime(),
-                new DateTime(),
-                new DateTime()
-            ]
-        );
+        $newNomina = new Nomina;
+        $newNomina->id_empleado = $request->id_empleado_a;
+        $newNomina->id_usuario = Auth::user()->idusuario;
+        $newNomina->salario_mensual = $salario_mensual;
+        $newNomina->tipo_nomina = $tipo_nomina;
+        $newNomina->inicio_pago = $inicio_pago;
+        $newNomina->fin_pago = $fin_pago;
+        $newNomina->total_asignaciones = $subtotalAsignacion;
+        $newNomina->total_deducciones = $subTotalDeduccion;
+        $newNomina->total_pago = $total_pago;
+        $newNomina->save();
 
         // Luego de realizar el pago de nomina (insert en pago_nomina) se procede a hacer insercion
         // en la tabla asignacion_nomina y deduccion_nomina
 
         $return_id_pago_nomina = DB::table('pago_nomina')->select('id_nomina')->latest()->first();
 
-        DB::insert(
-            'insert into asignacion_nomina (id_nomina,dias_lab,pagos_diasLab,dias_libres,pagos_DiaLib,horas_extra_diurna,pago_hr_extraD,horas_extra_noc,pago_hr_extra_noc,created_at,updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [
-                $return_id_pago_nomina->id_nomina,
-                $dias_laborados,
-                $pago_diasLab,
-                $dias_libres,
-                $pago_diasLib,
-                $horasD,
-                $pago_hora_extraD,
-                $horasN,
-                $pago_hora_extraN,
-                new DateTime(),
-                new DateTime()
-            ]
-        );
+        $newAsignacionNomina = new AsignacionNomina;
+        $newAsignacionNomina->id_nomina = $return_id_pago_nomina->id_nomina;
+        $newAsignacionNomina->dias_lab = $dias_laborados;
+        $newAsignacionNomina->pagos_diasLab = $pago_diasLab;
+        $newAsignacionNomina->dias_libres = $dias_libres;
+        $newAsignacionNomina->pagos_DiaLib = $pago_diasLib;
+        $newAsignacionNomina->horas_extra_diurna = $horasD;
+        $newAsignacionNomina->pago_hr_extraD = $pago_hora_extraD;
+        $newAsignacionNomina->horas_extra_noc = $horasN;
+        $newAsignacionNomina->pago_hr_extra_noc = $pago_hora_extraN;
+        $newAsignacionNomina->save();
 
-        DB::insert(
-            'insert into deduccion_nomina (id_nomina,sso,paro_forzoso,lph,subtotal,created_at,updated_at) values (?, ?, ?, ?, ?, ?, ?)',
-            [
-                $return_id_pago_nomina->id_nomina,
-                $sSo,
-                $paro_forzoso,
-                $lph,
-                $subTotalDeduccion,
-                new DateTime(),
-                new DateTime()
-            ]
-        );
+        $newDeduccionNomina = new DeduccionNomina;
+        $newDeduccionNomina->id_nomina = $return_id_pago_nomina->id_nomina;
+        $newDeduccionNomina->sso = $sSo;
+        $newDeduccionNomina->paro_forzoso = $paro_forzoso;
+        $newDeduccionNomina->lph = $lph;
+        $newDeduccionNomina->subtotal = $subTotalDeduccion;
+        $newDeduccionNomina->save();
     }
 
     public function listar_nomina()
