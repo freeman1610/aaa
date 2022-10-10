@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlmacenController;
+use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\BackUpAndRestoreDBController;
 use App\Http\Controllers\CavaController;
 use App\Http\Controllers\ChutoController;
@@ -65,6 +66,8 @@ Route::middleware(['auth'])->group(function () {
     Route::view('viajes', 'admin.viajes')->name('viajes');
 
     Route::view('viajes_completados', 'admin.viajes_completados')->name('viajes_completados');
+
+    Route::view('auditoria', 'admin.auditoria')->name('auditoria');
 
     Route::view('perfil', 'admin.perfil')->name('perfil');
 
@@ -260,6 +263,13 @@ Route::middleware(['auth'])->group(function () {
     )->name('detalle_viaje_completado');
 
     //  ---------------- FIN TRANSPORTE ------------------------
+
+    // ----------------- AUDITORIA ------------------------
+
+    Route::get('listar_auditoria', [AuditoriaController::class, 'listar_auditoria'])->name('listar_auditoria');
+
+
+    //  ---------------- FIN AUDITORIA ------------------------
 
     // ----------------- ALMACEN ------------------------
 

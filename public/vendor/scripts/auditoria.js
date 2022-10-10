@@ -1,10 +1,18 @@
+
+$.ajaxSetup({
+	headers: {
+		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	}
+});
+
 var tabla;
 
 //funcion que se ejecuta al inicio
 function init() {
-	$("#alm").addClass("active");
+	$("#aud").addClass(" active");
 	listar();
 }
+
 //funcion listar
 function listar() {
 	tabla = $('#tbllistado').dataTable({
@@ -21,7 +29,7 @@ function listar() {
 		],
 		"ajax":
 		{
-			url: 'listar_almacen',
+			url: 'listar_auditoria',
 			type: "get",
 			error: function (e) {
 				console.log(e.responseText);
@@ -33,15 +41,5 @@ function listar() {
 	}).DataTable();
 }
 
-function eliminar(idarticulo) {
-	bootbox.confirm("¿Esta seguro de eliminar este dato?", function (result) {
-		if (result) {
-			$.post("eliminar_articulo", { idarticulo: idarticulo }, function (e) {
-				toastr.success('Datos Eliminados Correctamente')
-				tabla.ajax.reload();
-			});
-		}
-	})
-}
 
-init();
+init();  

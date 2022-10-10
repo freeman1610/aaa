@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -72,10 +68,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <div class="nav-link dropdown-toggle cursor-pointer" role="button" data-toggle="dropdown">
                         <img id="imgUser1" src="vendor/img-users/{{ Auth::user()->imagen }}" class="user-image img-circle elevation-2" alt="User Image">
                         <span class="d-md-inline">{{ Auth::user()->nombre }}</span>
-                    </a>
+                    </div>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
                         <li class="user-header bg-primary">
@@ -107,11 +103,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar elevation-4 sidebar-dark-orange">
             <!-- Brand Logo -->
-            <a href="#" class="brand-link">
+            <div class="brand-link">
                 {{-- Icono de la Garra --}}
                 <img src="{{ asset('vendor/images/lagarra.png') }}" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Transp. La Garra C.A</span>
-            </a>
+            </div>
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
@@ -120,7 +116,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <img id="imgUser3" src="vendor/img-users/{{ Auth::user()->imagen }}" class="img-circle elevation-2" width="160px" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->nombre }}</a>
+                        <div href="#" class="text-white d-block">{{ Auth::user()->nombre }}</div>
                     </div>
                 </div>
                 <!-- SidebarSearch Form -->
@@ -231,35 +227,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @if(Auth::user()->cargo == 'ADMINISTRADOR' || Auth::user()->cargo == 'SISTEMAS')
                  
                         <li class="nav-item">
-                            <a href="#" class="nav-link" id="aud">
-                                <i class="nav-icon fas fa-bars"></i><p>Auditoria<i class="right fas fa-angle-left"></i></p>
+                            <a href="{{ route('auditoria') }}" class="nav-link" id="aud">
+                                <i class="nav-icon fas fa-bars"></i><p>Auditoria</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link" id="audM">
-                                        <i class="fas fa-user-circle nav-icon"></i><p>Mov. Usuarios</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link" id="audR">
-                                        <i class="fas fa-book nav-icon"></i><p>Cambios. Usuarios</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         @endif
                         @if(session()->get('almacen') == 1 || Auth::user()->cargo == 'DEPOSITARIO')
                         <li class="nav-item">
-                            <a href="#" class="nav-link" id="alm">
-                                <i class="nav-icon fas fa-database"></i><p>Almacen<i class="right fas fa-angle-left"></i></p>
+                            <a href="{{ route('almacen') }}" class="nav-link" id="alm">
+                                <i class="nav-icon fas fa-database"></i><p>Almacen</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('almacen') }}" class="nav-link" id="art">
-                                        <i class="nav-icon fas fa-layer-group"></i><p>Articulos</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         @endif
                     </ul>

@@ -37,8 +37,6 @@ class AlmacenController extends Controller
         ];
 
         return response()->json($results, status: 200);
-
-        // return $selectAlmacen;
     }
 
     public function registrar_articulo(Request $request)

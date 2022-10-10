@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\LoginUpFormRequest;
+use App\Models\Usuario;
+use App\Models\UsuarioPermiso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +13,9 @@ class LoginAuthController extends Controller
     public function loginUp(LoginUpFormRequest $request)
     {
 
-        $selectCondicion = DB::table('usuarios')->select('condicion')->where('login', $request->login)->get();
+        $selectCondicion = Usuario::select('condicion')
+            ->where('login', $request->login)
+            ->get();
 
 
         // si condicion es igual 1 inicia sesion, sino es 0, que significa que esta desactivado
@@ -22,10 +24,11 @@ class LoginAuthController extends Controller
 
             if (Auth::attempt(['login' => $request->login, 'password' => $request->password], remember: false)) {
 
-
                 $id_u = Auth::user()->idusuario;
 
-                $seleccionarPermisos = DB::table('usuario_permiso')->select('idpermiso')->where('idusuario', $id_u)->get();
+                $seleccionarPermisos = UsuarioPermiso::select('idpermiso')
+                    ->where('idusuario', $id_u)
+                    ->get();
                 foreach ($seleccionarPermisos as $permiso) {
 
                     switch ($permiso->idpermiso) {
@@ -52,7 +55,10 @@ class LoginAuthController extends Controller
                     }
                 }
 
-                return response()->json(['respuesta' => '200', 'permisos' => $seleccionarPermisos], status: 200);
+                return response()->json([
+                    'respuesta' => '200',
+                    'permisos' => $seleccionarPermisos
+                ], status: 200);
             } else {
 
                 return response()->json(['respuesta' => '404'], status: 200);
