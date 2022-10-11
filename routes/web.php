@@ -4,6 +4,7 @@ use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\BackUpAndRestoreDBController;
 use App\Http\Controllers\CavaController;
+use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\ChutoController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EmpleadosController;
@@ -36,6 +37,8 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome')->name('principio');
 
 Route::post('login', [LoginAuthController::class, 'loginUp']);
+
+Route::post('chat_bot_welcome', [ChatBotController::class, 'chat_bot_welcome']);
 
 Route::view('login', 'admin.login')->name('login')->middleware('guest');
 

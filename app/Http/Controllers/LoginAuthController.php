@@ -18,6 +18,10 @@ class LoginAuthController extends Controller
             ->get();
 
 
+        if (count($selectCondicion) == 0) {
+            return response()->json(['respuesta' => '404'], status: 200);
+        }
+
         // si condicion es igual 1 inicia sesion, sino es 0, que significa que esta desactivado
 
         if ($selectCondicion[0]->condicion == 1) {
