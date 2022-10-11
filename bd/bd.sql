@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2022 a las 06:42:23
+-- Tiempo de generación: 11-10-2022 a las 21:01:45
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 SET
@@ -309,6 +309,166 @@ VALUES
     NULL,
     '2022-10-09 06:03:52',
     '2022-10-09 06:03:52'
+  ),
+  (
+    10,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    1,
+    '{\"replies\":\"Claro estoy para servirte en lo que requieras\"}',
+    '{\"replies\":\"\\u00a1Hola!, soy el Asistente Virtual del Sistema La Garra, \\u00bfDime, en que puedo ayudarte?\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-11 19:13:23',
+    '2022-10-11 19:13:23'
+  ),
+  (
+    11,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    1,
+    '{\"replies\":\"\\u00a1Hola!, soy el Asistente Virtual del Sistema La Garra, \\u00bfDime, en que puedo ayudarte?\"}',
+    '{\"replies\":\"\\u00a1Hola!, soy el Asistente Virtual del Sistema La Garra, dime, \\u00bfen que puedo ayudarte?\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-11 19:14:35',
+    '2022-10-11 19:14:35'
+  ),
+  (
+    12,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    1,
+    '{\"replies\":\"\\u00a1Hola!, soy el Asistente Virtual del Sistema La Garra, dime, \\u00bfen que puedo ayudarte?\"}',
+    '{\"replies\":\"\\u00a1Hola!, soy el Asistente Virtual del Sistema La Garra, dime \\u00bfen que puedo ayudarte?\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-11 19:14:42',
+    '2022-10-11 19:14:42'
+  ),
+  (
+    13,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    2,
+    '{\"queries\":\"No tengo acceso a Internet\",\"replies\":\"Vale te pregunto, donde te encuentras ahora, \\u00bfhay m\\u00e1s dispositivos conectados a tu red local?\"}',
+    '{\"queries\":\"Que tipos de viajes realizan\",\"replies\":\"Trabajamos con viajes a nivel nacional, adecu\\u00e1ndose a sus necesidades, ya sea para Fletes de Ida o de Retorno\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-11 19:16:29',
+    '2022-10-11 19:16:29'
+  ),
+  (
+    14,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    3,
+    '{\"queries\":\"Si claro tengo dos tel\\u00e9fonos, pero ninguno tiene acceso a Internet tampoco\",\"replies\":\"Tienes alg\\u00fan ordenador conectado por cable\"}',
+    '{\"queries\":\"Que tipo Camiones Chutos Cavas tienen a disposicion\",\"replies\":\"Tenemos Chutos, Cavas de todo tipo para llevar tu carga a donde necesites\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-11 19:17:56',
+    '2022-10-11 19:17:56'
+  ),
+  (
+    15,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    1,
+    '{\"queries\":\"Hola me podr\\u00edas ayudar? Tengo una consulta\"}',
+    '{\"queries\":\"Hola me podr\\u00edas ayudar ayuda tengo una consulta\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-11 19:18:38',
+    '2022-10-11 19:18:38'
+  ),
+  (
+    16,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    1,
+    '{\"queries\":\"Hola me podr\\u00edas ayudar ayuda tengo una consulta\"}',
+    '{\"queries\":\"Hola me podr\\u00edas ayudar tengo una consulta ayuda\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-11 19:18:50',
+    '2022-10-11 19:18:50'
+  ),
+  (
+    17,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\ChatBot',
+    4,
+    '{\"id\":4,\"queries\":\"Si, claro, requieres que lo encienda?\",\"replies\":\"Si por favor y me confirmas si no tienes acceso a Internet, en tu ordenador cuando encienda\"}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/delete_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-11 19:20:38',
+    '2022-10-11 19:20:38'
+  ),
+  (
+    18,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\ChatBot',
+    5,
+    '{\"id\":5,\"queries\":\"Te confirmo que tampoco tiene Internet\",\"replies\":\"Reinicia tu modem, espera 10 minutos y reintenta, me confirmas\"}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/delete_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-11 19:21:10',
+    '2022-10-11 19:21:10'
+  ),
+  (
+    19,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\ChatBot',
+    6,
+    '{\"id\":6,\"queries\":\"Ya me funciona el Internet, muchas gracias\",\"replies\":\"Excelente me alegro mucho, gracias por comunicarte con Soporte T\\u00e9cnico ChatBot ConfiguroWeb\"}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/delete_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-11 19:21:15',
+    '2022-10-11 19:21:15'
   );
 -- --------------------------------------------------------
   --
@@ -395,6 +555,50 @@ VALUES
     0,
     '2022-09-27 00:41:46',
     '2022-09-30 20:43:05'
+  );
+-- --------------------------------------------------------
+  --
+  -- Estructura de tabla para la tabla `chatbot`
+  --
+  CREATE TABLE `chatbot` (
+    `id` int(11) NOT NULL,
+    `queries` varchar(300) NOT NULL,
+    `replies` varchar(300) NOT NULL,
+    `created_at` datetime NOT NULL,
+    `updated_at` datetime NOT NULL
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+--
+  -- Volcado de datos para la tabla `chatbot`
+  --
+INSERT INTO
+  `chatbot` (
+    `id`,
+    `queries`,
+    `replies`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    1,
+    'Hola me podrías ayudar tengo una consulta ayuda',
+    '¡Hola!, soy el Asistente Virtual del Sistema La Garra, dime ¿en que puedo ayudarte?',
+    '2022-10-10 20:40:22',
+    '2022-10-11 14:48:50'
+  ),
+  (
+    2,
+    'Que tipos de viajes realizan',
+    'Trabajamos con viajes a nivel nacional, adecuándose a sus necesidades, ya sea para Fletes de Ida o de Retorno',
+    '2022-10-10 20:40:22',
+    '2022-10-11 14:46:29'
+  ),
+  (
+    3,
+    'Que tipo Camiones Chutos Cavas tienen a disposicion',
+    'Tenemos Chutos, Cavas de todo tipo para llevar tu carga a donde necesites',
+    '2022-10-10 20:40:22',
+    '2022-10-11 14:47:56'
   );
 -- --------------------------------------------------------
   --
@@ -5083,6 +5287,13 @@ ADD
 ADD
   KEY `cava_placa` (`cava_placa`);
 --
+  -- Indices de la tabla `chatbot`
+  --
+ALTER TABLE
+  `chatbot`
+ADD
+  PRIMARY KEY (`id`);
+--
   -- Indices de la tabla `choferes`
   --
 ALTER TABLE
@@ -5314,7 +5525,7 @@ ALTER TABLE
   `audits`
 MODIFY
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 10;
+  AUTO_INCREMENT = 20;
 --
   -- AUTO_INCREMENT de la tabla `cavas`
   --
@@ -5323,6 +5534,14 @@ ALTER TABLE
 MODIFY
   `cava_id` int(11) NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 15;
+--
+  -- AUTO_INCREMENT de la tabla `chatbot`
+  --
+ALTER TABLE
+  `chatbot`
+MODIFY
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  AUTO_INCREMENT = 7;
 --
   -- AUTO_INCREMENT de la tabla `choferes`
   --
