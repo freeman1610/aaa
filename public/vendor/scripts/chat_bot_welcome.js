@@ -16,7 +16,7 @@ $(document).ready(function () {
     $("#formChat").on("submit", function (e) {
         e.preventDefault()
         $value = $("#data").val();
-        $msg = '<div class="user-inbox inbox"><div class="msg-header"><p>' + $value + '</p></div></div>';
+        $msg = '<div class="user-inbox inbox"><div class="msg-header"><p class="text-white">' + $value + '</p></div></div>';
         $(".form").append($msg);
         $("#data").val('');
 
@@ -26,7 +26,7 @@ $(document).ready(function () {
             type: 'POST',
             data: 'text=' + $value,
             success: function (result) {
-                $replay = '<div class="bot-inbox inbox"><div class="icon"><i class="fas fa-user"></i></div><div class="msg-header"><p>' + result + '</p></div></div>';
+                $replay = '<div class="bot-inbox inbox"><div class="icon"><img src="vendor/images/lagarra.png" width="30"></div><div class="msg-header"><p>' + result + '</p></div></div>';
                 $(".form").append($replay);
                 // cuando el chat baja, la barra de desplazamiento llega automáticamente al final
                 $(".form").scrollTop($(".form")[0].scrollHeight);

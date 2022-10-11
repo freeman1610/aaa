@@ -157,6 +157,11 @@
                                         <i class="fas fa-users nav-icon"></i><p>Tipos de Usuarios</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('chat_bot') }}" class="nav-link" id="chat_bot">
+                                        <i class="fas fa-comments nav-icon"></i><p>Config. Chat Bot</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         @endif

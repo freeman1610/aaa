@@ -52,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::view('tipo_usuario', 'admin.tipo_usuario')->name('tipo_usuario');
 
+    Route::view('chat_bot', 'admin.chat_bot')->name('chat_bot');
+
     Route::view('empleados', 'admin.empleados')->name('empleados');
 
     Route::view('nomina_personal', 'admin.nomina_personal')->name('nomina_personal');
@@ -307,6 +309,21 @@ Route::middleware(['auth'])->group(function () {
     Route::post('limpieza_backup_db', [BackUpAndRestoreDBController::class, 'limpieza_backup_db'])->name('limpieza_backup_db');
 
     // ---------------------- FIN SISTEMA ------------------------
+
+    // ---------------------- CHAT BOT ------------------------
+
+    Route::post('list_chat_bot', [ChatBotController::class, 'list_chat_bot'])->name('list_chat_bot');
+
+    Route::post('mostrar_chat_bot', [ChatBotController::class, 'mostrar_chat_bot'])->name('mostrar_chat_bot');
+
+    Route::post('update_chat_bot', [ChatBotController::class, 'update_chat_bot'])->name('update_chat_bot');
+
+    Route::post('insert_chat_bot', [ChatBotController::class, 'insert_chat_bot'])->name('insert_chat_bot');
+
+    Route::post('delete_chat_bot', [ChatBotController::class, 'delete_chat_bot'])->name('delete_chat_bot');
+
+
+    // ---------------------- FIN CHAT BOT ------------------------
 });
 
 require __DIR__ . '/auth.php';

@@ -14,7 +14,7 @@ class ChutoController extends Controller
     public function listar_chutos()
     {
         $selectChutos = Chuto::all();
-        $arrayDatos = array();
+        $arrayDatos = [];
         foreach ($selectChutos as $datos) {
             $arrayDatos[] = [
                 "0" => '<button class="btn btn-primary btn-xs" title="Editar" onclick="updateChuto(' . $datos->chuto_id . ')"><i class="fa fa-edit"></i></button>' . ' ' . '<button class="btn btn-danger btn-xs" title="Eliminar" onclick="eliminar(' . $datos->chuto_id . ')"><i class="fa fa-trash"></i></button>',
