@@ -43,16 +43,14 @@ body {
 
 .login-caja::before {
     content: "";
-    background: rgba(255, 255, 255, 0.3) url('../img-users/user_icon_default.png');
+    background: url('../images/lagarra.png');
     background-position: center;
     background-size: cover;
     position: absolute;
     top: calc(-45px);
     left: calc(50% - 50px);
-    border: 2px solid black;
     width: 100px;
     height: 100px;
-    border-radius: 100%;
     display: block;
 }
 
