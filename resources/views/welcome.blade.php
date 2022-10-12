@@ -44,7 +44,7 @@
 
   <!-- Banner Image -->
 
-  <div class="banner text-center" data-scroll-index='0' style="background: url('vendor/images/landing.jpg') no-repeat 0% 0% / 100%;">
+  <div class="banner text-center" data-scroll-index='0'>
     <div class="banner-overlay">
       <div class="container">
         <h1 class="text-capitalize">TRANSPORTE LA GARRA C.A</h1>

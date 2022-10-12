@@ -16,7 +16,7 @@ class FleteController extends Controller
 {
     public function listar_fletes()
     {
-        $selectFletes = Flete::all();
+        $selectFletes = Flete::orderBy('created_at', 'desc')->get();
         $arrayDatos = [];
         foreach ($selectFletes as $datos) {
             $selectEstado = Estado::find($datos->flete_destino_estado);
@@ -122,7 +122,6 @@ class FleteController extends Controller
     public function registrar_flete(Request $request)
     {
         $this->validate($request, [
-            'flete_codigo' => 'required',
             'flete_destino_estado' => 'required|numeric',
             'flete_destino_municipio' => 'required|numeric',
             'flete_destino_parroquia' => 'required|numeric',
@@ -130,9 +129,24 @@ class FleteController extends Controller
             'flete_valor_en_carga' => 'required',
             'flete_valor_sin_carga' => 'required',
         ]);
+
+        $selectCountFlete = Flete::whereDate('created_at', date('Y-m-d'))
+            ->select('flete_id')
+            ->get();
+
+        $selectCountFlete = count($selectCountFlete);
+
+        $selectCountFlete++;
+
+        if ($selectCountFlete < 10) {
+            $cod = 'FLETE-' . date('dmY' . '-0' . $selectCountFlete);
+        } else {
+            $cod = 'FLETE-' . date('dmY' . '-' . $selectCountFlete);
+        }
+
         $verificarCodFlete = DB::table('fletes')
             ->select('flete_codigo')
-            ->where('flete_codigo', $request->flete_codigo)
+            ->where('flete_codigo', $cod)
             ->get();
         if (isset($verificarCodFlete[0]->flete_codigo)) {
             return response()->json(['message' => 'La Codigo Ingresado Ya Ha Sido Registrado'], status: 422);
@@ -140,7 +154,7 @@ class FleteController extends Controller
 
         $newFlete = new Flete;
         $newFlete->flete_idusuario = Auth::user()->idusuario;
-        $newFlete->flete_codigo = $request->flete_codigo;
+        $newFlete->flete_codigo = $cod;
         $newFlete->flete_destino_estado = $request->flete_destino_estado;
         $newFlete->flete_destino_municipio = $request->flete_destino_municipio;
         $newFlete->flete_destino_parroquia = $request->flete_destino_parroquia;
@@ -148,6 +162,27 @@ class FleteController extends Controller
         $newFlete->flete_valor_en_carga = $request->flete_valor_en_carga;
         $newFlete->flete_valor_sin_carga = $request->flete_valor_sin_carga;
         $newFlete->save();
+    }
+    public function generar_cod_flete()
+    {
+        // Para generar el codigo tomamos en cuenta la fecha actual y el numero de
+        // flete registrados al dia, generando algo similar a esto:
+        // FLETE-DDMMYYYY-XX
+        $selectCountFlete = Flete::whereDate('created_at', date('Y-m-d'))
+            ->select('flete_id')
+            ->get();
+
+        $selectCountFlete = count($selectCountFlete);
+
+        $selectCountFlete++;
+
+        if ($selectCountFlete < 10) {
+            $cod = 'FLETE-' . date('dmY' . '-0' . $selectCountFlete);
+        } else {
+            $cod = 'FLETE-' . date('dmY' . '-' . $selectCountFlete);
+        }
+
+        return response()->json(['codflete' => $cod], status: 200);
     }
     public function mostrar_flete(Request $request)
     {
@@ -199,7 +234,6 @@ class FleteController extends Controller
     {
         $this->validate($request, [
             'flete_id' => 'required|numeric',
-            'flete_codigo' => 'required',
             'flete_destino_estado' => 'required|numeric',
             'flete_destino_municipio' => 'required|numeric',
             'flete_destino_parroquia' => 'required|numeric',
@@ -210,7 +244,6 @@ class FleteController extends Controller
 
         $selectFlete = Flete::find($request->flete_id);
 
-        $selectFlete->flete_codigo = $request->flete_codigo;
         $selectFlete->flete_destino_estado = $request->flete_destino_estado;
         $selectFlete->flete_destino_municipio = $request->flete_destino_municipio;
         $selectFlete->flete_destino_parroquia = $request->flete_destino_parroquia;

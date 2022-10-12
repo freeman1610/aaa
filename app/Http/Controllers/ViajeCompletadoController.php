@@ -14,6 +14,7 @@ class ViajeCompletadoController extends Controller
     {
         $selectViajesCompletados = Viaje::where('viajes_estado', '=', 1)
             ->select('viajes_id', 'viajes_codigo', 'viajes_idchofer')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $arrayDatos = [];

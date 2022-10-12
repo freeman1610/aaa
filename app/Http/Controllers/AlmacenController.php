@@ -12,7 +12,7 @@ class AlmacenController extends Controller
 {
     public function listar_almacen()
     {
-        $selectAlmacen = Almacen::all();
+        $selectAlmacen = Almacen::orderBy('created_at', 'desc')->get();
 
         $returnDatos = array();
 

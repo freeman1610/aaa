@@ -224,6 +224,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('listar_parroquias', [FleteController::class, 'listar_parroquias'])->name('listar_parroquias');
 
+    Route::post('generar_cod_flete', [FleteController::class, 'generar_cod_flete'])->name('generar_cod_flete');
+
     Route::post('registrar_flete', [FleteController::class, 'registrar_flete'])->name('registrar_flete');
 
     Route::post('mostrar_flete', [FleteController::class, 'mostrar_flete'])->name('mostrar_flete');
@@ -241,6 +243,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('listar_fletes_retorno', [ViajeController::class, 'listar_fletes_retorno'])->name('listar_fletes_retorno');
 
     Route::post('crear_viaje', [ViajeController::class, 'crear_viaje'])->name('crear_viaje');
+
+    Route::post('generar_cod_viaje', [ViajeController::class, 'generar_cod_viaje'])->name('generar_cod_viaje');
 
     Route::post('mostrar_viaje', [ViajeController::class, 'mostrar_viaje'])->name('mostrar_viaje');
 

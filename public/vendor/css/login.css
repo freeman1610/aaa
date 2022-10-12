@@ -120,7 +120,7 @@ label {
     color: #fff;
 }
 
-.login-caja a:hover {
+.login-caja .boton-submit a:hover {
     color: #298186;
 }
 
@@ -153,9 +153,32 @@ label {
     margin: 0 auto;
 }
 
+.boton-regresar {
+    position: fixed;
+    top: 2em;
+    left: 1em;
+    background-color: #0087FF;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    transition: .2s;
+    color: #FFF;
+}
+
+.boton-regresar:hover {
+    cursor: pointer;
+    background: #0FD4DF;
+    color: #FFF;
+}
+
+
 @media screen and (max-width: 575px) {
     .title {
         display: none;
+    }
+
+    .boton-regresar {
+        padding: 15px;
     }
 
     .title__container {
@@ -195,23 +218,6 @@ label {
     }
 }
 
-.boton-regresar {
-    position: fixed;
-    top: 2em;
-    left: 1em;
-    background-color: #0087FF;
-    border-radius: 5px;
-    margin: 10px;
-    padding: 5px;
-    transition: .2s;
-    color: #FFF;
-}
-
-.boton-regresar:hover {
-    cursor: pointer;
-    background: #0FD4DF;
-    color: #FFF;
-}
 
 /* ------------ Slide ------------- */
 

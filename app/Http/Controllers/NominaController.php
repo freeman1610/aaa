@@ -151,6 +151,7 @@ class NominaController extends Controller
         $selecNomina = DB::table('pago_nomina')
             ->join('empleado', 'pago_nomina.id_empleado', '=', 'empleado.id_emp')
             ->select('pago_nomina.*', 'empleado.nombre', 'empleado.apellido')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $arrayDeDatos = [];

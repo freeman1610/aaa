@@ -21,6 +21,7 @@ class AuditoriaController extends Controller
                 'audits.new_values',
                 'audits.created_at'
             )
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $returnDatos = array();

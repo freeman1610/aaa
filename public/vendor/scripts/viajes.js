@@ -13,7 +13,7 @@ function mostrarform() {
                 title: '<strong>Crear Viaje</strong>',
                 html:
                     '<form action="" name="formularioCrearViaje" id="formularioCrearViaje" method="POST">' +
-                    '<br><label class="d-flex justify-content-between" for="">Codigo(*): <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><input type="text" name="viaje_codigo" autocomplete="off" placeholder="Codigo" id="viaje_codigo" class="form-control" required>' +
+                    '<br><label class="d-flex justify-content-between" for="">Codigo(*): <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><input type="text" id="viaje_codigo" disabled="true" class="form-control">' +
                     '<br><label class="d-flex justify-content-start" for="">Chofer (*):</label>' +
                     '<select class="form-control" required name="viaje_chofer" id="viaje_chofer">' +
                     res.choferes +
@@ -65,6 +65,7 @@ function mostrarform() {
                 showCancelButton: false,
                 focusConfirm: false,
             })
+            generar_cod()
         },
         error: function (err) {
             toastr.error(err.responseJSON.message);
@@ -72,7 +73,11 @@ function mostrarform() {
     });
 
 }
-
+function generar_cod() {
+    $.post("generar_cod_viaje", function (res) {
+        $('#viaje_codigo').val(res.codViaje)
+    });
+}
 function mostrarViaje(id) {
     $.ajax({
         url: "mostrar_viaje",
@@ -84,7 +89,7 @@ function mostrarViaje(id) {
                 html:
                     '<form action="" name="formularioUpdateViaje" id="formularioUpdateViaje" method="POST">' +
                     '<input type="hidden" name="id_viaje" id="id_viaje" value="' + res.id + '">' +
-                    '<br><label class="d-flex justify-content-between" for="">Codigo(*): </label><input type="text" name="viaje_codigo" autocomplete="off" placeholder="Codigo" id="viaje_codigo" class="form-control" required value="' + res.codigo + '">' +
+                    '<br><label class="d-flex justify-content-between" for="">Codigo(*): </label><input type="text"  id="viaje_codigo" class="form-control" disabled="true" value="' + res.codigo + '">' +
                     '<br><label class="d-flex justify-content-start" for="">Chofer (*):</label>' +
                     '<select class="form-control" required name="viaje_chofer" id="viaje_chofer">' +
                     res.choferes +

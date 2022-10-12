@@ -9,14 +9,17 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Configuración Chat Bot  <button class="btn btn-dark" onclick="registrarNewReplies()" id="btnagregar"><i class="fa fa-plus-circle"></i>Registrar Nuevas Preguntas y Repuestas</button></h3>
+                <h3 class="card-title">Configuración Chat Bot
+                    <button class="btn btn-dark" onclick="registrarNewReplies()" id="btnagregar"><i class="fa fa-plus-circle"></i> Registrar Nuevas Preguntas y Repuestas</button>
+                    <button class="btn btn-dark" onclick="infoLogicChatBot()" id="btnagregar"><i class="fa fa-info"></i> Como funciona la Logica del Chat Bot</button>
+                </h3>
             </div><!-- /.card-header -->
             <div class="card-body" id="listadoregistros">
                 <table id="tbllistado" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Opciones</th>
-                            <th>Pregunta</th>
+                            <th>Palabras Clave (Pregunta)</th>
                             <th>Repuesta</th>
                         </tr>
                     </thead>
@@ -25,7 +28,7 @@
                     <tfoot>
                         <tr>
                             <th>Opciones</th>
-                            <th>Pregunta</th>
+                            <th>Palabras Clave (Pregunta)</th>
                             <th>Repuesta</th>
                         </tr>
                     </tfoot>

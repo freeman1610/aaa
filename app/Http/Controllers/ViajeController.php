@@ -7,6 +7,7 @@ use App\Models\Cava;
 use App\Models\Chofer;
 use App\Models\Chuto;
 use App\Models\Flete;
+use App\Models\NominaChofer;
 use App\Models\Viaje;
 use DateTime;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class ViajeController extends Controller
 {
     public function listar_viajes()
     {
-        $selectViajes = Viaje::where('viajes_estado', '=', 0)->get();
+        $selectViajes = Viaje::where('viajes_estado', '=', 0)->orderBy('created_at', 'desc')->get();
         $arrayDatos = [];
         foreach ($selectViajes as $datos) {
 
@@ -140,6 +141,26 @@ class ViajeController extends Controller
             'chutos' => $optionChutos,
             'cavas' => $optionCavas
         ], status: 200);
+    }
+    public function generar_cod_viaje()
+    {
+        // Para generar el codigo tomamos en cuenta la fecha actual y el numero de
+        // viajes registrados al dia, generando algo similar a esto:
+        // VIAJE-DDMMYYYY-XX
+        $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
+            ->select('viajes_id')
+            ->get();
+        $selectCountViaje = count($selectCountViaje);
+
+        $selectCountViaje++;
+
+        if ($selectCountViaje < 10) {
+            $cod = 'VIAJE-' . date('dmY' . '-0' . $selectCountViaje);
+        } else {
+            $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
+        }
+
+        return response()->json(['codViaje' => $cod], status: 200);
     }
     public function listar_fletes_ida(Request $request)
     {
@@ -342,7 +363,6 @@ class ViajeController extends Controller
             }
 
             $this->validate($request, [
-                'viaje_codigo' => 'required',
                 'viaje_chofer' => 'required|numeric',
                 'viaje_chuto' => 'required|numeric',
                 'viaje_cava' => 'required|numeric',
@@ -353,9 +373,33 @@ class ViajeController extends Controller
                 'viaje_dia_retorno' => 'required|date',
                 'viaje_observacion' => 'required'
             ]);
+            $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
+                ->select('viajes_id')
+                ->get();
+            $selectCountViaje = count($selectCountViaje);
+
+            $selectCountViaje++;
+
+            if ($selectCountViaje < 10) {
+                $cod = 'VIAJE-' . date('dmY' . '-0' . $selectCountViaje);
+            } else {
+                $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
+            }
+            $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
+                ->select('viajes_id')
+                ->get();
+            $selectCountViaje = count($selectCountViaje);
+
+            $selectCountViaje++;
+
+            if ($selectCountViaje < 10) {
+                $cod = 'VIAJE-' . date('dmY' . '-0' . $selectCountViaje);
+            } else {
+                $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
+            }
             $comprobarCodigo = DB::table('viajes')
                 ->select('viajes_codigo')
-                ->where('viajes_codigo', $request->viaje_codigo)
+                ->where('viajes_codigo', $cod)
                 ->get();
 
             if (isset($comprobarCodigo[0]->viajes_codigo)) {
@@ -364,7 +408,7 @@ class ViajeController extends Controller
 
             $newViaje = new Viaje;
             $newViaje->viajes_idusuario = Auth::user()->idusuario;
-            $newViaje->viajes_codigo = $request->viaje_codigo;
+            $newViaje->viajes_codigo = $cod;
             $newViaje->viajes_idchofer = $request->viaje_chofer;
             $newViaje->viajes_idchuto = $request->viaje_chuto;
             $newViaje->viajes_idcava = $request->viaje_cava;
@@ -403,7 +447,6 @@ class ViajeController extends Controller
         // Si el viaje solo tiene flete de ida
         if ($request->comprobar_flete_ida == "si" && $request->comprobar_flete_retorno == "no") {
             $this->validate($request, [
-                'viaje_codigo' => 'required',
                 'viaje_chofer' => 'required|numeric',
                 'viaje_chuto' => 'required|numeric',
                 'viaje_cava' => 'required|numeric',
@@ -414,9 +457,34 @@ class ViajeController extends Controller
                 'viaje_observacion' => 'required'
             ]);
 
+            $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
+                ->select('viajes_id')
+                ->get();
+            $selectCountViaje = count($selectCountViaje);
+
+            $selectCountViaje++;
+
+            if ($selectCountViaje < 10) {
+                $cod = 'VIAJE-' . date('dmY' . '-0' . $selectCountViaje);
+            } else {
+                $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
+            }
+            $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
+                ->select('viajes_id')
+                ->get();
+            $selectCountViaje = count($selectCountViaje);
+
+            $selectCountViaje++;
+
+            if ($selectCountViaje < 10) {
+                $cod = 'VIAJE-' . date('dmY' . '-0' . $selectCountViaje);
+            } else {
+                $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
+            }
+
             $comprobarCodigo = DB::table('viajes')
                 ->select('viajes_codigo')
-                ->where('viajes_codigo', $request->viaje_codigo)
+                ->where('viajes_codigo', $cod)
                 ->get();
 
             if (isset($comprobarCodigo[0]->viajes_codigo)) {
@@ -425,7 +493,7 @@ class ViajeController extends Controller
 
             $newViaje = new Viaje;
             $newViaje->viajes_idusuario = Auth::user()->idusuario;
-            $newViaje->viajes_codigo = $request->viaje_codigo;
+            $newViaje->viajes_codigo = $cod;
             $newViaje->viajes_idchofer = $request->viaje_chofer;
             $newViaje->viajes_idchuto = $request->viaje_chuto;
             $newViaje->viajes_idcava = $request->viaje_cava;
@@ -458,7 +526,6 @@ class ViajeController extends Controller
         // Si el viaje solo tiene flete de retorno
         if ($request->comprobar_flete_ida == "no" && $request->comprobar_flete_retorno == "si") {
             $this->validate($request, [
-                'viaje_codigo' => 'required',
                 'viaje_chofer' => 'required|numeric',
                 'viaje_chuto' => 'required|numeric',
                 'viaje_cava' => 'required|numeric',
@@ -469,9 +536,34 @@ class ViajeController extends Controller
                 'viaje_observacion' => 'required'
             ]);
 
+            $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
+                ->select('viajes_id')
+                ->get();
+            $selectCountViaje = count($selectCountViaje);
+
+            $selectCountViaje++;
+
+            if ($selectCountViaje < 10) {
+                $cod = 'VIAJE-' . date('dmY' . '-0' . $selectCountViaje);
+            } else {
+                $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
+            }
+            $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
+                ->select('viajes_id')
+                ->get();
+            $selectCountViaje = count($selectCountViaje);
+
+            $selectCountViaje++;
+
+            if ($selectCountViaje < 10) {
+                $cod = 'VIAJE-' . date('dmY' . '-0' . $selectCountViaje);
+            } else {
+                $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
+            }
+
             $comprobarCodigo = DB::table('viajes')
                 ->select('viajes_codigo')
-                ->where('viajes_codigo', $request->viaje_codigo)
+                ->where('viajes_codigo', $cod)
                 ->get();
 
             if (isset($comprobarCodigo[0]->viajes_codigo)) {
@@ -480,7 +572,7 @@ class ViajeController extends Controller
 
             $newViaje = new Viaje;
             $newViaje->viajes_idusuario = Auth::user()->idusuario;
-            $newViaje->viajes_codigo = $request->viaje_codigo;
+            $newViaje->viajes_codigo = $cod;
             $newViaje->viajes_idchofer = $request->viaje_chofer;
             $newViaje->viajes_idchuto = $request->viaje_chuto;
             $newViaje->viajes_idcava = $request->viaje_cava;
@@ -657,7 +749,6 @@ class ViajeController extends Controller
             'comprobar_flete_ida' => 'required',
             'comprobar_flete_retorno' => 'required',
             'id_viaje' => 'required|numeric',
-            'viaje_codigo' => 'required',
             'viaje_chofer' => 'required|numeric',
             'viaje_chuto' => 'required|numeric',
             'viaje_cava' => 'required|numeric',
@@ -670,10 +761,6 @@ class ViajeController extends Controller
         $selectViaje = Viaje::find($request->id_viaje);
         $cambiosBase = $cambioChofer = $cambioChuto = $cambioCava = $cambioFleteIda = $cambioFleteRetorno  = 0;
 
-        if ($request->viaje_codigo != $selectViaje->viajes_codigo) {
-            $selectViaje->viajes_codigo = $request->viaje_codigo;
-            $cambiosBase++;
-        }
         if ($request->viaje_chofer != $selectViaje->viajes_idchofer) {
 
             $chofer = Chofer::find($selectViaje->viajes_idchofer);
@@ -919,13 +1006,12 @@ class ViajeController extends Controller
         // Se hace este proceso para optimizar la consulta para luego realizar
         // Tanto el pago como la busqueda datos relacionados a nomina choferes
 
-        DB::table('nomina_choferes')->insert([
-            'id_chofer'  => $viajeCompletado->viajes_idchofer,
-            'id_viaje'   => $viajeCompletado->viajes_id,
-            'pago_total' => 0,
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime()
-        ]);
+        $newNominaChoferes = new NominaChofer;
+        $newNominaChoferes->id_chofer = $viajeCompletado->viajes_idchofer;
+        $newNominaChoferes->id_viaje = $viajeCompletado->viajes_id;
+        $newNominaChoferes->pago_total = 0;
+        $newNominaChoferes->save();
+
         return response()->json('Fino Pa', status: 200);
     }
     public function viaje_delete(Request $request)

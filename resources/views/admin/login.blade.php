@@ -28,7 +28,7 @@
 
     <div class="row formulario">
       <div class="login-caja">
-        <a href="{{ route('principio') }}" class="btn btn-primary boton-regresar"><span class="fas fa-arrow-left"></span> Regresar</a>
+        <a href="{{ route('principio') }}" class="boton-regresar"><span class="fas fa-arrow-left"></span> Regresar</a>
             <h1>Bienvenido</h1>
             <form method="post" name="frmAcceso" id="frmAcceso">
               <label for="login">Usuario</label>

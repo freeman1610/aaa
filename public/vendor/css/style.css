@@ -637,12 +637,20 @@ h6 {
 	}
 }
 
+.banner {
+	background: url('../images/landing.jpg') no-repeat 0% 0% / 100% 130%;
+}
+
 @media all and (max-width:768px) {
 
 	.nav-scroll .navbar-brand img,
 	.navbar-brand img {
 		transform: scale(0.75) !important;
 		-webkit-transform: scale(0.75) !important;
+	}
+
+	.banner {
+		background-size: 200% 100%;
 	}
 
 	.banner h1 {

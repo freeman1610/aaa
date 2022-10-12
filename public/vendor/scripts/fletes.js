@@ -9,7 +9,7 @@ function mostrarform() {
 			title: '<strong>Crear Flete</strong>',
 			html:
 				'<form action="" name="formularioCrearFlete" id="formularioCrearFlete" method="POST">' +
-				'<br><label class="d-flex justify-content-between" for="">Codigo(*): <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><input type="text" name="flete_codigo" placeholder="Codigo" id="flete_codigo" class="form-control" required autocomplete="off">' +
+				'<br><label class="d-flex justify-content-between" for="">Codigo(*): <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><input type="text" id="flete_codigo" class="form-control" disabled="true">' +
 				'<br><label class="d-flex justify-content-start" for="">Destino: ESTADO(*):</label>' +
 				'<select class="form-control" required name="flete_destino_estado" id="flete_destino_estado">' +
 				res.estados +
@@ -33,9 +33,17 @@ function mostrarform() {
 			showCancelButton: false,
 			focusConfirm: false,
 		})
+		generar_cod()
 	});
 
 }
+
+function generar_cod() {
+	$.post("generar_cod_flete", function (res) {
+		$('#flete_codigo').val(res.codflete)
+	});
+}
+
 document.querySelector("#centro_central").addEventListener("change", ev => {
 
 	if (ev.target.matches('#flete_destino_estado')) {
@@ -93,7 +101,7 @@ function mostrarFlete(flete_id) {
 			html:
 				'<form action="" name="formularioUpdateFlete" id="formularioUpdateFlete" method="POST">' +
 				'<input type="hidden" name="flete_id" id=flete_id"" value="' + res['flete'].flete_id + '">' +
-				'<br><label class="d-flex justify-content-start" for="">Codigo(*):</label><input type="text" name="flete_codigo" placeholder="Codigo" id="flete_codigo" class="form-control" value="' + res['flete'].flete_codigo + '" required>' +
+				'<br><label class="d-flex justify-content-start" for="">Codigo(*):</label><input type="text" disabled="true" id="flete_codigo" class="form-control" value="' + res['flete'].flete_codigo + '" required>' +
 				'<br><label class="d-flex justify-content-start" for="">Destino: ESTADO(*):</label>' +
 				'<select class="form-control" required name="flete_destino_estado" id="flete_destino_estado">' +
 				res['estados'] +
@@ -199,7 +207,8 @@ function limpiarFormulario() {
 	$("#flete_destino_municipio").prop("disabled", true);
 	document.getElementById("flete_destino_parroquia").innerHTML = ""
 	$("#flete_destino_parroquia").prop("disabled", true);
-	document.getElementById('flete_codigo').focus()
+	generar_cod()
+	document.getElementById('flete_destino_estado').focus()
 }
 
 var tabla;

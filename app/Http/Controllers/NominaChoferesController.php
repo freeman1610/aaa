@@ -14,7 +14,9 @@ class NominaChoferesController extends Controller
 {
     public function listar_nomina_chofer()
     {
-        $selectNominaChofer = NominaChofer::where('estado', '=', 1)->get();
+        $selectNominaChofer = NominaChofer::where('estado', '=', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $arrayDatos = [];
 
