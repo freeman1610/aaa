@@ -37,7 +37,6 @@
     min-height: 300px;
     max-height: 300px;
     overflow-y: auto;
-    background-color: rgba(255, 255, 255, .7);
 }
 
 .wrapper .form .inbox {
@@ -161,18 +160,35 @@
 }
 
 .chatbot {
+    background-color: rgba(255, 255, 255, .7);
     position: fixed;
     bottom: 7em;
-    right: .5em;
+    right: 2em;
     transition: .2s;
+}
+
+
+
+@media screen and (max-width: 1200px) {
+    .wrapper .form {
+        min-height: 185px;
+        max-height: 185px;
+    }
+
+    .chatbot {
+        bottom: 5.5em;
+    }
 }
 
 @media screen and (max-width: 575px) {
     .chatbot {
         left: .5em;
+        right: .5em;
     }
 
     .wrapper .form {
         width: auto;
+        min-height: 300px;
+        max-height: 300px;
     }
 }

@@ -158,10 +158,10 @@
       <div class="form">
         <div class="bot-inbox inbox">
           <div class="icon">
-            <img src="{{asset('vendor/images/lagarra.png')}}" width="30">
+            <span class="fas fa-info"></span>
           </div>
           <div class="msg-header">
-            <p>Hola, ¿cómo puedo <br> ayudarte?</p>
+            <p>"Saluda al Asistente Virtual para poder interactuar"</p>
           </div>
         </div>
       </div>
