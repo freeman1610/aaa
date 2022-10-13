@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-10-2022 a las 21:01:45
+-- Tiempo de generación: 13-10-2022 a las 06:52:37
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 SET
@@ -469,6 +469,150 @@ VALUES
     NULL,
     '2022-10-11 19:21:15',
     '2022-10-11 19:21:15'
+  ),
+  (
+    20,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Flete',
+    33,
+    '[]',
+    '{\"flete_idusuario\":1,\"flete_codigo\":\"FLETE-11102022-01\",\"flete_destino_estado\":\"12\",\"flete_destino_municipio\":\"152\",\"flete_destino_parroquia\":\"513\",\"flete_kilometros\":\"210\",\"flete_valor_en_carga\":\"20.000\",\"flete_valor_sin_carga\":\"10.000\",\"flete_id\":33}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/registrar_flete',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-12 00:20:17',
+    '2022-10-12 00:20:17'
+  ),
+  (
+    21,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Flete',
+    34,
+    '[]',
+    '{\"flete_idusuario\":1,\"flete_codigo\":\"FLETE-11102022-02\",\"flete_destino_estado\":\"12\",\"flete_destino_municipio\":\"152\",\"flete_destino_parroquia\":\"513\",\"flete_kilometros\":\"100\",\"flete_valor_en_carga\":\"25.000\",\"flete_valor_sin_carga\":\"7.680\",\"flete_id\":34}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/registrar_flete',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-12 00:26:01',
+    '2022-10-12 00:26:01'
+  ),
+  (
+    22,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    1,
+    '{\"queries\":\"Hola me podr\\u00edas ayudar tengo una consulta ayuda\"}',
+    '{\"queries\":\"Hola, ayuda, ola, ey\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-13 04:59:42',
+    '2022-10-13 04:59:42'
+  ),
+  (
+    23,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    3,
+    '{\"replies\":\"Tenemos Chutos, Cavas de todo tipo para llevar tu carga a donde necesites\"}',
+    '{\"replies\":\"\\u00a1Tenemos Chutos, Cavas de todo tipo para llevar tu carga a donde necesites!\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-13 05:04:29',
+    '2022-10-13 05:04:29'
+  ),
+  (
+    24,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    3,
+    '{\"queries\":\"Que tipo Camiones Chutos Cavas tienen a disposicion\"}',
+    '{\"queries\":\"camion, camiones, chutos, carga\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-13 05:05:03',
+    '2022-10-13 05:05:03'
+  ),
+  (
+    25,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    2,
+    '{\"queries\":\"Que tipos de viajes realizan\"}',
+    '{\"queries\":\"viajes, viaje, flete, fletes\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-13 05:05:42',
+    '2022-10-13 05:05:42'
+  ),
+  (
+    26,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\ChatBot',
+    7,
+    '[]',
+    '{\"queries\":\"persona, humano, encargado, jefe, supervisor\",\"replies\":\"Para comunicarte con una persona real, dir\\u00edgete a la sesi\\u00f3n de \\\"Contacto\\\" al final de la pagina \\ud83d\\ude03\",\"id\":7}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/insert_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-13 05:10:44',
+    '2022-10-13 05:10:44'
+  ),
+  (
+    27,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    1,
+    '{\"replies\":\"\\u00a1Hola!, soy el Asistente Virtual del Sistema La Garra, dime \\u00bfen que puedo ayudarte?\"}',
+    '{\"replies\":\"\\u00a1Hola! \\ud83d\\ude01, soy el Asistente Virtual del Sistema La Garra, dime \\u00bfen que puedo ayudarte?\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-13 05:11:47',
+    '2022-10-13 05:11:47'
+  ),
+  (
+    28,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\ChatBot',
+    2,
+    '{\"replies\":\"Trabajamos con viajes a nivel nacional, adecu\\u00e1ndose a sus necesidades, ya sea para Fletes de Ida o de Retorno\"}',
+    '{\"replies\":\"Trabajamos con viajes a nivel nacional \\ud83c\\uddfb\\ud83c\\uddea, adecu\\u00e1ndose a sus necesidades, ya sea para Fletes de Ida o de Retorno \\ud83d\\ude9a\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_chat_bot',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-13 05:14:08',
+    '2022-10-13 05:14:08'
   );
 -- --------------------------------------------------------
   --
@@ -581,24 +725,31 @@ INSERT INTO
 VALUES
   (
     1,
-    'Hola me podrías ayudar tengo una consulta ayuda',
-    '¡Hola!, soy el Asistente Virtual del Sistema La Garra, dime ¿en que puedo ayudarte?',
+    'Hola, ayuda, ola, ey',
+    '¡Hola! 😁, soy el Asistente Virtual del Sistema La Garra, dime ¿en que puedo ayudarte?',
     '2022-10-10 20:40:22',
-    '2022-10-11 14:48:50'
+    '2022-10-13 00:41:47'
   ),
   (
     2,
-    'Que tipos de viajes realizan',
-    'Trabajamos con viajes a nivel nacional, adecuándose a sus necesidades, ya sea para Fletes de Ida o de Retorno',
+    'viajes, viaje, flete, fletes',
+    'Trabajamos con viajes a nivel nacional 🇻🇪, adecuándose a sus necesidades, ya sea para Fletes de Ida o de Retorno 🚚',
     '2022-10-10 20:40:22',
-    '2022-10-11 14:46:29'
+    '2022-10-13 00:44:08'
   ),
   (
     3,
-    'Que tipo Camiones Chutos Cavas tienen a disposicion',
-    'Tenemos Chutos, Cavas de todo tipo para llevar tu carga a donde necesites',
+    'camion, camiones, chutos, carga',
+    '¡Tenemos Chutos, Cavas de todo tipo para llevar tu carga a donde necesites!',
     '2022-10-10 20:40:22',
-    '2022-10-11 14:47:56'
+    '2022-10-13 00:35:03'
+  ),
+  (
+    7,
+    'persona, humano, encargado, jefe, supervisor',
+    'Para comunicarte con una persona real, dirígete a la sesión de \"Contacto\" al final de la pagina 😃',
+    '2022-10-13 00:40:44',
+    '2022-10-13 00:40:44'
   );
 -- --------------------------------------------------------
   --
@@ -1357,6 +1508,36 @@ VALUES
     1,
     '2022-10-06 22:02:50',
     '2022-10-07 01:43:31'
+  ),
+  (
+    33,
+    1,
+    'FLETE-11102022-01',
+    12,
+    152,
+    513,
+    '210',
+    '20.000',
+    '10.000',
+    0,
+    0,
+    '2022-10-11 19:50:17',
+    '2022-10-11 19:50:17'
+  ),
+  (
+    34,
+    1,
+    'FLETE-11102022-02',
+    12,
+    152,
+    513,
+    '100',
+    '25.000',
+    '7.680',
+    0,
+    0,
+    '2022-10-11 19:56:01',
+    '2022-10-11 19:56:01'
   );
 -- --------------------------------------------------------
   --
@@ -5525,7 +5706,7 @@ ALTER TABLE
   `audits`
 MODIFY
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 20;
+  AUTO_INCREMENT = 29;
 --
   -- AUTO_INCREMENT de la tabla `cavas`
   --
@@ -5541,7 +5722,7 @@ ALTER TABLE
   `chatbot`
 MODIFY
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 7;
+  AUTO_INCREMENT = 8;
 --
   -- AUTO_INCREMENT de la tabla `choferes`
   --
@@ -5597,7 +5778,7 @@ ALTER TABLE
   `fletes`
 MODIFY
   `flete_id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 33;
+  AUTO_INCREMENT = 35;
 --
   -- AUTO_INCREMENT de la tabla `migrations`
   --
