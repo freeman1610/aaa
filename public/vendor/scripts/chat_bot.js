@@ -9,7 +9,7 @@ $.ajaxSetup({
 function registrarNewReplies() {
     let ht = '<form id="form_insert_chat_bot" name="form_insert_chat_bot">' +
         '<br><label class="d-flex justify-content-between" for="">Pregunta: <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><input type="text" name="pregunta" autocomplete="off" placeholder="Pregunta" id="pregunta" class="form-control" required>' +
-        '<br><label class="d-flex justify-content-start" for="">Respuesta:</label><input type="text" name="respuesta" autocomplete="off" placeholder="Respuesta" id="respuesta" class="form-control" required>' +
+        '<br><label class="d-flex justify-content-start" for="">Respuesta:</label><textarea type="text" name="respuesta" autocomplete="off" placeholder="Respuesta" id="respuesta" class="form-control" required></textarea>' +
         '<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" type="submit">' +
         'Guardar' +
         '</button></div>' +
@@ -27,7 +27,7 @@ function registrarNewReplies() {
 function enviarFormInsert() {
     let datos = $('#form_insert_chat_bot').serialize()
     $.ajax({
-        url: 'update_chat_bot',
+        url: 'insert_chat_bot',
         type: 'POST',
         data: datos,
         success: function () {
@@ -47,7 +47,7 @@ function updateChatBot(id) {
         let ht = '<form id="form_update_chat_bot" name="form_update_chat_bot">' +
             '<input type="hidden" id="id" name="id" value="' + res.id + '">' +
             '<br><label class="d-flex justify-content-start" for="">Pregunta:</label><input type="text" name="pregunta" autocomplete="off" placeholder="Pregunta" id="pregunta" class="form-control" required value="' + res.queries + '">' +
-            '<br><label class="d-flex justify-content-start" for="">Respuesta:</label><input type="text" name="respuesta" autocomplete="off" placeholder="Respuesta" id="respuesta" class="form-control" required value="' + res.replies + '">' +
+            '<br><label class="d-flex justify-content-start" for="">Respuesta:</label><textarea type="text" name="respuesta" autocomplete="off" placeholder="Respuesta" id="respuesta" class="form-control" required>' + res.replies + '</textarea>' +
             '<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" type="submit">' +
             'Guardar' +
             '</button></div>' +

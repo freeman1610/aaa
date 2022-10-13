@@ -155,6 +155,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('pagoNominaPDF', [NominaController::class, 'pagoNominaPDF'])->name('pagoNominaPDF');
 
+    Route::post('generarUrlPDFXfechas', [NominaController::class, 'generarUrlPDFXfechas'])->name('generarUrlPDFXfechas');
+
     Route::get('generarPDFXfechas', [NominaController::class, 'generarPDFXfechas'])->name('generarPDFXfechas');
 
     //  ---------------- FIN NOMINA PERSONAL ------------------------

@@ -82,6 +82,7 @@ class PdfNominaChoferController extends Controller
         }
 
         $fpdf->AddPage();
+        $fpdf->SetTitle('Pago Viaje', true);
         $fpdf->SetFont('Arial', 'B', 20);
         $textypos = 5;
         $fpdf->Image(asset('vendor/images/lagarra.png'), 45, 8, -800);
@@ -100,8 +101,11 @@ class PdfNominaChoferController extends Controller
         // Agregamos los datos del cliente
         $fpdf->SetFont('Arial', 'B', 15);
         $fpdf->setY(25);
-        $fpdf->setX(50);
-        $fpdf->Cell(5, $textypos, "RECIBO DE PAGO DEL VIAJE: " . $datosViaje[0]->viajes_codigo);
+
+        $codigoHash = random_int(100000, 9999999) . '-' . $selectChofer->cedula . '-' . date_format(new DateTime($nomina->created_at), 'dmY');
+
+
+        $fpdf->Cell(190, $textypos, utf8_decode("RECIBO DE PAGO DEL VIAJE: N° ") . $codigoHash, 20, 10, 'C');
 
         $fpdf->Line(15, 32, 195, 32); //Linea Horizontal
 
@@ -171,10 +175,10 @@ class PdfNominaChoferController extends Controller
         $fpdf->setY(75);
         $fpdf->setX(20);
         $fpdf->SetFont('Arial', 'B', 10);
-        $fpdf->Cell(5, $textypos, "Codigo del Viaje:");
+        $fpdf->Cell(5, $textypos, "Codigo:");
 
         $fpdf->setY(75);
-        $fpdf->setX(50);
+        $fpdf->setX(35);
         $fpdf->SetFont('Arial', '', 10);
         $fpdf->Cell(5, $textypos, utf8_decode($datosViaje[0]->viajes_codigo));
 
@@ -517,11 +521,7 @@ class PdfNominaChoferController extends Controller
         $fpdf->setX(15);
         $fpdf->SetFont('Arial', 'B', 10);
 
-        $codigoHash = random_int(100000, 9999999) . '-' . $selectChofer->cedula . '-' . date_format(new DateTime($nomina->created_at), 'dmY');
-
-        $fpdf->Cell(5, $textypos, "COD: " . $codigoHash);
-
-        $fpdf->output("pago-nomina-" . $codigoHash . '.pdf', 'I');
+        $fpdf->output("pago-nomina-chofer-" . $codigoHash . '.pdf', 'I');
         exit;
     }
 }

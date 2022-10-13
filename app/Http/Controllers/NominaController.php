@@ -16,23 +16,21 @@ use Illuminate\Support\Facades\URL;
 
 class NominaController extends Controller
 {
-    public function guardar_update_nomina(Request $request)
+    public function generarUrlPDFXfechas(Request $request)
     {
         $this->validate($request, [
-            'id_nomina' => 'required',
-            'id_empleado_a' => 'required',
-            'salario_a' => 'required',
-            'tipo_nomina_a' => 'required',
-            'inicio_pago_a' => 'required',
-            'dias_lab_a' => 'required',
-            'dias_lib_a' => 'required',
-            'hora_d_a' => 'required',
-            'hora_n_a' => 'required'
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date'
         ]);
 
-        // $selectEmpleado = Empleado::find($request->id_emp);
+        if ($request->fecha_inicio > $request->fecha_fin) {
+            return response()->json(['message' => 'Error de Fechas'], status: 422);
+        }
+        $urlToke = URL::signedRoute('generarPDFXfechas', ['fecha_inicio' => $request->fecha_inicio, 'fecha_fin' => $request->fecha_fin]);
 
-        // return $request->all();
+        $contentHTML = '<a href="' . $urlToke . '" class="btn btn-info" target="_blank"><span class="fas fa-print"></span> Imprimir</a>';
+
+        return response()->json(['contentHMTL' => $contentHTML], status: 200);
     }
 
     public function crear_nomina(Request $request)
@@ -262,6 +260,7 @@ class NominaController extends Controller
 
 
         $fpdf->AddPage();
+        $fpdf->SetTitle('Pago Nomina', true);
         $fpdf->SetFont('Arial', 'B', 20);
         $textypos = 5;
         $fpdf->Image(asset('vendor/images/lagarra.png'), 45, 8, -800);
@@ -281,12 +280,15 @@ class NominaController extends Controller
 
         $espaciadoLetrasDerecha = 105;
 
+
+        $codigoHash = random_int(100000, 9999999) . '-' . $selectEmpleado->cedula . '-' . date_format(new DateTime($selectPagoNomina->inicio_pago), 'dmY') . '-' . date_format(new DateTime($selectEmpleado->fin_pago), 'dmY');
         // Agregamos los datos del cliente
-        $fpdf->SetFont('Arial', 'B', 15);
+        $fpdf->SetFont('Arial', 'B', 13);
         $fpdf->setY(25);
-        $fpdf->setX(65);
-        $fpdf->Cell(5, $textypos, "RECIBO DE PAGO DE SALARIO");
+        $fpdf->Cell(190, $textypos, utf8_decode("RECIBO DE PAGO DE SALARIO: N° ") . $codigoHash, 20, 10, 'C');
         $fpdf->SetFont('Arial', 'B', 10);
+
+
         $fpdf->setY(35);
         $fpdf->setX($espacioIzquierda);
         $fpdf->Cell(5, $textypos, "PERIODO LABORADO:");
@@ -529,28 +531,23 @@ class NominaController extends Controller
         $fpdf->setX(15);
         $fpdf->SetFont('Arial', 'B', 10);
 
-        $codigoHash = random_int(100000, 9999999) . '-' . $selectEmpleado->cedula . '-' . date_format(new DateTime($selectPagoNomina->inicio_pago), 'dmY') . '-' . date_format(new DateTime($selectEmpleado->fin_pago), 'dmY');
-
-        $fpdf->Cell(5, $textypos, "COD: " . $codigoHash);
-
         $fpdf->output("pago-nomina-" . $codigoHash . '.pdf', 'I');
         exit;
     }
     // funcion que Imprime Todos Los PDF --
     public function generarPDFXfechas(Request $request, Fpdf $fpdf)
     {
-
-        $this->validate($request, [
-            'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'required|date'
-        ]);
-
-        if ($request->fecha_inicio > $request->fecha_fin) {
-            return response()->json(['message' => 'Error de Fechas'], status: 422);
+        if (!$request->hasValidSignature()) {
+            abort(401);
         }
 
         $selectPagos = Nomina::all()
             ->whereBetween('inicio_pago', [$request->fecha_inicio, $request->fecha_fin]);
+
+        if (count($selectPagos) == 0) {
+            abort(404);
+            // return response()->json(['message' => 'No hay datos Fechas en este periodo de fechas'], status: 422);
+        }
 
         $i = 0;
         foreach ($selectPagos as $datos) {
@@ -570,6 +567,7 @@ class NominaController extends Controller
             $salarioDiario = number_format($salarioMensual / 30, 2);
 
             $fpdf->AddPage();
+            $fpdf->SetTitle('Pago Nomina', true);
             $fpdf->SetFont('Arial', 'B', 20);
             $textypos = 5;
             $fpdf->Image(asset('vendor/images/lagarra.png'), 45, 8, -800);
@@ -590,10 +588,11 @@ class NominaController extends Controller
             $espaciadoLetrasDerecha = 105;
 
             // Agregamos los datos del cliente
-            $fpdf->SetFont('Arial', 'B', 15);
+            $fpdf->SetFont('Arial', 'B', 13);
             $fpdf->setY(25);
-            $fpdf->setX(65);
-            $fpdf->Cell(5, $textypos, "RECIBO DE PAGO DE SALARIO");
+
+            $codigoHash = random_int(100000, 9999999) . '-' . $selectEmpleado->cedula . '-' . date_format(new DateTime($datos->inicio_pago), 'dmY') . '-' . date_format(new DateTime($selectEmpleado->fin_pago), 'dmY');
+            $fpdf->Cell(190, $textypos, utf8_decode("RECIBO DE PAGO DE SALARIO: N° ") . $codigoHash, 20, 10, 'C');
             $fpdf->SetFont('Arial', 'B', 10);
             $fpdf->setY(35);
             $fpdf->setX($espacioIzquierda);
@@ -844,13 +843,8 @@ class NominaController extends Controller
             $fpdf->setY(260);
             $fpdf->setX(15);
             $fpdf->SetFont('Arial', 'B', 10);
-
-            $codigoHash = random_int(100000, 9999999) . '-' . $selectEmpleado->cedula . '-' . date_format(new DateTime($datos->inicio_pago), 'dmY') . '-' . date_format(new DateTime($datos->fin_pago), 'dmY') .  '-' . date_format(new DateTime($selectEmpleado->fin_pago), 'dmY');
-            // $codigoHash = random_int(100000, 9999999) . '-' . count($selectPagos);
-
-            $fpdf->Cell(5, $textypos, "COD: " . $codigoHash);
         }
-        $fpdf->output("pago-nomina-" . $codigoHash . '.pdf', 'I');
+        $fpdf->output('pago-nomina.pdf', 'I');
         exit;
     }
 }
