@@ -338,12 +338,11 @@ class NominaController extends Controller
 
         $espaciadoLetrasDerecha = 105;
 
-
-        $codigoHash = random_int(100000, 9999999) . '-' . $selectEmpleado->cedula . '-' . date_format(new DateTime($selectPagoNomina->inicio_pago), 'dmY') . '-' . date_format(new DateTime($selectEmpleado->fin_pago), 'dmY');
+        $numPagoNom = date_format(new DateTime($selectPagoNomina->inicio_pago), 'dmY')  . '-' . $selectPagoNomina->id_nomina;
         // Agregamos los datos del cliente
         $fpdf->SetFont('Arial', 'B', 13);
         $fpdf->setY(25);
-        $fpdf->Cell(190, $textypos, utf8_decode("RECIBO DE PAGO DE SALARIO: N° ") . $codigoHash, 20, 10, 'C');
+        $fpdf->Cell(190, $textypos, utf8_decode("RECIBO DE PAGO DE SALARIO: N° ") . $numPagoNom . ' | ' . strtoupper($selectPagoNomina->tipo_nomina), 20, 10, 'C');
         $fpdf->SetFont('Arial', 'B', 10);
 
 
@@ -589,7 +588,7 @@ class NominaController extends Controller
         $fpdf->setX(15);
         $fpdf->SetFont('Arial', 'B', 10);
 
-        $fpdf->output("pago-nomina-" . $codigoHash . '.pdf', 'I');
+        $fpdf->output($numPagoNom . '.pdf', 'I');
         exit;
     }
     // funcion que Imprime Todos Los PDF --
@@ -649,8 +648,8 @@ class NominaController extends Controller
             $fpdf->SetFont('Arial', 'B', 13);
             $fpdf->setY(25);
 
-            $codigoHash = random_int(100000, 9999999) . '-' . $selectEmpleado->cedula . '-' . date_format(new DateTime($datos->inicio_pago), 'dmY') . '-' . date_format(new DateTime($selectEmpleado->fin_pago), 'dmY');
-            $fpdf->Cell(190, $textypos, utf8_decode("RECIBO DE PAGO DE SALARIO: N° ") . $codigoHash, 20, 10, 'C');
+            $numPagoNom = date_format(new DateTime($datos->inicio_pago), 'dmY') . '-' . $datos->id_nomina;
+            $fpdf->Cell(190, $textypos, utf8_decode("RECIBO DE PAGO DE SALARIO: N° ") . $numPagoNom . ' | ' . strtoupper($datos->tipo_nomina), 20, 10, 'C');
             $fpdf->SetFont('Arial', 'B', 10);
             $fpdf->setY(35);
             $fpdf->setX($espacioIzquierda);
