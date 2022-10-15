@@ -373,6 +373,7 @@ class ViajeController extends Controller
                 'viaje_dia_retorno' => 'required|date',
                 'viaje_observacion' => 'required'
             ]);
+
             $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
                 ->select('viajes_id')
                 ->get();
@@ -385,18 +386,7 @@ class ViajeController extends Controller
             } else {
                 $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
             }
-            $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
-                ->select('viajes_id')
-                ->get();
-            $selectCountViaje = count($selectCountViaje);
 
-            $selectCountViaje++;
-
-            if ($selectCountViaje < 10) {
-                $cod = 'VIAJE-' . date('dmY' . '-0' . $selectCountViaje);
-            } else {
-                $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
-            }
             $comprobarCodigo = DB::table('viajes')
                 ->select('viajes_codigo')
                 ->where('viajes_codigo', $cod)
@@ -469,18 +459,6 @@ class ViajeController extends Controller
             } else {
                 $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
             }
-            $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
-                ->select('viajes_id')
-                ->get();
-            $selectCountViaje = count($selectCountViaje);
-
-            $selectCountViaje++;
-
-            if ($selectCountViaje < 10) {
-                $cod = 'VIAJE-' . date('dmY' . '-0' . $selectCountViaje);
-            } else {
-                $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
-            }
 
             $comprobarCodigo = DB::table('viajes')
                 ->select('viajes_codigo')
@@ -536,18 +514,6 @@ class ViajeController extends Controller
                 'viaje_observacion' => 'required'
             ]);
 
-            $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
-                ->select('viajes_id')
-                ->get();
-            $selectCountViaje = count($selectCountViaje);
-
-            $selectCountViaje++;
-
-            if ($selectCountViaje < 10) {
-                $cod = 'VIAJE-' . date('dmY' . '-0' . $selectCountViaje);
-            } else {
-                $cod = 'VIAJE-' . date('dmY' . '-' . $selectCountViaje);
-            }
             $selectCountViaje = Viaje::whereDate('created_at', date('Y-m-d'))
                 ->select('viajes_id')
                 ->get();

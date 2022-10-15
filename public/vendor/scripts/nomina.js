@@ -295,7 +295,7 @@ function init() {
 	});
 
 	$.ajax({
-		url: 'muestra_empleados_select',
+		url: 'muestra_empleados_select_nom',
 		type: 'POST',
 
 		success: function (res) {

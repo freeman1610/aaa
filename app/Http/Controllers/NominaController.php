@@ -45,6 +45,58 @@ class NominaController extends Controller
             'hora_n_a' => 'required|numeric|min:0'
         ]);
 
+        // Comprobamos de que no se haya realizado un pago con anterioridad
+        // en esa quincena o mensualidad
+
+        if ($request->tipo_nomina_a == 'quincenal') {
+            $selectFirstQuincina = Nomina::where('id_empleado', '=', $request->id_empleado_a)
+                ->whereBetween('inicio_pago', [date('Y-m-1'), date('Y-m-15')])
+                ->select('tipo_nomina')
+                ->get();
+            $selectTwoQuincena = Nomina::where('id_empleado', '=', $request->id_empleado_a)
+                ->whereBetween('inicio_pago', [date('Y-m-15'), date('Y-m-30')])
+                ->select('tipo_nomina')
+                ->get();
+
+            if (count($selectTwoQuincena) > 0) {
+                if ($selectTwoQuincena[0]->tipo_nomina == 'mensual') {
+                    return response()->json([
+                        'message' => 'Este Empleado se le ha realizado un Pago Mesual en este Mes'
+                    ], status: 422);
+                }
+                return response()->json([
+                    'message' => 'Ya se ha realizado el Segundo Pago de quincena en este Mes'
+                ], status: 422);
+            }
+            if (count($selectFirstQuincina) > 0) {
+                if ($selectFirstQuincina[0]->tipo_nomina == 'mensual') {
+                    return response()->json([
+                        'message' => 'Este Empleado se le ha realizado un Pago Mesual en este Mes'
+                    ], status: 422);
+                }
+                return response()->json([
+                    'message' => 'Ya se ha realizado el Primer Pago de quincena en este Mes'
+                ], status: 422);
+            }
+        }
+
+        if ($request->tipo_nomina_a == 'mensual') {
+            $selectMenseual = Nomina::where('id_empleado', '=', $request->id_empleado_a)
+                ->whereBetween('inicio_pago', [date('Y-m-1'), date('Y-m-30')])
+                ->select('tipo_nomina')
+                ->get();
+            if (count($selectMenseual) > 0) {
+                if ($selectMenseual[0]->tipo_nomina == 'quincenal') {
+                    return response()->json([
+                        'message' => 'Este Empleado se le ha realizado un Pago Quincenal en este Mes'
+                    ], status: 422);
+                }
+                return response()->json([
+                    'message' => 'Ya se ha realizado el Pago de Mensual en este Mes'
+                ], status: 422);
+            }
+        }
+
         // Convertimos los valores a Numericos
 
         $traerSalario = Salario::find(1, ['salario']);
@@ -228,6 +280,12 @@ class NominaController extends Controller
         $selectSalarioBaseActual->salario = $request->salario_base;
 
         $selectSalarioBaseActual->save();
+    }
+
+    public function muestra_empleados_select_nom()
+    {
+        $selectAllEmpleados = Empleado::all();
+        return $selectAllEmpleados;
     }
 
     public function pagoNominaPDF(Request $request, Fpdf $fpdf)
