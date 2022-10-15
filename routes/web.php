@@ -38,7 +38,13 @@ Route::view('/', 'welcome')->name('principio');
 
 Route::post('login', [LoginAuthController::class, 'loginUp']);
 
+//  CHAT BOT PAGE INICIO
+
 Route::post('chat_bot_welcome', [ChatBotController::class, 'chat_bot_welcome']);
+
+Route::post('chat_bot_welcome_init', [ChatBotController::class, 'chat_bot_welcome_init']);
+
+// FIN CHAT BOT PAGE INICIO
 
 Route::view('login', 'admin.login')->name('login')->middleware('guest');
 

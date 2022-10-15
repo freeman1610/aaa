@@ -157,25 +157,18 @@
       <div class="title h2">Asistente Virtual</div>
       <div class="form">
         <div class="bot-inbox inbox">
-          <div class="icon">
-            <span class="fas fa-info"></span>
-          </div>
           <div class="msg-header">
-            <p>"Saluda al Asistente Virtual para poder interactuar"</p>
           </div>
         </div>
       </div>
       <div class="typing-field">
         <div class="input-data">
-          <form action="" id="formChat">
-            <input id="data" type="text" autocomplete="off" placeholder="Escribe algo para preguntar" required>
-            <button type="submit">Enviar</button>
-          </form>
-
+            <table class="table table-responsive" id="tablaXD">
+              <tr class="text-white" id="preguntasTr"></tr>
+            </table>
         </div>
       </div>
     </div>
-
     <div class="botonChaBot">
       <button type="button" class="btn btn-danger mr-3 d-none" id="cerrarChat">X Cerrar</button>
       <button type="button" class="btn btn-info" id="btn-ver-chat">Chat Bot</button>

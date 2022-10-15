@@ -91,8 +91,8 @@
 }
 
 .typing-field .input-data {
-    height: 40px;
-    width: 335px;
+    height: 90%;
+    width: 375px;
     position: relative;
 }
 
@@ -147,6 +147,14 @@
 
 .typing-field .input-data button:hover {
     background: var(--primary) !important;
+}
+
+#tablaXD::-webkit-scrollbar {
+    height: 5px;
+}
+
+#tablaXD::-webkit-scrollbar-thumb {
+    background: var(--info) !important;
 }
 
 .botonChaBot {

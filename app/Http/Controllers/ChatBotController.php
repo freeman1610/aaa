@@ -14,11 +14,7 @@ class ChatBotController extends Controller
             'text' => 'required|string'
         ]);
 
-        $selectRespuesta = ChatBot::where(
-            'queries',
-            'LIKE',
-            '%' . $request->text . '%'
-        )
+        $selectRespuesta = ChatBot::where('queries', '=', $request->text)
             ->select('replies')
             ->get();
 
@@ -28,6 +24,25 @@ class ChatBotController extends Controller
             return response()->json('¡Lo siento, no puedo ayudarte con este inconveniente!', status: 200);
         }
     }
+
+    public function chat_bot_welcome_init()
+    {
+        $selectSaludo = ChatBot::where('queries', '=', 'saludo')
+            ->select('replies')
+            ->get();
+        $selectAllPreguntas = ChatBot::select('queries')
+            ->where('queries', 'NOT LIKE', 'saludo')
+            ->get();
+        $tabla = '';
+        foreach ($selectAllPreguntas as $datos) {
+            $tabla = $tabla . '<td class="btn btn-info" onclick="buscar(`' . $datos->queries . '`)">' . $datos->queries . '</td>';
+        }
+        return response()->json([
+            'saludo' => $selectSaludo[0]->replies,
+            'preguntas' => $tabla
+        ], status: 200);
+    }
+
     public function list_chat_bot()
     {
         $selectChatBot = ChatBot::all();
