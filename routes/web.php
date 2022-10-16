@@ -8,6 +8,7 @@ use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\ChutoController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EmpleadosController;
+use App\Http\Controllers\EscritorioController;
 use App\Http\Controllers\FleteController;
 use App\Http\Controllers\LoginAuthController;
 use App\Http\Controllers\LogoutController;
@@ -85,6 +86,16 @@ Route::middleware(['auth'])->group(function () {
     Route::view('salarios_base_administrativo', 'admin.salarios_base_administrativo')->name('salarios_base_administrativo');
 
     Route::view('almacen', 'admin.almacen')->name('almacen');
+
+
+    // ---------------- DATOS ESCRITORIO ------------------------
+
+    Route::post('count_items_index', [EscritorioController::class, 'count_items_index'])->name('count_items_index');
+
+    Route::post('chutos_mes', [EscritorioController::class, 'chutos_mes'])->name('chutos_mes');
+
+
+    // ---------------- FIN DATOS ESCRITORIO ------------------------
 
     // --------------------- FIN VISTAS PRINCIPALES ---------------------------
 

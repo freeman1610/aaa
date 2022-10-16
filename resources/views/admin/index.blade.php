@@ -1,6 +1,10 @@
 
 @extends('admin.plantilla_principal')
 
+@section('etiquetas_header')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
+
 @section('contenidoCentral')
 <div class="row mt-4 justify-content-center">
     <!-- Empleados -->
@@ -9,7 +13,7 @@
         <div class="small-box bg-info">
             <div class="inner">
                 <h3 style="font-size:20px;"><strong>Empleados</strong></h3>
-                <p>Total de Empleados: </p>
+                <p>Total de Empleados: <span class="h3" id="empleados"></p>
             </div>
             <div class="icon">
                 <i class="fas fa-users"></i>
@@ -24,7 +28,7 @@
         <div class="small-box bg-success">
             <div class="inner">
                 <h3 style="font-size:20px;"><strong>Viajes</strong></h3>
-                <p>Viajes en Curso: </p>
+                <p>Viajes en Curso: <span class="h3" id="viajes_curso"></span></p>
             </div>
             <div class="icon">
                 <i class="fas fa-shipping-fast"></i>
@@ -40,7 +44,7 @@
         </div>
         <div class="card-body">
             <div class="chart">
-                <canvas id="compras" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <canvas id="chutosss" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
             </div>
         </div><!-- /.card-body -->
     </div><!-- /.card -->
@@ -50,9 +54,13 @@
         </div>
         <div class="card-body">
             <div class="chart">
-                <canvas id="egresos" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <canvas id="estadosss" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
             </div>
         </div><!-- /.card-body -->
     </div><!-- /.card -->    
 </div><!-- /.row -->
+@endsection
+
+@section('agregarScriptsJS')
+<script src="{{ asset('vendor/scripts/contenido_index.js') }}"></script>
 @endsection

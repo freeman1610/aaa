@@ -3,17 +3,14 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
-$(document).ready(function () {
-    $("#btn-ver-chat").on("click", function () {
-        $("#divChat").removeClass('d-none')
-        $("#cerrarChat").removeClass('d-none')
-    })
-    $("#cerrarChat").on("click", function () {
-        $("#divChat").addClass('d-none')
-        $("#cerrarChat").addClass('d-none')
-    })
-});
+$("#btn-ver-chat").on("click", function () {
+    $("#divChat").removeClass('d-none')
+    $("#cerrarChat").removeClass('d-none')
+})
+$("#cerrarChat").on("click", function () {
+    $("#divChat").addClass('d-none')
+    $("#cerrarChat").addClass('d-none')
+})
 
 function buscar(texto) {
 
