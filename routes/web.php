@@ -93,6 +93,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('count_items_index', [EscritorioController::class, 'count_items_index'])->name('count_items_index');
 
     Route::post('chutos_mes', [EscritorioController::class, 'chutos_mes'])->name('chutos_mes');
+    Route::post('estados_mes', [EscritorioController::class, 'estados_mes'])->name('estados_mes');
 
 
     // ---------------- FIN DATOS ESCRITORIO ------------------------
