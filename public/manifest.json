@@ -1,25 +1,17 @@
 {
-  "name": "#Transporte La Garra C.A",
-  "short_name": "#Trans | La Garra C.A",
-  "description": "Bienvenid@s a #Trans La Garra C.A, Sistema de Nómina e Inventario :)",
-  "background_color": "#aaaa",
-  "theme_color": "#aaaa",
-  "orientation": "portrait",
-  "display": "standalone",
-  "start_url": "/",
-  "scope": "/",
-  "lang": "es-MX",
-  "icons": [
-    {
-      "src": "vendor/images/lagarra.png",
-      "sizes": "458x396",
-      "type": "image/png"
-    },
-    {
-      "src": "vendor/images/lagarra_cuadrado.png",
-      "sizes": "458x396",
-      "type": "image/jpg"
-    }
-   
-  ]
+    "name": "La Garra C.A",
+    "short_name": "La_Garra",
+    "start_url": "/index.php",
+    "background_color": "#1e1f21",
+    "description": "Bienvenid@s a #Sistema La Garra, donde llevaras automatizada tu gestion administrativa",
+    "display": "fullscreen",
+    "theme_color": "#1e1f21",
+    "icons": [
+        {
+            "src": "lagarra.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
 }

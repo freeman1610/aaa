@@ -123,6 +123,7 @@ class ComposerStaticInit5e4bbd611a7844f10d92950ceb44e4ab
             'Laravel\\Sanctum\\' => 16,
             'Laravel\\Sail\\' => 13,
             'Laravel\\Breeze\\' => 15,
+            'Ladumor\\LaravelPwa\\' => 19,
         ),
         'J' => 
         array (
@@ -412,6 +413,10 @@ class ComposerStaticInit5e4bbd611a7844f10d92950ceb44e4ab
         array (
             0 => __DIR__ . '/..' . '/laravel/breeze/src',
         ),
+        'Ladumor\\LaravelPwa\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ladumor/laravel-pwa/src',
+        ),
         'JeroenNoten\\LaravelAdminLte\\' => 
         array (
             0 => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src',
@@ -534,12 +539,15 @@ class ComposerStaticInit5e4bbd611a7844f10d92950ceb44e4ab
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Admin\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/HomeController.php',
         'App\\Http\\Controllers\\AlmacenController' => __DIR__ . '/../..' . '/app/Http/Controllers/AlmacenController.php',
+        'App\\Http\\Controllers\\AuditoriaController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuditoriaController.php',
         'App\\Http\\Controllers\\BackUpAndRestoreDBController' => __DIR__ . '/../..' . '/app/Http/Controllers/BackUpAndRestoreDBController.php',
         'App\\Http\\Controllers\\CavaController' => __DIR__ . '/../..' . '/app/Http/Controllers/CavaController.php',
+        'App\\Http\\Controllers\\ChatBotController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChatBotController.php',
         'App\\Http\\Controllers\\ChutoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChutoController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DepartamentoController' => __DIR__ . '/../..' . '/app/Http/Controllers/DepartamentoController.php',
         'App\\Http\\Controllers\\EmpleadosController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpleadosController.php',
+        'App\\Http\\Controllers\\EscritorioController' => __DIR__ . '/../..' . '/app/Http/Controllers/EscritorioController.php',
         'App\\Http\\Controllers\\FleteController' => __DIR__ . '/../..' . '/app/Http/Controllers/FleteController.php',
         'App\\Http\\Controllers\\LoginAuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginAuthController.php',
         'App\\Http\\Controllers\\LogoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/LogoutController.php',
@@ -566,7 +574,9 @@ class ComposerStaticInit5e4bbd611a7844f10d92950ceb44e4ab
         'App\\Http\\Requests\\LoginUpFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/LoginUpFormRequest.php',
         'App\\Models\\Almacen' => __DIR__ . '/../..' . '/app/Models/Almacen.php',
         'App\\Models\\AsignacionNomina' => __DIR__ . '/../..' . '/app/Models/AsignacionNomina.php',
+        'App\\Models\\Auditoria' => __DIR__ . '/../..' . '/app/Models/Auditoria.php',
         'App\\Models\\Cava' => __DIR__ . '/../..' . '/app/Models/Cava.php',
+        'App\\Models\\ChatBot' => __DIR__ . '/../..' . '/app/Models/ChatBot.php',
         'App\\Models\\Chofer' => __DIR__ . '/../..' . '/app/Models/Chofer.php',
         'App\\Models\\Chuto' => __DIR__ . '/../..' . '/app/Models/Chuto.php',
         'App\\Models\\DeduccionNomina' => __DIR__ . '/../..' . '/app/Models/DeduccionNomina.php',
@@ -580,8 +590,8 @@ class ComposerStaticInit5e4bbd611a7844f10d92950ceb44e4ab
         'App\\Models\\Parroquia' => __DIR__ . '/../..' . '/app/Models/Parroquia.php',
         'App\\Models\\Salario' => __DIR__ . '/../..' . '/app/Models/Salario.php',
         'App\\Models\\Tipousuario' => __DIR__ . '/../..' . '/app/Models/Tipousuario.php',
-        'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\Usuario' => __DIR__ . '/../..' . '/app/Models/Usuario.php',
+        'App\\Models\\UsuarioPermiso' => __DIR__ . '/../..' . '/app/Models/UsuarioPermiso.php',
         'App\\Models\\Viaje' => __DIR__ . '/../..' . '/app/Models/Viaje.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -2872,6 +2882,9 @@ class ComposerStaticInit5e4bbd611a7844f10d92950ceb44e4ab
         'JeroenNoten\\LaravelAdminLte\\View\\Components\\Widget\\ProfileWidget' => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src/View/Components/Widget/ProfileWidget.php',
         'JeroenNoten\\LaravelAdminLte\\View\\Components\\Widget\\Progress' => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src/View/Components/Widget/Progress.php',
         'JeroenNoten\\LaravelAdminLte\\View\\Components\\Widget\\SmallBox' => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src/View/Components/Widget/SmallBox.php',
+        'Ladumor\\LaravelPwa\\LaravelPwa' => __DIR__ . '/..' . '/ladumor/laravel-pwa/src/LaravelPwa.php',
+        'Ladumor\\LaravelPwa\\PWAServiceProvider' => __DIR__ . '/..' . '/ladumor/laravel-pwa/src/PWAServiceProvider.php',
+        'Ladumor\\LaravelPwa\\commands\\PublishPWA' => __DIR__ . '/..' . '/ladumor/laravel-pwa/src/commands/PublishPWA.php',
         'Laravel\\Breeze\\BreezeServiceProvider' => __DIR__ . '/..' . '/laravel/breeze/src/BreezeServiceProvider.php',
         'Laravel\\Breeze\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallCommand.php',
         'Laravel\\Breeze\\Console\\InstallsApiStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsApiStack.php',

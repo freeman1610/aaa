@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Transporte La Garra</title>
   <link rel="shortcut icon" href="{{ asset('vendor/images/lagarra.png') }}">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <link rel="manifest" href="{{ asset('manifest.json') }}">
   <link rel="stylesheet" href="{{asset('vendor/css/bootstrap.min.css') }} ">
   <link rel="stylesheet" href="{{ asset('vendor/css/style.css') }}" />
   <link rel="stylesheet" href="{{ asset('vendor/css/chatbot.css') }}" />
@@ -18,18 +18,17 @@
   <!-- Font Google -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PWA  -->
+  <meta name="theme-color" content="#1e1f21" />
+  <link rel="apple-touch-icon" href="{{ asset('lagarra.png') }}">
+  <link rel="manifest" href="{{ asset('/manifest.json') }}">
 </head>
 
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg">
-    <div class="container"> <a class="navbar-brand navbar-logo" href="#"> <img width="300" src="{{asset('vendor/images/lagarra_white.png')}}" alt="logo"
-          class="logo-1"> </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span
-          class="fas fa-bars"></span> </button>
+    <div class="container"> <a class="navbar-brand navbar-logo" href="#"> <img width="300" src="{{asset('vendor/images/lagarra_white.png')}}" alt="logo" class="logo-1"> </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="0">INICIO</a> </li>
@@ -163,9 +162,9 @@
       </div>
       <div class="typing-field">
         <div class="input-data">
-            <table class="table table-responsive" id="tablaXD">
-              <tr class="text-white" id="preguntasTr"></tr>
-            </table>
+          <table class="table table-responsive" id="tablaXD">
+            <tr class="text-white" id="preguntasTr"></tr>
+          </table>
         </div>
       </div>
     </div>
@@ -193,5 +192,14 @@
   <script src="{{ asset('vendor/js/isotope.pkgd.min.js') }}"></script>
   <script src="{{ asset('vendor/scripts/chat_bot_welcome.js') }}"></script>
   <script src="{{ asset('vendor/scripts/welcome.js') }}"></script>
+  <script src="{{ asset('/sw.js') }}"></script>
+  <script>
+    if (!navigator.serviceWorker.controller) {
+      navigator.serviceWorker.register("/sw.js").then(function(reg) {
+        console.log("Service worker has been registered for scope: " + reg.scope);
+      });
+    }
+  </script>
 </body>
+
 </html>

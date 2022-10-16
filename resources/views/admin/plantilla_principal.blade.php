@@ -1,19 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ab540a">
-  <meta name="MobileOptimized" content="width">
-  <meta name="HandheldFriendly" content="true">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   @yield('etiquetas_header')
   <title>Transporte | La Garra C.A</title>
   <link rel="shortcut icon" href="{{ asset('vendor/images/lagarra.png') }}">
-  <link rel="apple-touch-icon" href="{{ asset('vendor/images/lagarra.png') }}">
-  <link rel="apple-touch-startup-image" href="{{ asset('vendor/images/lagarra.png') }}">
-  <link rel="manifest" href="{{ asset('manifest.json') }}">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
