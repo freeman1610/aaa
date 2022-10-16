@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2022 a las 06:52:37
+-- Tiempo de generación: 16-10-2022 a las 04:59:13
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 SET
@@ -725,28 +725,28 @@ INSERT INTO
 VALUES
   (
     1,
-    'Hola, ayuda, ola, ey',
+    'saludo',
     '¡Hola! 😁, soy el Asistente Virtual del Sistema La Garra, dime ¿en que puedo ayudarte?',
     '2022-10-10 20:40:22',
     '2022-10-13 00:41:47'
   ),
   (
     2,
-    'viajes, viaje, flete, fletes',
+    'Viajes',
     'Trabajamos con viajes a nivel nacional 🇻🇪, adecuándose a sus necesidades, ya sea para Fletes de Ida o de Retorno 🚚',
     '2022-10-10 20:40:22',
     '2022-10-13 00:44:08'
   ),
   (
     3,
-    'camion, camiones, chutos, carga',
+    'Chutos',
     '¡Tenemos Chutos, Cavas de todo tipo para llevar tu carga a donde necesites!',
     '2022-10-10 20:40:22',
     '2022-10-13 00:35:03'
   ),
   (
     7,
-    'persona, humano, encargado, jefe, supervisor',
+    'Contacto',
     'Para comunicarte con una persona real, dirígete a la sesión de \"Contacto\" al final de la pagina 😃',
     '2022-10-13 00:40:44',
     '2022-10-13 00:40:44'
