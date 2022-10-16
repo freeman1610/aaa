@@ -19,7 +19,10 @@ $.ajax({
     type: 'POST',
 
     success: function (res) {
-        console.log(res.placas);
+
+        var placas = res.placas.replace(/['"]+/g,'').split(',');
+        var numViajes = res.numViajes.split(',');
+        
         var ctx = document.getElementById("chutosss").getContext('2d');
         new Chart(ctx, {
             type: 'bar',
@@ -29,10 +32,10 @@ $.ajax({
                 // Lo mismo sucede con res.numViajes, retorno un string en lugar de numeros
                 // numViajes : "3,2,2,3" -------- Cuando se necesita que sea haci:
                 // numViajes : 3,2,2,3
-                labels: [res.placas],
+                labels: placas,
                 datasets: [{
                     label: '# Chutos más usados en este Mes.',
-                    data: [res.numViajes],
+                    data: numViajes,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
