@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Chuto;
 use App\Models\Empleado;
 use App\Models\Viaje;
+use App\Models\Estado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EscritorioController extends Controller
 {
@@ -20,6 +22,8 @@ class EscritorioController extends Controller
             'empleados' => $selectEmpleadoCount
         ], status: 200);
     }
+
+    // Metodo que trae los chutos mas usados durante el mes 
     public function chutos_mes()
     {
         $selectPlacas = Viaje::whereBetween('viajes.viajes_dia_salida', [date('Y-m-1'), date('Y-m-30')])
@@ -47,5 +51,31 @@ class EscritorioController extends Controller
             'placas' => $placas,
             'numViajes' => $numViajes
         ], status: 200);
+    }
+
+    // Metodo que Trae los estados mas visitados del mes
+    public function estados_mes(){
+        // $selectEstado = Viaje::whereBetween('viajes.viajes_dia_salida',[date('Y-m-1'),date('Y-m-30')])->join('estados','estados.id_estado','=','viajes.viajes_estado')->select('estados.estado')->get()->toArray();
+        $prueba = DB::table('viajes')->select('estado',DB::raw('count(*) as total'))
+        ->join('estados','estados.id_estado','=','viajes.viajes_estado')
+        ->groupBy('estado')->whereBetween('viajes.viajes_dia_salida',[date('Y-m-1'),date('Y-m-30')])->get()->toArray();
+        
+        $estados = [];
+        $totalEstados = [];
+
+        // usamos un ciclo for para guardar los elemento de interes en un array usando la funcion array_push
+        for($i=0; $i<count($prueba);$i++)
+        {
+            array_push($estados,$prueba[$i]->estado); 
+            array_push($totalEstados,$prueba[$i]->total);
+        }
+
+        // retornar el arreglo como json para recibirlo con ajax
+        return response()->json([
+            'estados' => $estados,
+            'totalEstados' => $totalEstados
+        ],status:200);
+       
+
     }
 }
