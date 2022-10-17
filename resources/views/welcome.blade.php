@@ -153,7 +153,7 @@
   </footer>
   <!-- CHAT BOT -->
   <div class="wrapper">
-    <div id="divChat" class="chatbot d-none">
+    <div id="divChat" class="chatbot ">
       <div class="title h2">Asistente Virtual</div>
       <div class="form">
         <div class="bot-inbox inbox">
@@ -170,7 +170,7 @@
       </div>
     </div>
     <div class="botonChaBot">
-      <button type="button" class="btn btn-danger mr-3 d-none" id="cerrarChat">X Cerrar</button>
+      <button type="button" class="btn btn-danger mr-3" id="cerrarChat">X Cerrar</button>
       <button type="button" class="btn btn-info" id="btn-ver-chat">Chat Bot</button>
     </div>
   </div>

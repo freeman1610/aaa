@@ -172,10 +172,39 @@
     position: fixed;
     bottom: 7em;
     right: 2em;
-    transition: .2s;
+    visibility: hidden;
+    opacity: 0;
+    transform: translate3d(0px, 20px, 0px);
+    transition: .5s;
+
 }
 
+.show-chat {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
 
+}
+
+#cerrarChat {
+    transition: .5s;
+    transform: translate3d(100%, 0px, 0px);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 0;
+    position: relative;
+}
+
+#btn-ver-chat {
+    position: relative;
+    z-index: 1;
+}
+
+.show-button-chat {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
 
 @media screen and (max-width: 1200px) {
     .wrapper .form {

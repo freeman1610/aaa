@@ -4,12 +4,12 @@ $.ajaxSetup({
     }
 });
 $("#btn-ver-chat").on("click", function () {
-    $("#divChat").removeClass('d-none')
-    $("#cerrarChat").removeClass('d-none')
+    $("#divChat").addClass('show-chat')
+    $("#cerrarChat").addClass('show-button-chat')
 })
 $("#cerrarChat").on("click", function () {
-    $("#divChat").addClass('d-none')
-    $("#cerrarChat").addClass('d-none')
+    $("#divChat").removeClass('show-chat')
+    $("#cerrarChat").removeClass('show-button-chat')
 })
 
 function buscar(texto) {
