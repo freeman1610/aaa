@@ -25,7 +25,7 @@
         <div class="card card-primary card-outline">
             <div class="card-body box-profile">
                 <div class="text-center">
-                    <img id="imgUserPlantillaPerfil" class="profile-user-img img-fluid img-circle" src="vendor/img-users/{{ Auth::user()->imagen }}" width="128px" alt="User profile picture">
+                    <img id="imgUserPlantillaPerfil" class="profile-user-img img-fluid img-circle" src="{{ asset('vendor/img-users/'.Auth::user()->imagen)}}" width="128px" alt="User profile picture">
                 </div>
                 <div class="text-center mt-3">
                     

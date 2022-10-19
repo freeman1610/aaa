@@ -61,13 +61,13 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
                     <div class="nav-link dropdown-toggle cursor-pointer" role="button" data-toggle="dropdown">
-                        <img id="imgUser1" src="vendor/img-users/{{ Auth::user()->imagen }}" class="user-image img-circle elevation-2" alt="User Image">
+                        <img id="imgUser1" src="{{ asset('vendor/img-users/'.Auth::user()->imagen) }}" class="user-image img-circle elevation-2" alt="User Image">
                         <span class="d-md-inline">{{ Auth::user()->nombre }}</span>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
                         <li class="user-header bg-primary">
-                            <img id="imgUser2" src="vendor/img-users/{{ Auth::user()->imagen }}" aaa class="img-circle elevation-2" width="160px" alt="User Image">
+                            <img id="imgUser2" src="{{ asset('vendor/img-users/'.Auth::user()->imagen) }}" aaa class="img-circle elevation-2" width="160px" alt="User Image">
                             <p>
                                 <small>{{ Auth::user()->nombre }}</small>
                             </p>
@@ -105,7 +105,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img id="imgUser3" src="vendor/img-users/{{ Auth::user()->imagen }}" class="img-circle elevation-2" width="160px" alt="User Image">
+                        <img id="imgUser3" src="{{ asset('vendor/img-users/'.Auth::user()->imagen) }}" class="img-circle elevation-2" width="160px" alt="User Image">
                     </div>
                     <div class="info">
                         <div href="#" class="text-white d-block">{{ Auth::user()->nombre }}</div>
