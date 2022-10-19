@@ -21,7 +21,7 @@
   <!-- PWA  -->
   <meta name="theme-color" content="#1e1f21" />
   <link rel="apple-touch-icon" href="{{ asset('lagarra.png') }}">
-  <link rel="manifest" href="{{ asset('/manifest.json') }}">
+  <link rel="manifest" href="{{ asset('manifest.json') }}">
 </head>
 
 <body>
@@ -192,10 +192,10 @@
   <script src="{{ asset('vendor/js/isotope.pkgd.min.js') }}"></script>
   <script src="{{ asset('vendor/scripts/chat_bot_welcome.js') }}"></script>
   <script src="{{ asset('vendor/scripts/welcome.js') }}"></script>
-  <script src="{{ asset('/sw.js') }}"></script>
+  <script src="{{ asset('sw.js') }}"></script>
   <script>
     if (!navigator.serviceWorker.controller) {
-      navigator.serviceWorker.register("/sw.js").then(function(reg) {
+      navigator.serviceWorker.register("sw.js").then(function(reg) {
         console.log("Service worker has been registered for scope: " + reg.scope);
       });
     }

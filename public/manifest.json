@@ -1,7 +1,7 @@
 {
     "name": "La Garra C.A",
     "short_name": "La_Garra",
-    "start_url": "/index.php",
+    "start_url": "index.php",
     "background_color": "#1e1f21",
     "description": "Bienvenid@s a #Sistema La Garra, donde llevaras automatizada tu gestion administrativa",
     "display": "fullscreen",
