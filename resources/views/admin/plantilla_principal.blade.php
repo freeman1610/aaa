@@ -45,7 +45,7 @@
   <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" id="centro_central">
     <div class="wrapper">
@@ -131,9 +131,9 @@
                                 <i class="nav-icon fas fa  fa-home (alias)"></i><p>Escritorio</p>
                             </a>
                         </li>
-                        
+
                           @if( Auth::user()->cargo == 'ADMINISTRADOR' || session()->get('acceso') == 1)
-                        
+
                         <li class="nav-item menu-close">
                             <a href="#" class="nav-link" id="acc">
                                 <i class="nav-icon fas fa-laptop"></i><p>Acceso<i class="right fas fa-angle-left"></i></p>
@@ -158,7 +158,7 @@
                         </li>
                         @endif
 
-                        @if(Auth::user()->cargo == 'ADMINISTRADOR') 
+                        @if(Auth::user()->cargo == 'ADMINISTRADOR')
                         <li class="nav-item">
                             <a href="{{ route('empleados') }}" class="nav-link" id="emp">
                                 <i class="nav-icon fas fa-book"></i><p>Registro de Empleados</p>
@@ -177,6 +177,11 @@
                                 <li class="nav-item">
                                     <a href="{{ route('nomina_chofer') }}" class="nav-link" id="nom_chofer">
                                         <i class="fas fa-address-card nav-icon"></i><p>Nómina Choferes</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('presupuesto') }}" class="nav-link" id="nom_chofer">
+                                        <i class="fa fa-university"></i><p> Asignar Presupuesto</p>
                                     </a>
                                 </li>
                             </ul>
@@ -222,7 +227,7 @@
                         </li>
                         @endif
                         @if(Auth::user()->cargo == 'ADMINISTRADOR' || Auth::user()->cargo == 'SISTEMAS')
-                 
+
                         <li class="nav-item">
                             <a href="{{ route('auditoria') }}" class="nav-link" id="aud">
                                 <i class="nav-icon fas fa-bars"></i><p>Auditoria</p>
@@ -244,7 +249,7 @@
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
-                    
+
                     @yield('contenidoCentral')
 
                 </div><!-- /.container-fluid -->

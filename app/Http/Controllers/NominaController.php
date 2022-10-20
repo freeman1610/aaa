@@ -7,6 +7,8 @@ use App\Models\DeduccionNomina;
 use App\Models\Empleado;
 use App\Models\Nomina;
 use App\Models\Salario;
+use App\Models\Presupuesto;
+use App\Models\DetallePresupuesto;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use DateTime;
 use Illuminate\Http\Request;
@@ -157,6 +159,35 @@ class NominaController extends Controller
 
         //Total a Pagar
         $total_pago = $subtotalAsignacion - $subTotalDeduccion;
+
+        // Traemos los datos del presupuesto
+        $presupuesto = DB::table('presupuesto')->select('fondos')->latest()->first();
+        $pre = floatval($presupuesto->fondos);
+
+        // Validamos si el total de pago del trabajador es superior al presupuesto
+        if($total_pago >= $pre ){
+            return response()->json([
+                'message' => 'Fondos insuficientes en la Nomina'
+            ], status: 422);
+        }
+
+        // Restamos el dinero del Presupuesto
+
+        $newPresupuesto = new Presupuesto;
+        $newPresupuesto->fondos = $presupuesto->fondos -  $total_pago;
+        $newPresupuesto->presupuestoAnterior = $presupuesto->fondos;
+        $newPresupuesto->presupuestoActual = $presupuesto->fondos -  $total_pago;
+        $newPresupuesto->save();
+
+        // Registramos el detalle del Presupuesto
+        $return_id_presupuesto = DB::table('presupuesto')->select('id')->latest()->first();
+
+        $newDetallePresupuesto = new DetallePresupuesto;
+        $newDetallePresupuesto->destinoFondos = "Nomina";
+        $newDetallePresupuesto->idpresupuesto = $return_id_presupuesto->id;
+        $newDetallePresupuesto->fechaDetalle = date('Y-m-d');
+        $newDetallePresupuesto->fondosRestados = $total_pago;
+        $newDetallePresupuesto->save();
 
         $newNomina = new Nomina;
         $newNomina->id_empleado = $request->id_empleado_a;
