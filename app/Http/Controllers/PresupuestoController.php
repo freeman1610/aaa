@@ -11,7 +11,7 @@ class PresupuestoController extends Controller
 {
     public function listar_pre()
     {
-        $selecPresupuesto = DB::table('presupuesto')->select('fondos', 'created_at', 'presupuestoAnterior','presupuestoActual')->orderBy('created_at','asc')->get();
+        $selecPresupuesto = DB::table('presupuesto')->select('fondos', 'created_at', 'presupuestoAnterior', 'presupuestoActual')->orderBy('created_at', 'desc')->get();
 
         $arrayDeDatos = [];
 
@@ -36,7 +36,8 @@ class PresupuestoController extends Controller
         return response()->json($results, status: 200);
     }
 
-    public function insertar_pre(Request $request){
+    public function insertar_pre(Request $request)
+    {
 
         $this->validate($request, [
             'presupuesto' => 'required|numeric|min:0'

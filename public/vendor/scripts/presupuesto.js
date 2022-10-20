@@ -1,14 +1,14 @@
 $.ajaxSetup({
-	headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	}
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
 });
 
 //funcion que se ejecuta al inicio
 function init() {
 
     $("#nom").addClass("active");
-    $("#nom_a").addClass("active");
+    $("#presupuesto").addClass("active");
     listar();
 }
 
@@ -42,32 +42,32 @@ function listar() {
 }
 
 function limpiarFormulario() {
-	document.getElementById("formularioCrearPre").reset();
-	document.getElementById('presupuesto').focus()
+    document.getElementById("formularioCrearPre").reset();
+    document.getElementById('presupuesto').focus()
 }
 
 function enviarFormCrearPresupuesto() {
 
-	let datos = $('#formularioCrearPre').serialize();
+    let datos = $('#formularioCrearPre').serialize();
 
-	$.ajax({
-		url: 'insertar_pre',
-		method: 'POST',
-		data: datos,
+    $.ajax({
+        url: 'insertar_pre',
+        method: 'POST',
+        data: datos,
 
-		success: function () {
-			toastr.success('Datos Guardados Correctamente')
-			tabla.ajax.reload();
-		},
+        success: function () {
+            toastr.success('Datos Guardados Correctamente')
+            tabla.ajax.reload();
+        },
 
-		error: function (err) {
-			toastr.error(err.responseJSON.message)
-		}
+        error: function (err) {
+            toastr.error(err.responseJSON.message)
+        }
 
-	});
+    });
 }
 
-$("#btnPresupuesto").click(function(){
+$("#btnPresupuesto").click(function () {
     clickAgregarPre();
 });
 
@@ -93,10 +93,10 @@ function clickAgregarPre() {
 
 document.querySelector("#centro_central").addEventListener("submit", ev => {
 
-	if (ev.target.matches('#formularioCrearPre')) {
-		ev.preventDefault()
-		enviarFormCrearPresupuesto()
-	}
+    if (ev.target.matches('#formularioCrearPre')) {
+        ev.preventDefault()
+        enviarFormCrearPresupuesto()
+    }
 
 });
 

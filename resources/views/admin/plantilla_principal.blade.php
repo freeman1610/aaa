@@ -180,7 +180,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('presupuesto') }}" class="nav-link" id="nom_chofer">
+                                    <a href="{{ route('presupuesto') }}" class="nav-link" id="presupuesto">
                                         <i class="fa fa-university"></i><p> Asignar Presupuesto</p>
                                     </a>
                                 </li>

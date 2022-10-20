@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-10-2022 a las 04:59:13
+-- Tiempo de generación: 20-10-2022 a las 06:57:06
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 SET
@@ -26,6 +26,8 @@ SET
     `idalmacen` int(11) NOT NULL,
     `idusuario` int(11) NOT NULL,
     `codigo` varchar(50) NOT NULL,
+    `estado` varchar(50) NOT NULL DEFAULT 'En Deposito',
+    `proveedor` varchar(100) NOT NULL,
     `marca` varchar(100) NOT NULL,
     `nombre` varchar(100) NOT NULL,
     `stock` int(11) UNSIGNED NOT NULL,
@@ -41,6 +43,8 @@ INSERT INTO
     `idalmacen`,
     `idusuario`,
     `codigo`,
+    `estado`,
+    `proveedor`,
     `marca`,
     `nombre`,
     `stock`,
@@ -53,34 +57,86 @@ VALUES
     46,
     1,
     '21312',
-    'Listo',
-    'XD',
-    22,
-    'fff',
+    'Asignado',
+    'Ciro Sanchez',
+    'Aiteg',
+    'Azulejo 2020',
+    1,
+    'PC Desktop',
     '2022-09-13 00:00:00',
-    '2022-09-20 19:48:54'
+    '2022-10-20 00:34:52'
   ),
   (
     47,
     21,
     '321222',
-    'Ya Funciona',
-    'dasda',
-    213,
-    'dasdad',
+    'En Deposito',
+    'Play Store Venezuela',
+    'Logitech',
+    'G102',
+    5,
+    'Mouse de PC',
     '2022-09-14 06:59:39',
-    '2022-09-20 19:49:17'
+    '2022-10-19 23:16:11'
   ),
   (
     48,
     1,
     '123554',
+    'En Deposito',
+    'La Rapida',
     'Goodyear',
     'Caucho',
     4,
-    'Ring 20',
+    '195/50 R16',
     '2022-09-20 00:57:59',
-    '2022-09-20 00:57:59'
+    '2022-10-19 23:15:48'
+  ),
+  (
+    50,
+    1,
+    'dadda3331',
+    'En Deposito',
+    'Sigma System',
+    'Asus',
+    'HP 12900k',
+    1,
+    'PC Desktop',
+    '2022-10-20 00:11:07',
+    '2022-10-20 00:34:36'
+  );
+-- --------------------------------------------------------
+  --
+  -- Estructura de tabla para la tabla `asignacion_almacen`
+  --
+  CREATE TABLE `asignacion_almacen` (
+    `id` int(11) NOT NULL,
+    `id_usuario` int(11) NOT NULL,
+    `id_emp` int(11) NOT NULL,
+    `id_articulo` int(11) NOT NULL,
+    `created_at` datetime NOT NULL,
+    `updated_at` datetime NOT NULL
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+--
+  -- Volcado de datos para la tabla `asignacion_almacen`
+  --
+INSERT INTO
+  `asignacion_almacen` (
+    `id`,
+    `id_usuario`,
+    `id_emp`,
+    `id_articulo`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    2,
+    1,
+    9,
+    46,
+    '2022-10-20 00:34:52',
+    '2022-10-20 00:34:52'
   );
 -- --------------------------------------------------------
   --
@@ -613,6 +669,310 @@ VALUES
     NULL,
     '2022-10-13 05:14:08',
     '2022-10-13 05:14:08'
+  ),
+  (
+    29,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"marca\":\"Listo\",\"nombre\":\"XD\",\"stock\":22,\"descripcion\":\"fff\"}',
+    '{\"marca\":\"Aiteg\",\"nombre\":\"Azulejo 2020\",\"stock\":\"1\",\"descripcion\":\"PC Desktop\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-16 18:31:37',
+    '2022-10-16 18:31:37'
+  ),
+  (
+    30,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    47,
+    '{\"marca\":\"Ya Funciona\",\"nombre\":\"dasda\",\"stock\":213,\"descripcion\":\"dasdad\"}',
+    '{\"marca\":\"Logitech\",\"nombre\":\"G102\",\"stock\":\"5\",\"descripcion\":\"Mouse de PC\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-16 18:32:18',
+    '2022-10-16 18:32:18'
+  ),
+  (
+    31,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    48,
+    '{\"descripcion\":\"Ring 20\"}',
+    '{\"descripcion\":\"195\\/50 R16\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-16 18:33:19',
+    '2022-10-16 18:33:19'
+  ),
+  (
+    32,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Chofer',
+    8,
+    '{\"chofer_estado\":1}',
+    '{\"chofer_estado\":0}',
+    'http://192.168.1.103/primera%20prueba%20git/laGarra1/public/viaje_completado',
+    '192.168.1.100',
+    'Mozilla/5.0 (Linux; Android 11; RMX3231) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Mobile Safari/537.36',
+    NULL,
+    '2022-10-19 02:20:45',
+    '2022-10-19 02:20:45'
+  ),
+  (
+    33,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Chuto',
+    6,
+    '{\"chuto_asignado\":1}',
+    '{\"chuto_asignado\":0}',
+    'http://192.168.1.103/primera%20prueba%20git/laGarra1/public/viaje_completado',
+    '192.168.1.100',
+    'Mozilla/5.0 (Linux; Android 11; RMX3231) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Mobile Safari/537.36',
+    NULL,
+    '2022-10-19 02:20:45',
+    '2022-10-19 02:20:45'
+  ),
+  (
+    34,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Cava',
+    11,
+    '{\"cava_asignada\":1}',
+    '{\"cava_asignada\":0}',
+    'http://192.168.1.103/primera%20prueba%20git/laGarra1/public/viaje_completado',
+    '192.168.1.100',
+    'Mozilla/5.0 (Linux; Android 11; RMX3231) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Mobile Safari/537.36',
+    NULL,
+    '2022-10-19 02:20:45',
+    '2022-10-19 02:20:45'
+  ),
+  (
+    35,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Flete',
+    32,
+    '{\"flete_estado\":1}',
+    '{\"flete_estado\":2}',
+    'http://192.168.1.103/primera%20prueba%20git/laGarra1/public/viaje_completado',
+    '192.168.1.100',
+    'Mozilla/5.0 (Linux; Android 11; RMX3231) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Mobile Safari/537.36',
+    NULL,
+    '2022-10-19 02:20:46',
+    '2022-10-19 02:20:46'
+  ),
+  (
+    36,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Viaje',
+    19,
+    '{\"viajes_estado\":0}',
+    '{\"viajes_estado\":1}',
+    'http://192.168.1.103/primera%20prueba%20git/laGarra1/public/viaje_completado',
+    '192.168.1.100',
+    'Mozilla/5.0 (Linux; Android 11; RMX3231) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Mobile Safari/537.36',
+    NULL,
+    '2022-10-19 02:20:46',
+    '2022-10-19 02:20:46'
+  ),
+  (
+    37,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\NominaChofer',
+    9,
+    '[]',
+    '{\"id_chofer\":14,\"id_viaje\":19,\"pago_total\":0,\"id_nomina_chofer\":9}',
+    'http://192.168.1.103/primera%20prueba%20git/laGarra1/public/viaje_completado',
+    '192.168.1.100',
+    'Mozilla/5.0 (Linux; Android 11; RMX3231) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Mobile Safari/537.36',
+    NULL,
+    '2022-10-19 02:20:46',
+    '2022-10-19 02:20:46'
+  ),
+  (
+    38,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    48,
+    '{\"proveedor\":\"\"}',
+    '{\"proveedor\":\"La Rapida\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/index.php/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-20 03:45:49',
+    '2022-10-20 03:45:49'
+  ),
+  (
+    39,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    47,
+    '{\"proveedor\":\"\"}',
+    '{\"proveedor\":\"Play Store Venezuela\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/index.php/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-20 03:46:11',
+    '2022-10-20 03:46:11'
+  ),
+  (
+    40,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"proveedor\":\"\"}',
+    '{\"proveedor\":\"Ciro Sanchez\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/index.php/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-20 03:46:26',
+    '2022-10-20 03:46:26'
+  ),
+  (
+    41,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Almacen',
+    50,
+    '[]',
+    '{\"idusuario\":1,\"codigo\":\"dadda3331\",\"proveedor\":\"Sigma System\",\"marca\":\"Asus\",\"nombre\":\"HP 12900k\",\"stock\":\"1\",\"descripcion\":\"PC Desktop\",\"idalmacen\":50}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/registrar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-20 04:41:07',
+    '2022-10-20 04:41:07'
+  ),
+  (
+    42,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    50,
+    '{\"estado\":\"En Deposito\"}',
+    '{\"estado\":\"Asignado\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-20 04:41:17',
+    '2022-10-20 04:41:17'
+  ),
+  (
+    43,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    1,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"5\",\"id_articulo\":\"50\",\"id\":1}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-20 04:43:04',
+    '2022-10-20 04:43:04'
+  ),
+  (
+    44,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    50,
+    '{\"estado\":\"Asignado\"}',
+    '{\"estado\":\"En Deposito\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-20 05:04:36',
+    '2022-10-20 05:04:36'
+  ),
+  (
+    45,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\AsignacionAlmacen',
+    1,
+    '{\"id\":1,\"id_usuario\":1,\"id_emp\":5,\"id_articulo\":50}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-20 05:04:36',
+    '2022-10-20 05:04:36'
+  ),
+  (
+    46,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"estado\":\"En Deposito\"}',
+    '{\"estado\":\"Asignado\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-20 05:04:52',
+    '2022-10-20 05:04:52'
+  ),
+  (
+    47,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    2,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"9\",\"id_articulo\":\"46\",\"id\":2}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-20 05:04:52',
+    '2022-10-20 05:04:52'
   );
 -- --------------------------------------------------------
   --
@@ -663,9 +1023,9 @@ VALUES
     'dadad',
     '21313',
     'ACTIVO',
-    1,
+    0,
     '2022-09-21 21:24:56',
-    '2022-10-07 01:43:31'
+    '2022-10-18 21:50:45'
   ),
   (
     12,
@@ -777,9 +1137,9 @@ VALUES
   (
     8,
     14,
-    1,
+    0,
     '2022-09-23 22:45:50',
-    '2022-10-07 01:43:31'
+    '2022-10-18 21:50:45'
   ),
   (
     9,
@@ -847,9 +1207,9 @@ VALUES
     '350',
     'FORD',
     'ACTIVO',
-    1,
+    0,
     '2022-07-24 14:59:49',
-    '2022-10-07 01:43:31'
+    '2022-10-18 21:50:45'
   ),
   (
     7,
@@ -1016,6 +1376,42 @@ VALUES
     '2022-09-20 21:40:27',
     1,
     1
+  );
+-- --------------------------------------------------------
+  --
+  -- Estructura de tabla para la tabla `detalle_presupuesto`
+  --
+  CREATE TABLE `detalle_presupuesto` (
+    `iddetalle` int(11) NOT NULL,
+    `destinoFondos` text COLLATE utf8mb4_bin NOT NULL,
+    `idpresupuesto` int(11) NOT NULL,
+    `fechaDetalle` date DEFAULT NULL,
+    `fondosRestados` double DEFAULT NULL,
+    `created_at` datetime DEFAULT NULL,
+    `updated_at` datetime DEFAULT NULL
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_bin;
+--
+  -- Volcado de datos para la tabla `detalle_presupuesto`
+  --
+INSERT INTO
+  `detalle_presupuesto` (
+    `iddetalle`,
+    `destinoFondos`,
+    `idpresupuesto`,
+    `fechaDetalle`,
+    `fondosRestados`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    1,
+    'Nomina',
+    13,
+    '2022-10-19',
+    142.21,
+    '2022-10-19 23:23:40',
+    '2022-10-19 23:23:40'
   );
 -- --------------------------------------------------------
   --
@@ -1504,10 +1900,10 @@ VALUES
     '133',
     '20.000',
     '3.000',
-    1,
+    2,
     1,
     '2022-10-06 22:02:50',
-    '2022-10-07 01:43:31'
+    '2022-10-18 21:50:46'
   ),
   (
     33,
@@ -2019,6 +2415,15 @@ VALUES
     0,
     '2022-10-05 22:55:56',
     '2022-10-05 22:55:56'
+  ),
+  (
+    9,
+    14,
+    19,
+    '0',
+    0,
+    '2022-10-18 21:50:46',
+    '2022-10-18 21:50:46'
   );
 -- --------------------------------------------------------
   --
@@ -3321,1284 +3726,132 @@ VALUES
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 -- --------------------------------------------------------
   --
-  -- Estructura de tabla para la tabla `registros_log`
+  -- Estructura de tabla para la tabla `presupuesto`
   --
-  CREATE TABLE `registros_log` (
-    `idregistros_log` int(11) NOT NULL,
-    `operacion` varchar(20) DEFAULT NULL,
-    `DatosAnteriores` varchar(800) NOT NULL,
-    `fecha_mov` date DEFAULT NULL,
-    `hora_mov` time DEFAULT NULL,
-    `tabla_mov` varchar(40) NOT NULL
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+  CREATE TABLE `presupuesto` (
+    `id` int(11) NOT NULL,
+    `fondos` double(8, 2) DEFAULT NULL,
+    `presupuestoAnterior` double DEFAULT NULL,
+    `presupuestoActual` double DEFAULT NULL,
+    `created_at` datetime DEFAULT NULL,
+    `updated_at` datetime DEFAULT NULL
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_bin;
 --
-  -- Volcado de datos para la tabla `registros_log`
+  -- Volcado de datos para la tabla `presupuesto`
   --
 INSERT INTO
-  `registros_log` (
-    `idregistros_log`,
-    `operacion`,
-    `DatosAnteriores`,
-    `fecha_mov`,
-    `hora_mov`,
-    `tabla_mov`
+  `presupuesto` (
+    `id`,
+    `fondos`,
+    `presupuestoAnterior`,
+    `presupuestoActual`,
+    `created_at`,
+    `updated_at`
   )
 VALUES
   (
-    338,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-14',
-    '07:07:22',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    339,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Márquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-14',
-    '07:10:09',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    340,
-    'ACTUALIZAR',
-    'Nombre_Departamento: DEPARTAMENTO ADMINISTRATIVO---\r\nDescripcion: --> ENCARGADOS DE ADMINISTRACIÓN DE LA EMPRESA',
-    '2022-07-14',
-    '07:10:32',
-    'departamento --> iddepartamento: 1'
-  ),
-  (
-    341,
-    'ACTUALIZAR',
-    'Nombre_Departamento: DEPARTAMENTO ADMINISTRATIVOS---\r\nDescripcion: --> ENCARGADOS DE ADMINISTRACIÓN DE LA EMPRESA',
-    '2022-07-14',
-    '07:10:38',
-    'departamento --> iddepartamento: 1'
-  ),
-  (
-    342,
-    'ACTUALIZAR\r\n',
-    'Nombre_Cat: Articulos de Oficina\r\n --> Descripcion: Todo lo relacionado con la papeleria y herramientas usadas en el área de Administración',
-    '2022-07-14',
-    '07:13:52',
-    'categoria --> idcategoria: 1'
-  ),
-  (
-    343,
-    'ACTUALIZAR\r\n',
-    'Nombre_Cat: Articulos de Oficina\r\n --> Descripcion: Todo lo relacionado con la papeleria y herramientas usadas en el área de Administración',
-    '2022-07-14',
-    '07:15:19',
-    'categoria --> idcategoria: 1'
-  ),
-  (
-    344,
-    'ELIMINAR\r\n',
-    'Nombre_Cat: Accesorios de Sistemas\r\n --> Descripcion: Todo lo Relacionado con cualquier accesorio Tecnologico',
-    '2022-07-14',
-    '07:15:33',
-    'categoria --> idcategoria: 2'
-  ),
-  (
-    345,
-    'ACTUALIZAR',
-    'nombre: s\r\napellido: s\r\nnum_documento: 1\r\nlogin: aaaa',
-    '2022-07-16',
-    '05:04:06',
-    'usuario --->\r\n\r\nidusuario-> 20'
-  ),
-  (
-    346,
-    'ELIMINAR',
-    'nombre: s\r\napellido: s\r\nnum_documento: 1\r\nlogin: aaaa',
-    '2022-07-16',
-    '05:04:12',
-    'usuario --->\r\n\r\nidusuario-> 20'
-  ),
-  (
-    347,
-    'ACTUALIZAR',
-    'nombre: \r\napellido: \r\nnum_documento: \r\nlogin: ',
-    '2022-07-16',
-    '05:04:16',
-    'usuario --->\r\n\r\nidusuario-> 19'
-  ),
-  (
-    348,
-    'ELIMINAR',
-    'nombre: \r\napellido: \r\nnum_documento: \r\nlogin: ',
-    '2022-07-16',
-    '05:04:20',
-    'usuario --->\r\n\r\nidusuario-> 19'
-  ),
-  (
-    349,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-21',
-    '09:50:59',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    350,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '06:41:37',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    351,
-    'ACTUALIZAR',
-    'nombre: Jose Manuel\r\napellido: Gonzalez\r\nnum_documento: 30145587\r\nlogin: jose',
-    '2022-07-22',
-    '06:41:43',
-    'usuario --->\r\n\r\nidusuario-> 21'
-  ),
-  (
-    352,
-    'ACTUALIZAR',
-    'nombre: Cesar\r\napellido: Colmenares\r\nnum_documento: 28195144\r\nlogin: Cesar',
-    '2022-07-22',
-    '06:41:46',
-    'usuario --->\r\n\r\nidusuario-> 22'
-  ),
-  (
-    353,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '06:59:14',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    354,
-    'ACTUALIZAR',
-    'nombre: Jose Manuel\r\napellido: Gonzalez\r\nnum_documento: 30145587\r\nlogin: jose',
-    '2022-07-22',
-    '09:29:47',
-    'usuario --->\r\n\r\nidusuario-> 21'
-  ),
-  (
-    355,
-    'ACTUALIZAR',
-    'nombre: Cesar\r\napellido: Colmenares\r\nnum_documento: 28195144\r\nlogin: Cesar',
-    '2022-07-22',
-    '09:33:32',
-    'usuario --->\r\n\r\nidusuario-> 22'
-  ),
-  (
-    356,
-    'ACTUALIZAR',
-    'nombre: Gabriel\r\napellido: Montilva\r\nnum_documento: 30134587\r\nlogin: gabriel',
-    '2022-07-22',
-    '10:21:44',
-    'usuario --->\r\n\r\nidusuario-> 23'
-  ),
-  (
-    357,
-    'ELIMINAR',
-    'nombre: Gabriel\r\napellido: Montilva\r\nnum_documento: 30134587\r\nlogin: gabriel',
-    '2022-07-22',
-    '10:21:51',
-    'usuario --->\r\n\r\nidusuario-> 23'
-  ),
-  (
-    358,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '20:57:21',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    359,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Márquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:12:55',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    360,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:18:24',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    361,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:20:06',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    362,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:22:01',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    363,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:23:10',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    364,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:23:18',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    365,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:23:26',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    366,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:23:51',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    367,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:30:36',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    368,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:31:33',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    369,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:31:47',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    370,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:31:58',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    371,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:32:22',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    372,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:33:56',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    373,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:34:50',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    374,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:38:15',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    375,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:40:03',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    376,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:41:42',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    377,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-22',
-    '21:43:44',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    378,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-23',
-    '01:44:49',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    379,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-23',
-    '01:45:06',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    380,
-    'ACTUALIZAR',
-    'nombre: Islender\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-23',
-    '01:45:24',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    381,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-23',
-    '03:19:29',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    382,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-23',
-    '04:31:54',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    383,
-    'ACTUALIZAR',
-    'nombre: Cesar\r\napellido: Colmenares\r\nnum_documento: 28195144\r\nlogin: Cesar',
-    '2022-07-23',
-    '04:36:55',
-    'usuario --->\r\n\r\nidusuario-> 22'
-  ),
-  (
-    384,
-    'ACTUALIZAR',
-    'nombre: Cesar\r\napellido: Colmenares\r\nnum_documento: 28195144\r\nlogin: Cesar',
-    '2022-07-23',
-    '04:39:33',
-    'usuario --->\r\n\r\nidusuario-> 22'
-  ),
-  (
-    386,
-    'ACTUALIZAR',
-    'Nombre_Departamento: DEPARTAMENTO DE PRUEBAS---\r\nDescripcion: --> DEPARTAMENTO ENCARGADO DE LAS PRUEBAS',
-    '2022-07-23',
-    '06:06:43',
-    'departamento --> iddepartamento: 9'
-  ),
-  (
-    387,
-    'ELIMINAR',
-    'Nombre_Departamento: DEPARTAMENTO DE PRUEBAS---\r\n --> Descripcion: DEPARTAMENTO ENCARGADO DE LAS PRUEBA',
-    '2022-07-23',
-    '06:06:46',
-    'departamento --> iddepartamento: 9'
-  ),
-  (
-    388,
-    'ACTUALIZAR',
-    'Nombre_Departamento: DEPARTAMENTO DE TRANSPORTE---\r\nDescripcion: --> ENCARGADOS DEL TRANSPORTE EN LA EMPRESA ',
-    '2022-07-23',
-    '06:07:07',
-    'departamento --> iddepartamento: 8'
-  ),
-  (
-    389,
-    'ACTUALIZAR',
-    'Nombre_Departamento: DEPARTAMENTO DE TRANSPORTE---\r\nDescripcion: --> ENCARGADOS DEL TRANSPORTE EN LA EMPRESA ',
-    '2022-07-23',
-    '06:07:11',
-    'departamento --> iddepartamento: 8'
-  ),
-  (
-    390,
-    'ACTUALIZAR',
-    'Nombre_Departamento: DEPARTAMENTO DE TRANSPORTE---\r\nDescripcion: --> ENCARGADOS DEL TRANSPORTE EN LA EMPRESA ',
-    '2022-07-23',
-    '06:07:16',
-    'departamento --> iddepartamento: 8'
-  ),
-  (
-    391,
-    'ACTUALIZAR',
-    'Nombre_Departamento: DEPARTAMENTO DE TRANSPORTE---\r\nDescripcion: --> ENCARGADOS DEL TRANSPORTE EN LA EMPRESA ',
-    '2022-07-23',
-    '06:07:36',
-    'departamento --> iddepartamento: 8'
-  ),
-  (
-    392,
-    'ELIMINAR',
-    'Nombre_Departamento: SSSSS---\r\n --> Descripcion: SSSSSSS',
-    '2022-07-23',
-    '06:43:01',
-    'departamento --> iddepartamento: 10'
-  ),
-  (
-    393,
-    'ACTUALIZAR\r\n',
-    'Nombre_Cat: AAAAAA\r\n --> Descripcion: SSSSSSS',
-    '2022-07-23',
-    '09:59:14',
-    'categoria --> idcategoria: 5'
-  ),
-  (
-    394,
-    'ACTUALIZAR\r\n',
-    'Nombre_Cat: S\r\n --> Descripcion: SSSSSSS',
-    '2022-07-23',
-    '09:59:14',
-    'categoria --> idcategoria: 5'
-  ),
-  (
-    395,
-    'ELIMINAR\r\n',
-    'Nombre_Cat: S\r\n --> Descripcion: SSSSSSS',
-    '2022-07-23',
-    '09:59:16',
-    'categoria --> idcategoria: 5'
-  ),
-  (
-    396,
-    'ACTUALIZAR\r\n',
-    'Nombre_Cat: Articulos de Oficina\r\n --> Descripcion: Todo lo relacionado con la papeleria y herramientas usadas en el área de Administración',
-    '2022-07-24',
-    '08:38:50',
-    'categoria --> idcategoria: 1'
-  ),
-  (
-    397,
-    'ACTUALIZAR\r\n',
-    'Nombre_Cat: ARTICULO DE OFICINA\r\n --> Descripcion: Todo lo relacionado con la papeleria y herramientas usadas en el área de Administración',
-    '2022-07-24',
-    '08:38:50',
-    'categoria --> idcategoria: 1'
-  ),
-  (
-    398,
-    'ACTUALIZAR\r\n',
-    'Nombre_Cat: DD\r\n --> Descripcion: DDDDD',
-    '2022-07-24',
-    '08:39:01',
-    'categoria --> idcategoria: 6'
-  ),
-  (
-    399,
-    'ACTUALIZAR\r\n',
-    'Nombre_Cat: DD\r\n --> Descripcion: DDDDD',
-    '2022-07-24',
-    '08:39:05',
-    'categoria --> idcategoria: 6'
-  ),
-  (
-    400,
-    'ELIMINAR\r\n',
-    'Nombre_Cat: DD\r\n --> Descripcion: DDDDD',
-    '2022-07-24',
-    '08:39:08',
-    'categoria --> idcategoria: 6'
-  ),
-  (
-    401,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '13:32:52',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    402,
-    'ACTUALIZAR',
-    'nombre: Islender\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '13:33:10',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    403,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:01:08',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    404,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:02:43',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    405,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:30:09',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    406,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:45:38',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    407,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:48:26',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    408,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:49:32',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    409,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:50:11',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    410,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:50:17',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    411,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:50:22',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    412,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:50:42',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    413,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:52:50',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    414,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:52:53',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    415,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:54:45',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    416,
-    'ACTUALIZAR',
-    'nombre: Islender\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:54:52',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    417,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:55:58',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    418,
-    'ACTUALIZAR',
-    'nombre: Islender Denilso\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:56:02',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    419,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:56:05',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    420,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-07-24',
-    '14:56:17',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    421,
-    'ACTUALIZAR',
-    'nombre: Jose Manuel\r\napellido: Gonzalez\r\nnum_documento: 30145587\r\nlogin: jose',
-    '2022-07-26',
-    '16:08:07',
-    'usuario --->\r\n\r\nidusuario-> 21'
-  ),
-  (
-    422,
-    'ACTUALIZAR',
-    'nombre: Jose Manuel\r\napellido: Gonzalez\r\nnum_documento: 30145587\r\nlogin: jose',
-    '2022-07-26',
-    '16:08:42',
-    'usuario --->\r\n\r\nidusuario-> 21'
-  ),
-  (
-    423,
-    'ACTUALIZAR',
-    'nombre: Jose Manuel\r\napellido: Gonzalez\r\nnum_documento: 30145587\r\nlogin: jose',
-    '2022-07-26',
-    '16:08:49',
-    'usuario --->\r\n\r\nidusuario-> 21'
-  ),
-  (
-    424,
-    'ACTUALIZAR',
-    'nombre: Jose Manuel\r\napellido: Gonzalez\r\nnum_documento: 30145587\r\nlogin: jose',
-    '2022-07-26',
-    '16:09:50',
-    'usuario --->\r\n\r\nidusuario-> 21'
-  ),
-  (
-    425,
-    'ACTUALIZAR',
-    'nombre: Jose Manuel\r\napellido: Gonzalez\r\nnum_documento: 30145587\r\nlogin: jose',
-    '2022-07-26',
-    '16:13:20',
-    'usuario --->\r\n\r\nidusuario-> 21'
-  ),
-  (
-    426,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-17',
-    '23:22:37',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    427,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-17',
-    '23:23:25',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    428,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '17:59:11',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    429,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '18:01:57',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    430,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '18:02:07',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    431,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '18:03:27',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    432,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '18:04:44',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    433,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '18:04:51',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    434,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:11:27',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    435,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:12:09',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    436,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:22:28',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    437,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:23:45',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    438,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:27:51',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    439,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:28:00',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    440,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:28:09',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    441,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:28:16',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    442,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:30:42',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    443,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:31:30',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    444,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:34:56',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    445,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:35:10',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    446,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:35:49',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    447,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '21:39:11',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    448,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-20',
-    '22:51:50',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    449,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '11:57:09',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    450,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '11:57:31',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    451,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '11:58:39',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    452,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '12:00:11',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    453,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '12:00:27',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    454,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '12:00:51',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    455,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '12:01:04',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    456,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '12:01:40',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    457,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '12:02:37',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    458,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '12:03:01',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    459,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '12:04:42',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    460,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-21',
-    '12:05:09',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    461,
-    'ACTUALIZAR',
-    'nombre: Prueba Laravel\r\napellido: 1.0\r\nnum_documento: 111111\r\nlogin: prueba',
-    '2022-08-22',
-    '18:54:15',
-    'usuario --->\r\n\r\nidusuario-> 25'
-  ),
-  (
-    462,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-22',
-    '19:49:07',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    463,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-22',
-    '19:56:57',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    464,
-    'ACTUALIZAR',
-    'nombre: Prueba Laravel\r\napellido: 1.0\r\nnum_documento: 111111\r\nlogin: prueba',
-    '2022-08-22',
-    '21:30:38',
-    'usuario --->\r\n\r\nidusuario-> 25'
-  ),
-  (
-    465,
-    'ACTUALIZAR',
-    'nombre: Jose Manuel\r\napellido: Gonzalez\r\nnum_documento: 30145587\r\nlogin: jose',
-    '2022-08-22',
-    '21:33:27',
-    'usuario --->\r\n\r\nidusuario-> 21'
-  ),
-  (
-    466,
-    'ACTUALIZAR',
-    'nombre: Cesar\r\napellido: Colmenares\r\nnum_documento: 28195144\r\nlogin: Cesar',
-    '2022-08-22',
-    '21:36:27',
-    'usuario --->\r\n\r\nidusuario-> 22'
-  ),
-  (
-    467,
-    'ACTUALIZAR',
-    'nombre: Gabriel\r\napellido: Montilva\r\nnum_documento: 30159951\r\nlogin: gabriel',
-    '2022-08-22',
-    '21:36:32',
-    'usuario --->\r\n\r\nidusuario-> 24'
-  ),
-  (
-    468,
-    'ACTUALIZAR',
-    'nombre: Jose Manuel\r\napellido: Gonzalez\r\nnum_documento: 30145587\r\nlogin: jose',
-    '2022-08-22',
-    '21:37:03',
-    'usuario --->\r\n\r\nidusuario-> 21'
-  ),
-  (
-    474,
-    'ACTUALIZAR',
-    'nombre: Gabriel\r\napellido: Montilva\r\nnum_documento: 30159951\r\nlogin: gabriel',
-    '2022-08-22',
-    '23:15:45',
-    'usuario --->\r\n\r\nidusuario-> 24'
-  ),
-  (
-    475,
-    'ACTUALIZAR',
-    'nombre: Gabriel\r\napellido: Montilva\r\nnum_documento: 30159951\r\nlogin: gabriels',
-    '2022-08-22',
-    '23:15:56',
-    'usuario --->\r\n\r\nidusuario-> 24'
-  ),
-  (
-    482,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-23',
-    '15:02:15',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    483,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-23',
-    '15:02:33',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    484,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-23',
-    '17:21:39',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    485,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-23',
-    '17:24:55',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    486,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-23',
-    '17:25:04',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    487,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-23',
-    '17:26:08',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    488,
-    'ACTUALIZAR',
-    'nombre: aaa\r\napellido: Perez\r\nnum_documento: 3333\r\nlogin: otro',
-    '2022-08-24',
-    '20:13:15',
-    'usuario --->\r\n\r\nidusuario-> 28'
-  ),
-  (
-    489,
-    'ACTUALIZAR',
-    'nombre: Pedro\r\napellido: Perez\r\nnum_documento: 1115564\r\nlogin: pedros',
-    '2022-08-24',
-    '20:16:29',
-    'usuario --->\r\n\r\nidusuario-> 27'
-  ),
-  (
-    490,
-    'ACTUALIZAR',
-    'nombre: Pedro\r\napellido: Perez\r\nnum_documento: 1115564\r\nlogin: pedros',
-    '2022-08-24',
-    '20:16:34',
-    'usuario --->\r\n\r\nidusuario-> 27'
-  ),
-  (
-    491,
-    'ACTUALIZAR',
-    'nombre: Pedro\r\napellido: Perez\r\nnum_documento: 1115564\r\nlogin: pedros',
-    '2022-08-24',
-    '20:17:15',
-    'usuario --->\r\n\r\nidusuario-> 27'
-  ),
-  (
-    492,
-    'ACTUALIZAR',
-    'nombre: aaa\r\napellido: Perez\r\nnum_documento: 3333\r\nlogin: otro',
-    '2022-08-24',
-    '20:48:06',
-    'usuario --->\r\n\r\nidusuario-> 28'
-  ),
-  (
-    493,
-    'ACTUALIZAR',
-    'nombre: Pedro\r\napellido: Perez\r\nnum_documento: 1115564\r\nlogin: pedros',
-    '2022-08-24',
-    '20:48:17',
-    'usuario --->\r\n\r\nidusuario-> 27'
-  ),
-  (
-    494,
-    'ACTUALIZAR',
-    'nombre: aaa\r\napellido: Perez\r\nnum_documento: 3333\r\nlogin: otro',
-    '2022-08-24',
-    '20:51:16',
-    'usuario --->\r\n\r\nidusuario-> 28'
-  ),
-  (
-    495,
-    'ACTUALIZAR',
-    'nombre: aaa\r\napellido: Perez\r\nnum_documento: 3333\r\nlogin: otro',
-    '2022-08-24',
-    '20:52:44',
-    'usuario --->\r\n\r\nidusuario-> 28'
-  ),
-  (
-    496,
-    'ACTUALIZAR',
-    'nombre: aaa\r\napellido: Perez\r\nnum_documento: 3333\r\nlogin: otro',
-    '2022-08-24',
-    '20:52:47',
-    'usuario --->\r\n\r\nidusuario-> 28'
-  ),
-  (
-    497,
-    'ACTUALIZAR',
-    'nombre: aaa\r\napellido: Perez\r\nnum_documento: 3333\r\nlogin: otro',
-    '2022-08-24',
-    '20:53:18',
-    'usuario --->\r\n\r\nidusuario-> 28'
-  ),
-  (
-    498,
-    'ACTUALIZAR',
-    'nombre: aaa\r\napellido: Perez\r\nnum_documento: 3333\r\nlogin: otro',
-    '2022-08-24',
-    '20:53:26',
-    'usuario --->\r\n\r\nidusuario-> 28'
-  ),
-  (
-    499,
-    'ACTUALIZAR',
-    'nombre: aaa\r\napellido: Perez\r\nnum_documento: 3333\r\nlogin: otro',
-    '2022-08-24',
-    '20:54:50',
-    'usuario --->\r\n\r\nidusuario-> 28'
-  ),
-  (
-    500,
-    'ACTUALIZAR',
-    'nombre: aaa\r\napellido: Perez\r\nnum_documento: 3333\r\nlogin: otro',
-    '2022-08-24',
-    '20:54:53',
-    'usuario --->\r\n\r\nidusuario-> 28'
-  ),
-  (
-    501,
-    'ACTUALIZAR',
-    'nombre: dsadad\r\napellido: sdadvv\r\nnum_documento: 444866622\r\nlogin: borrarss',
-    '2022-08-24',
-    '21:09:11',
-    'usuario --->\r\n\r\nidusuario-> 33'
-  ),
-  (
-    502,
-    'ELIMINAR',
-    'nombre: dsadad\r\napellido: sdadvv\r\nnum_documento: 444866622\r\nlogin: borrarss',
-    '2022-08-24',
-    '21:09:17',
-    'usuario --->\r\n\r\nidusuario-> 33'
-  ),
-  (
-    503,
-    'ACTUALIZAR',
-    'nombre: dsadad\r\napellido: sdadvv\r\nnum_documento: 4448666\r\nlogin: borrar',
-    '2022-08-24',
-    '21:09:29',
-    'usuario --->\r\n\r\nidusuario-> 29'
-  ),
-  (
-    504,
-    'ELIMINAR',
-    'nombre: dsadad\r\napellido: sdadvv\r\nnum_documento: 4448666\r\nlogin: borrar',
-    '2022-08-24',
-    '21:09:34',
-    'usuario --->\r\n\r\nidusuario-> 29'
-  ),
-  (
-    505,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-25',
-    '20:51:25',
-    'usuario --->\r\n\r\nidusuario-> 1'
-  ),
-  (
-    506,
-    'ACTUALIZAR',
-    'nombre: Islender Denilson\r\napellido: Montilva Marquez\r\nnum_documento: 28195178\r\nlogin: admin',
-    '2022-08-26',
-    '12:41:30',
-    'usuario --->\r\n\r\nidusuario-> 1'
+    1,
+    785.00,
+    0,
+    785,
+    '2022-10-18 08:00:01',
+    '2022-10-19 22:44:21'
+  ),
+  (
+    2,
+    850.00,
+    785,
+    850,
+    '2022-10-18 09:00:00',
+    '2022-10-19 22:44:21'
+  ),
+  (
+    3,
+    250.00,
+    850,
+    250,
+    '2022-10-18 22:14:00',
+    '2022-10-19 22:44:22'
+  ),
+  (
+    4,
+    1520.00,
+    250,
+    1520,
+    '2022-10-18 22:33:27',
+    '2022-10-19 22:44:22'
+  ),
+  (
+    5,
+    100.00,
+    1520,
+    100,
+    '2022-10-18 22:37:35',
+    '2022-10-19 22:44:23'
+  ),
+  (
+    6,
+    5000.00,
+    100,
+    5000,
+    '2022-10-19 21:04:33',
+    '2022-10-19 22:44:23'
+  ),
+  (
+    7,
+    10000.00,
+    5000,
+    10000,
+    '2022-10-19 21:09:31',
+    '2022-10-19 22:44:24'
+  ),
+  (
+    8,
+    200000.00,
+    10000,
+    200000,
+    '2022-10-19 22:44:10',
+    '2022-10-19 22:44:10'
+  ),
+  (
+    9,
+    500000.00,
+    200000,
+    500000,
+    '2022-10-19 22:45:08',
+    '2022-10-19 22:45:08'
+  ),
+  (
+    10,
+    499677.58,
+    500000,
+    499677.58,
+    '2022-10-19 23:02:07',
+    '2022-10-19 23:02:07'
+  ),
+  (
+    11,
+    499535.37,
+    499677.58,
+    499535.37,
+    '2022-10-19 23:22:09',
+    '2022-10-19 23:22:09'
+  ),
+  (
+    12,
+    499393.16,
+    499535.37,
+    499393.16,
+    '2022-10-19 23:22:33',
+    '2022-10-19 23:22:33'
+  ),
+  (
+    13,
+    499250.95,
+    499393.16,
+    499250.95,
+    '2022-10-19 23:23:40',
+    '2022-10-19 23:23:40'
   );
 -- --------------------------------------------------------
   --
@@ -5416,9 +4669,9 @@ VALUES
     '2022-10-07',
     '2022-10-08',
     '12313',
-    0,
+    1,
     '2022-10-07 01:43:31',
-    '2022-10-07 01:45:06'
+    '2022-10-18 21:50:46'
   );
 --
   -- Índices para tablas volcadas
@@ -5436,6 +4689,19 @@ ADD
   UNIQUE KEY `codigo_UNIQUE` (`codigo`),
 ADD
   KEY `fk_articulo_usuario_idx` (`idusuario`);
+--
+  -- Indices de la tabla `asignacion_almacen`
+  --
+ALTER TABLE
+  `asignacion_almacen`
+ADD
+  PRIMARY KEY (`id`),
+ADD
+  KEY `id_usuario` (`id_usuario`),
+ADD
+  KEY `id_articulo` (`id_articulo`),
+ADD
+  KEY `id_emp` (`id_emp`);
 --
   -- Indices de la tabla `asignacion_nomina`
   --
@@ -5512,6 +4778,15 @@ ADD
   PRIMARY KEY (`iddepartamento`),
 ADD
   KEY `idusuario` (`idusuario`);
+--
+  -- Indices de la tabla `detalle_presupuesto`
+  --
+ALTER TABLE
+  `detalle_presupuesto`
+ADD
+  PRIMARY KEY (`iddetalle`),
+ADD
+  KEY `fk_dtpresupuesto_presupuesto` (`idpresupuesto`);
 --
   -- Indices de la tabla `empleado`
   --
@@ -5613,13 +4888,6 @@ ADD
 ADD
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`, `tokenable_id`);
 --
-  -- Indices de la tabla `registros_log`
-  --
-ALTER TABLE
-  `registros_log`
-ADD
-  PRIMARY KEY (`idregistros_log`);
---
   -- Indices de la tabla `salario_base`
   --
 ALTER TABLE
@@ -5690,7 +4958,15 @@ ALTER TABLE
   `almacen`
 MODIFY
   `idalmacen` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 50;
+  AUTO_INCREMENT = 51;
+--
+  -- AUTO_INCREMENT de la tabla `asignacion_almacen`
+  --
+ALTER TABLE
+  `asignacion_almacen`
+MODIFY
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  AUTO_INCREMENT = 3;
 --
   -- AUTO_INCREMENT de la tabla `asignacion_nomina`
   --
@@ -5706,7 +4982,7 @@ ALTER TABLE
   `audits`
 MODIFY
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 29;
+  AUTO_INCREMENT = 48;
 --
   -- AUTO_INCREMENT de la tabla `cavas`
   --
@@ -5756,6 +5032,14 @@ MODIFY
   `iddepartamento` int(11) NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 12;
 --
+  -- AUTO_INCREMENT de la tabla `detalle_presupuesto`
+  --
+ALTER TABLE
+  `detalle_presupuesto`
+MODIFY
+  `iddetalle` int(11) NOT NULL AUTO_INCREMENT,
+  AUTO_INCREMENT = 2;
+--
   -- AUTO_INCREMENT de la tabla `empleado`
   --
 ALTER TABLE
@@ -5802,7 +5086,7 @@ ALTER TABLE
   `nomina_choferes`
 MODIFY
   `id_nomina_chofer` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 9;
+  AUTO_INCREMENT = 10;
 --
   -- AUTO_INCREMENT de la tabla `pago_nomina`
   --
@@ -5834,14 +5118,6 @@ ALTER TABLE
   `personal_access_tokens`
 MODIFY
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
---
-  -- AUTO_INCREMENT de la tabla `registros_log`
-  --
-ALTER TABLE
-  `registros_log`
-MODIFY
-  `idregistros_log` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 507;
 --
   -- AUTO_INCREMENT de la tabla `salario_base`
   --
@@ -5892,6 +5168,17 @@ ALTER TABLE
   `almacen`
 ADD
   CONSTRAINT `almacen_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+--
+  -- Filtros para la tabla `asignacion_almacen`
+  --
+ALTER TABLE
+  `asignacion_almacen`
+ADD
+  CONSTRAINT `asignacion_almacen_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD
+  CONSTRAINT `asignacion_almacen_ibfk_2` FOREIGN KEY (`id_articulo`) REFERENCES `almacen` (`idalmacen`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD
+  CONSTRAINT `asignacion_almacen_ibfk_3` FOREIGN KEY (`id_emp`) REFERENCES `empleado` (`id_emp`) ON DELETE CASCADE ON UPDATE CASCADE;
 --
   -- Filtros para la tabla `asignacion_nomina`
   --
