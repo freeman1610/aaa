@@ -21,6 +21,7 @@ use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ViajeCompletadoController;
 use App\Http\Controllers\ViajeController;
+use App\Http\Controllers\PresupuestoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,6 +67,8 @@ Route::middleware(['auth'])->group(function () {
     Route::view('nomina_personal', 'admin.nomina_personal')->name('nomina_personal');
 
     Route::view('nomina_chofer', 'admin.nomina_chofer')->name('nomina_chofer');
+
+    Route::view('presupuesto', 'admin.presupuesto')->name('presupuesto');
 
     Route::view('departamentos', 'admin.departamentos')->name('departamentos');
 
@@ -161,7 +164,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('crear_nomina', [NominaController::class, 'crear_nomina'])->name('crear_nomina');
 
+    Route::post('insertar_pre', [PresupuestoController::class, 'insertar_pre'])->name('insertar_pre');
+
     Route::get('listar_nomina', [NominaController::class, 'listar_nomina'])->name('listar_nomina');
+
+    Route::get('listar_pre', [PresupuestoController::class, 'listar_pre'])->name('listar_pre');
 
     Route::post('muestra_empleados_select_nom', [NominaController::class, 'muestra_empleados_select_nom'])->name('muestra_empleados_select_nom');
 
@@ -182,6 +189,7 @@ Route::middleware(['auth'])->group(function () {
     // ----------------- NOMINA CHOFER ------------------------
 
     Route::get('listar_nomina_chofer', [NominaChoferesController::class, 'listar_nomina_chofer'])->name('listar_nomina_chofer');
+
 
     Route::post('mostrar_pagos_disponibles', [NominaChoferesController::class, 'mostrar_pagos_disponibles'])->name('mostrar_pagos_disponibles');
 
@@ -274,7 +282,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('viaje_delete', [ViajeController::class, 'viaje_delete'])->name('viaje_delete');
 
-    // ----------------- VIAJE COMPLETADOS 
+    // ----------------- VIAJE COMPLETADOS
     Route::get(
         'listar_viaje_completado',
         [
