@@ -17,7 +17,9 @@
                     <thead>
                         <tr>
                             <th>Opciones</th>
+                            <th>Estado</th>
                             <th>Codigo</th>
+                            <th>Proveedor</th>
                             <th>Marca</th>
                             <th>Nombre</th>
                             <th>Stock</th>
@@ -30,7 +32,9 @@
                     <tfoot>
                         <tr>
                             <th>Opciones</th>
+                            <th>Estado</th>
                             <th>Codigo</th>
+                            <th>Proveedor</th>
                             <th>Marca</th>
                             <th>Nombre</th>
                             <th>Stock</th>
@@ -47,126 +51,6 @@
 @endsection
 
 @section('agregarScriptsJS')
-
-<script>
-    $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
-    function enviarFormRegistrarArticulo(){
-        
-        let datos = $('#formularioRegistrarArticulo').serialize();
-
-        $.ajax({
-            url: 'registrar_articulo',
-            method: 'POST',
-            data: datos,
-
-            success: function(res){
-                toastr.success('Datos Guardados Correctamente')
-                tabla.ajax.reload();
-            },
-
-            error: function(err){
-                toastr.error(err.responseJSON.message)
-            }
-
-        });
-    }
-
-    function updateArticulo(id) {
-
-        $.post("mostrar_articulo_update", { idarticulo: id }, function (res) {
-            Swal.fire({
-                title: 'Actualizar Articulo',
-                html:
-                    '<form action="" name="formularioActulizarArticulo" id="formularioActulizarArticulo" method="POST">'+
-                        '@csrf'+
-                        '<input type="hidden" name="id_articulo" id="id_articulo" value="'+res.idalmacen+'">'+
-                        '<br><label class="d-flex justify-content-between" for="">Codigo: <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><input type="text" autocomplete="off" name="codigo" placeholder="Codigo" maxlength="100" id="codigo" class="form-control" value="'+res.codigo+'" required>'+
-                        '<br><label class="d-flex justify-content-start" for="">Marca:</label><input type="text" autocomplete="off" placeholder="Marca" name="marca" id="marca" class="form-control" value="'+res.marca+'" required>'+
-                        '<br><label class="d-flex justify-content-start" for="">Nombre:</label><input type="text" autocomplete="off" placeholder="Nombre" name="nombre" id="nombre" class="form-control" value="'+res.nombre+'" required>'+
-                        '<br><label class="d-flex justify-content-start" for="">Stock:</label><input type="number" autocomplete="off" placeholder="Stock" name="stock" id="stock" class="form-control" value="'+res.stock+'" required>'+
-                        '<br><label class="d-flex justify-content-start" for="">Descripción:</label><input type="text" name="descripcion" autocomplete="off" placeholder="Descripción" id="descripcion" class="form-control" value="'+res.descripcion+'" required>'+
-                        '<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" type="submit">'+
-                            'Guardar'+
-                        '</button>'+
-                        '<button class="btn btn-info mt-3 ml-2" onclick="limpiarFormulario()" type="button">'+
-                            'Limpiar'+
-                        '</button></div>'+
-                    '</form>',
-                showCloseButton: true,
-                showConfirmButton: false,
-                showCancelButton: false,
-                focusConfirm: false
-            })
-        });
-    }
-
-    function enviarFormActualizarArticulo() {
-        let datos = $('#formularioActulizarArticulo').serialize();
-        $.ajax({
-            url: 'update_articulo',
-            method: 'POST',
-            data: datos,
-
-            success: function(res){
-                toastr.success('Datos Actualizados Correctamente')
-                tabla.ajax.reload();
-            },
-
-            error: function(err){
-                toastr.error(err.responseJSON.message)
-            }
-
-        });
-    }
-
-    function limpiarFormulario() {
-        document.getElementById("formularioRegistrarArticulo").reset();
-        document.getElementById('codigo').focus()
-    }
-
-    function mostrarformNew() {
-        Swal.fire({
-            title: 'Registrar Articulo',
-            html:
-                '<form action="" name="formularioRegistrarArticulo" id="formularioRegistrarArticulo" method="POST">'+
-                    '@csrf'+
-                    '<br><label class="d-flex justify-content-between" for="">Codigo: <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><input type="text" autocomplete="off" name="codigo" placeholder="Codigo" maxlength="100" id="codigo" class="form-control" required>'+
-                    '<br><label class="d-flex justify-content-start" for="">Marca:</label><input type="text" autocomplete="off" placeholder="Marca" name="marca" id="marca" class="form-control" required>'+
-                    '<br><label class="d-flex justify-content-start" for="">Nombre:</label><input type="text" autocomplete="off" placeholder="Nombre" name="nombre" id="nombre" class="form-control" required>'+
-                    '<br><label class="d-flex justify-content-start" for="">Stock:</label><input type="number" autocomplete="off" placeholder="Stock" name="stock" id="stock" class="form-control" required>'+
-                    '<br><label class="d-flex justify-content-start" for="">Descripción:</label><input type="text" name="descripcion" autocomplete="off" placeholder="Descripción" id="descripcion" class="form-control" required>'+
-                    '<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" type="submit">'+
-                        'Guardar'+
-                    '</button>'+
-                    '<button class="btn btn-info mt-3 ml-2" onclick="limpiarFormulario()" type="button">'+
-                        'Limpiar'+
-                    '</button></div>'+
-                '</form>',
-            showCloseButton: true,
-            showConfirmButton: false,
-            showCancelButton: false,
-            focusConfirm: false
-        })
-    }
-
-    document.querySelector("#centro_central").addEventListener("submit", ev =>{
-        if(ev.target.matches('#formularioRegistrarArticulo')){
-            ev.preventDefault()
-            enviarFormRegistrarArticulo()
-        }
-        if(ev.target.matches('#formularioActulizarArticulo')){
-            ev.preventDefault()
-            enviarFormActualizarArticulo()
-        }
-    })
-</script>
-
-
 <script src="{{ asset('vendor/scripts/almacen.js') }}"></script>
 <script src="{{ asset('vendor/scripts/libreria.js') }}"></script> 
 @endsection

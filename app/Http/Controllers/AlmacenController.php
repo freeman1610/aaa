@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Almacen;
+use App\Models\AsignacionAlmacen;
+use App\Models\Empleado;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,14 +20,25 @@ class AlmacenController extends Controller
 
         foreach ($selectAlmacen as $datos) {
 
+            if ($datos->estado != 'En Deposito') {
+                $articuloAsignado = AsignacionAlmacen::where('id_articulo', '=', $datos->idalmacen)
+                    ->select('id')
+                    ->get();
+                $botonAsignacion = '<button class="btn btn-primary" onclick="verAsignacion(' . $articuloAsignado[0]->id . ')"><i class="fa fa-eye"></i> Asignado</button>';
+            } else {
+                $botonAsignacion = '<span class="btn btn-success">' . $datos->estado . '</span>';
+            }
+
             $returnDatos[] = [
-                "0" => '<button class="btn btn-primary btn-xs" onclick="updateArticulo(' . $datos->idalmacen . ')"><i class="fa fa-edit"></i></button> <button class="btn btn-warning btn-xs" onclick="eliminar(' . $datos->idalmacen . ')"><i class="fa fa-trash"></i></button>',
-                "1" => $datos->codigo,
-                "2" => $datos->marca,
-                "3" => $datos->nombre,
-                "4" => $datos->stock,
-                "5" => $datos->descripcion,
-                "6" => date_format($datos->created_at, 'd-m-Y'),
+                "0" => '<button class="btn btn-primary btn-xs" onclick="updateArticulo(' . $datos->idalmacen . ')"><i class="fa fa-edit"></i></button> <button class="btn btn-info btn-xs" title="Asignar" onclick="listarEmpleados(`' . $datos->nombre . '`,' . $datos->idalmacen . ')"><i class="fas fa-file-export"></i></button> <button class="btn btn-warning btn-xs" onclick="eliminar(' . $datos->idalmacen . ')"><i class="fa fa-trash"></i></button>',
+                "1" => $botonAsignacion,
+                "2" => $datos->codigo,
+                "3" => $datos->proveedor,
+                "4" => $datos->marca,
+                "5" => $datos->nombre,
+                "6" => $datos->stock,
+                "7" => $datos->descripcion,
+                "8" => date_format($datos->created_at, 'd-m-Y'),
             ];
         }
 
@@ -43,6 +56,7 @@ class AlmacenController extends Controller
     {
         $this->validate($request, [
             'codigo' => 'required',
+            'proveedor' => 'required',
             'marca' => 'required',
             'nombre' => 'required',
             'stock' => 'required|numeric',
@@ -61,6 +75,7 @@ class AlmacenController extends Controller
         $newAlmacen = new Almacen;
         $newAlmacen->idusuario = Auth::user()->idusuario;
         $newAlmacen->codigo = $request->codigo;
+        $newAlmacen->proveedor = $request->proveedor;
         $newAlmacen->marca =  $request->marca;
         $newAlmacen->nombre = $request->nombre;
         $newAlmacen->stock = $request->stock;
@@ -93,6 +108,7 @@ class AlmacenController extends Controller
         $selectArticulo = Almacen::find($request->id_articulo);
 
         $selectArticulo->codigo = $request->codigo;
+        $selectArticulo->proveedor = $request->proveedor;
         $selectArticulo->marca = $request->marca;
         $selectArticulo->nombre = $request->nombre;
         $selectArticulo->stock = $request->stock;
@@ -102,6 +118,94 @@ class AlmacenController extends Controller
 
         return response()->json('Fino Pa', status: 200);
     }
+
+    public function listar_empleados_asig_art()
+    {
+        $selectEmpleados = Empleado::select(
+            'id_emp',
+            'nombre',
+            'apellido',
+            'cedula'
+        )
+            ->get();
+
+        $option = '<option value="">Seleccione</option>';
+
+        foreach ($selectEmpleados as $datos) {
+            $option = $option . '<option value="' . $datos->id_emp . '">' . $datos->nombre . ' ' . $datos->apellido . ' | C.I: ' . $datos->cedula . '</option>';
+        }
+        return response()->json(['empleados' => $option], status: 200);
+    }
+
+    public function asignar_articulo(Request $request)
+    {
+        $this->validate($request, [
+            'id_articulo' => 'required|numeric',
+            'id_emp' => 'required|numeric'
+        ]);
+
+        $articulo = Almacen::find($request->id_articulo);
+
+        if ($articulo->estado = "Asignado") {
+            return response()->json(['message' => 'Este Articulo ya ha sido Asignado'], status: 422);
+        }
+
+        $articulo->estado = "Asignado";
+
+        $newAsinacion = new AsignacionAlmacen;
+
+        $newAsinacion->id_usuario = Auth::user()->idusuario;
+        $newAsinacion->id_emp = $request->id_emp;
+        $newAsinacion->id_articulo = $request->id_articulo;
+
+        $articulo->save();
+        $newAsinacion->save();
+
+        return response()->json('Cool', status: 200);
+    }
+
+    public function desasignar_articulo(Request $request)
+    {
+        $this->validate($request, [
+            'id_articulo' => 'required|numeric'
+        ]);
+
+        $id = AsignacionAlmacen::find($request->id_articulo);
+
+        $articulo = Almacen::find($id->id_articulo);
+
+        $articulo->estado = "En Deposito";
+
+        $articulo->save();
+
+        AsignacionAlmacen::destroy($request->id_articulo);
+
+        return response()->json('Cool', status: 200);
+    }
+
+
+    public function ver_asignacion(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|numeric'
+        ]);
+        $selectAsignacion = AsignacionAlmacen::find($request->id);
+        $selectEmpleado = Empleado::where('id_emp', $selectAsignacion->id_emp)
+            ->select('nombre', 'apellido', 'cedula')
+            ->get();
+        $selectArticulo = Almacen::where('idalmacen', $selectAsignacion->id_articulo)
+            ->select('codigo', 'marca', 'nombre')
+            ->get();
+
+        return response()->json([
+            'id' => $selectAsignacion->id,
+            'empleado' => $selectEmpleado[0],
+            'articulo' => $selectArticulo[0],
+            'fecha' =>  date_format($selectAsignacion->created_at, 'd-m-Y, H:i:s')
+        ], status: 200);
+    }
+
+
     public function eliminar_articulo(Request $request)
     {
         $this->validate($request, [

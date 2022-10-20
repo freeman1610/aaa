@@ -221,11 +221,11 @@
 
                 toastr.success('Imagen Actualizada');
 
-                $('#imgUserPlantillaPerfil').attr('src', 'vendor/img-users/'+res.nueva_img)
-                $('#imgFormSweet').attr('src', 'vendor/img-users/'+res.nueva_img)
-                $('#imgUser1').attr('src', 'vendor/img-users/'+res.nueva_img)
-                $('#imgUser2').attr('src', 'vendor/img-users/'+res.nueva_img)
-                $('#imgUser3').attr('src', 'vendor/img-users/'+res.nueva_img)
+                $('#imgUserPlantillaPerfil').attr('src', '{{ asset('vendor/img-users') }}/'+ res.nueva_img)
+                $('#imgFormSweet').attr('src', '{{ asset('vendor/img-users') }}/' + res.nueva_img)
+                $('#imgUser1').attr('src', '{{ asset('vendor/img-users') }}/' + res.nueva_img)
+                $('#imgUser2').attr('src', '{{ asset('vendor/img-users') }}/' + res.nueva_img)
+                $('#imgUser3').attr('src', '{{ asset('vendor/img-users') }}/' + res.nueva_img)
 
 
             },

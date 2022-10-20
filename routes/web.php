@@ -310,6 +310,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('update_articulo', [AlmacenController::class, 'update_articulo'])->name('update_articulo');
 
+    Route::post('listar_empleados_asig_art', [AlmacenController::class, 'listar_empleados_asig_art'])->name('listar_empleados_asig_art');
+
+    Route::post('asignar_articulo', [AlmacenController::class, 'asignar_articulo'])->name('asignar_articulo');
+
+    Route::post('desasignar_articulo', [AlmacenController::class, 'desasignar_articulo'])->name('desasignar_articulo');
+
+    Route::post('ver_asignacion', [AlmacenController::class, 'ver_asignacion'])->name('ver_asignacion');
+
     Route::post('eliminar_articulo', [AlmacenController::class, 'eliminar_articulo'])->name('eliminar_articulo');
 
     // ----------------- FIN ALMACEN ------------------------
