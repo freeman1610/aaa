@@ -183,7 +183,7 @@ class AlmacenController extends Controller
 
         $articulo = Almacen::find($request->id_articulo);
 
-        if ($articulo->estado = "Asignado") {
+        if ($articulo->estado == "Asignado") {
             return response()->json(['message' => 'Este Articulo ya ha sido Asignado'], status: 422);
         }
 
