@@ -127,6 +127,7 @@ function listarEmpleados(texto, id) {
 	$.ajax({
 		url: 'listar_empleados_asig_art',
 		method: 'POST',
+		data: 'articulo=' + id,
 		success: function (res) {
 			Swal.fire({
 				title: 'Asignado Articulo: "' + texto + '"',

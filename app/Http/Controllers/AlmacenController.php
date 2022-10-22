@@ -63,6 +63,10 @@ class AlmacenController extends Controller
             'descripcion' => 'required'
         ]);
 
+        if ($request->stock < 1) {
+            return response()->json(['message' => 'El Stock no Puede ser de 0 (Cero)'], status: 422);
+        }
+
         $comprobarCodigo = DB::table('almacen')
             ->select('codigo')
             ->where('codigo', $request->codigo)
@@ -105,6 +109,10 @@ class AlmacenController extends Controller
             'descripcion' => 'required'
         ]);
 
+        if ($request->stock < 1) {
+            return response()->json(['message' => 'El Stock no Puede ser de 0 (Cero)'], status: 422);
+        }
+
         $selectArticulo = Almacen::find($request->id_articulo);
 
         $selectArticulo->codigo = $request->codigo;
@@ -119,8 +127,34 @@ class AlmacenController extends Controller
         return response()->json('Fino Pa', status: 200);
     }
 
-    public function listar_empleados_asig_art()
+    public function listar_empleados_asig_art(Request $request)
     {
+        $this->validate($request, [
+            'articulo' => 'required|numeric'
+        ]);
+
+        $selectCantidadAlmacen = Almacen::find($request->articulo);
+
+        $selectCantidadAsignado = AsignacionAlmacen::where('id_articulo', $request->articulo)
+            ->get();
+
+        $disponibilidad = $selectCantidadAlmacen->stock;
+        if (count($selectCantidadAsignado) > 0) {
+
+            $cantidadEnAlmacen = $selectCantidadAlmacen->stock;
+            $contadoArticulos = 0;
+
+            foreach ($selectCantidadAsignado as $datos) {
+                $contadoArticulos = $contadoArticulos + $datos->cantidad;
+            }
+
+            if ($contadoArticulos >= $cantidadEnAlmacen) {
+                $disponibilidad = 0;
+            } else {
+                $disponibilidad = $cantidadEnAlmacen - $contadoArticulos;
+            }
+        }
+
         $selectEmpleados = Empleado::select(
             'id_emp',
             'nombre',
@@ -134,7 +168,10 @@ class AlmacenController extends Controller
         foreach ($selectEmpleados as $datos) {
             $option = $option . '<option value="' . $datos->id_emp . '">' . $datos->nombre . ' ' . $datos->apellido . ' | C.I: ' . $datos->cedula . '</option>';
         }
-        return response()->json(['empleados' => $option], status: 200);
+        return response()->json([
+            'empleados' => $option,
+            'cantidad_art' => $disponibilidad
+        ], status: 200);
     }
 
     public function asignar_articulo(Request $request)
