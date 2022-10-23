@@ -9,5 +9,4 @@ class Presupuesto extends Model
 {
     use HasFactory;
     protected $table = 'presupuesto';
-    protected $primaryKey = 'id';
 }

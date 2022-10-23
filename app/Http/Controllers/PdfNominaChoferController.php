@@ -104,6 +104,8 @@ class PdfNominaChoferController extends Controller
 
         $codigoHash = random_int(100000, 9999999) . '-' . $selectChofer->cedula . '-' . date_format(new DateTime($nomina->created_at), 'dmY');
 
+        // viajes_codigo
+
 
         $fpdf->Cell(190, $textypos, utf8_decode("RECIBO DE PAGO DEL VIAJE: N° ") . $codigoHash, 20, 10, 'C');
 
@@ -453,19 +455,13 @@ class PdfNominaChoferController extends Controller
 
 
 
-        $fpdf->Line(15, 163, 195, 163); //Linea Horizontal ---- Distancio Recorrida
-
-        $fpdf->setY(166);
-        $fpdf->setX(20);
-        $fpdf->SetFont('Arial', 'B', 13);
-        $fpdf->Cell(5, $textypos, "Distancia Recorrida:");
 
         // Lineas de cajas 
         $fpdf->Line(15, 23, 15, 240); //Linea Izquierda Vertical
 
         $fpdf->Line(15, 23, 195, 23); //Linea Superior Horizontal
 
-        $fpdf->Line(15, 175, 195, 175); //Linea Medio Horizontal
+        $fpdf->Line(15, 163, 195, 163); //Linea Medio Horizontal
 
         $fpdf->Line(195, 240, 195, 23); //Linea Derecha Vertical
 

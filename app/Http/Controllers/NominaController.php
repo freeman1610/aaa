@@ -47,6 +47,20 @@ class NominaController extends Controller
             'hora_n_a' => 'required|numeric|min:0'
         ]);
 
+        if ($request->tipo_nomina_a == 'mensual') {
+            if (intval($request->dias_lab_a + $request->dias_lib_a) > 30) {
+                return response()->json([
+                    'message' => 'El Total de dias de Labor y Remunerados no debe pasar 30 dias (' . $request->dias_lab_a + $request->dias_lib_a . ')'
+                ], status: 422);
+            }
+        }
+        if ($request->tipo_nomina_a == 'quincenal') {
+            if (intval($request->dias_lab_a + $request->dias_lib_a) > 15) {
+                return response()->json([
+                    'message' => 'El Total de dias de Labor y Remunerados no debe pasar 15 dias (' . $request->dias_lab_a + $request->dias_lib_a . ')'
+                ], status: 422);
+            }
+        }
         // Comprobamos de que no se haya realizado un pago con anterioridad
         // en esa quincena o mensualidad
 
@@ -165,7 +179,7 @@ class NominaController extends Controller
         $pre = floatval($presupuesto->fondos);
 
         // Validamos si el total de pago del trabajador es superior al presupuesto
-        if($total_pago >= $pre ){
+        if ($total_pago >= $pre) {
             return response()->json([
                 'message' => 'Fondos insuficientes en la Nomina'
             ], status: 422);
@@ -176,7 +190,7 @@ class NominaController extends Controller
         $newPresupuesto = new Presupuesto;
         $newPresupuesto->fondos = $presupuesto->fondos -  $total_pago;
         $newPresupuesto->presupuestoAnterior = $presupuesto->fondos;
-        $newPresupuesto->presupuestoActual = $presupuesto->fondos -  $total_pago;
+        $newPresupuesto->presupuestoActual = $presupuesto->fondos - $total_pago;
         $newPresupuesto->save();
 
         // Registramos el detalle del Presupuesto
@@ -225,6 +239,15 @@ class NominaController extends Controller
         $newDeduccionNomina->lph = $lph;
         $newDeduccionNomina->subtotal = $subTotalDeduccion;
         $newDeduccionNomina->save();
+    }
+
+    public function eliminar_nomina(Request $request)
+    {
+        $this->validate($request, [
+            'id_nomina' => 'required|numeric'
+        ]);
+        Nomina::destroy($request->id_nomina);
+        return response()->json('Eliminado', status: 200);
     }
 
     public function listar_nomina()
@@ -315,7 +338,7 @@ class NominaController extends Controller
 
     public function muestra_empleados_select_nom()
     {
-        $selectAllEmpleados = Empleado::all();
+        $selectAllEmpleados = Empleado::all()->whereNotIn('cargo', ['Chofer', 'chofer']);
         return $selectAllEmpleados;
     }
 

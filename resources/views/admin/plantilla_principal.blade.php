@@ -166,7 +166,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link" id="nom">
-                                <i class="nav-icon fas fa-file-alt"></i><p>Nómina Administrativa<i class="right fas fa-angle-left"></i></p>
+                                <i class="nav-icon fas fa-file-alt"></i><p>Nóminas<i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -181,7 +181,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('presupuesto') }}" class="nav-link" id="presupuesto">
-                                        <i class="fa fa-university"></i><p> Asignar Presupuesto</p>
+                                        <i class="fa fa-university nav-icon"></i><p>Asignar Presupuesto</p>
                                     </a>
                                 </li>
                             </ul>

@@ -254,25 +254,47 @@ document.querySelector("#centro_central").addEventListener("change", ev => {
 
 function contarNumsMensual() {
 
-	let diasLaborados = document.getElementById('dias_lab_a').value
-	let diasLibres = document.getElementById('dias_lib_a').value
+	if ($('#tipo_nomina_a').val() == 'mensual') {
+		let diasLaborados = document.getElementById('dias_lab_a').value
+		let diasLibres = document.getElementById('dias_lib_a').value
 
-	if (diasLaborados == '') {
-		diasLaborados = 0
+		if (diasLaborados == '') {
+			diasLaborados = 0
+		}
+		if (diasLibres == '') {
+			diasLibres = 0
+		}
+
+		suma = parseInt(diasLaborados) + parseInt(diasLibres)
+
+		if (suma <= 30) {
+			$("#botonSubmitNomina").prop("disabled", false);
+		} else {
+			toastr.error('El Total de dias de Labor y Remunerados no debe pasar 30 dias (' + suma + ')');
+			$("#botonSubmitNomina").prop("disabled", true);
+		}
 	}
-	if (diasLibres == '') {
-		diasLibres = 0
+
+	if ($('#tipo_nomina_a').val() == 'quincenal') {
+		let diasLaborados = document.getElementById('dias_lab_a').value
+		let diasLibres = document.getElementById('dias_lib_a').value
+
+		if (diasLaborados == '') {
+			diasLaborados = 0
+		}
+		if (diasLibres == '') {
+			diasLibres = 0
+		}
+
+		suma = parseInt(diasLaborados) + parseInt(diasLibres)
+
+		if (suma <= 15) {
+			$("#botonSubmitNomina").prop("disabled", false);
+		} else {
+			toastr.error('El Total de dias de Labor y Remunerados no debe pasar 15 dias (' + suma + ')');
+			$("#botonSubmitNomina").prop("disabled", true);
+		}
 	}
-
-	suma = parseInt(diasLaborados) + parseInt(diasLibres)
-
-	if (suma <= 30) {
-		$("#botonSubmitNomina").prop("disabled", false);
-	} else {
-		toastr.error('El Total de dias de Labor, Permisos, Descanso, no debe pasar 30 dias (' + suma + ')');
-		$("#botonSubmitNomina").prop("disabled", true);
-	}
-
 }
 
 var tabla;
@@ -393,8 +415,8 @@ function listar() {
 function eliminar(id_nomina) {
 	bootbox.confirm("¿Esta seguro de eliminar este dato?", function (result) {
 		if (result) {
-			$.post("../controlador/empleados.php?op=eliminar", { id_nomina: id_nomina }, function (e) {
-				bootbox.alert(e);
+			$.post("eliminar_nomina", { id_nomina: id_nomina }, function () {
+				toastr.success('Datos Eliminados Correctamente');
 				tabla.ajax.reload();
 			});
 		}

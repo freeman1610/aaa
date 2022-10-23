@@ -184,6 +184,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('generarPDFXfechas', [NominaController::class, 'generarPDFXfechas'])->name('generarPDFXfechas');
 
+    Route::post('eliminar_nomina', [NominaController::class, 'eliminar_nomina'])->name('eliminar_nomina');
+
+
     //  ---------------- FIN NOMINA PERSONAL ------------------------
 
     // ----------------- NOMINA CHOFER ------------------------
