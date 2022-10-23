@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-10-2022 a las 06:57:06
+-- Tiempo de generación: 23-10-2022 a las 09:03:03
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 SET
@@ -28,6 +28,7 @@ SET
     `codigo` varchar(50) NOT NULL,
     `estado` varchar(50) NOT NULL DEFAULT 'En Deposito',
     `proveedor` varchar(100) NOT NULL,
+    `costo` varchar(50) NOT NULL,
     `marca` varchar(100) NOT NULL,
     `nombre` varchar(100) NOT NULL,
     `stock` int(11) UNSIGNED NOT NULL,
@@ -45,6 +46,7 @@ INSERT INTO
     `codigo`,
     `estado`,
     `proveedor`,
+    `costo`,
     `marca`,
     `nombre`,
     `stock`,
@@ -57,40 +59,43 @@ VALUES
     46,
     1,
     '21312',
-    'Asignado',
+    'Despachado',
     'Ciro Sanchez',
+    '4.000',
     'Aiteg',
     'Azulejo 2020',
-    1,
+    2,
     'PC Desktop',
     '2022-09-13 00:00:00',
-    '2022-10-20 00:34:52'
+    '2022-10-23 01:50:34'
   ),
   (
     47,
     21,
     '321222',
-    'En Deposito',
+    'Despachado',
     'Play Store Venezuela',
+    '160',
     'Logitech',
     'G102',
     5,
     'Mouse de PC',
     '2022-09-14 06:59:39',
-    '2022-10-19 23:16:11'
+    '2022-10-23 01:50:48'
   ),
   (
     48,
     1,
     '123554',
-    'En Deposito',
+    'Despachado',
     'La Rapida',
+    '260',
     'Goodyear',
     'Caucho',
     4,
     '195/50 R16',
     '2022-09-20 00:57:59',
-    '2022-10-19 23:15:48'
+    '2022-10-23 01:49:32'
   ),
   (
     50,
@@ -98,12 +103,13 @@ VALUES
     'dadda3331',
     'En Deposito',
     'Sigma System',
+    '6.000',
     'Asus',
     'HP 12900k',
     1,
     'PC Desktop',
     '2022-10-20 00:11:07',
-    '2022-10-20 00:34:36'
+    '2022-10-23 01:51:03'
   );
 -- --------------------------------------------------------
   --
@@ -114,6 +120,7 @@ VALUES
     `id_usuario` int(11) NOT NULL,
     `id_emp` int(11) NOT NULL,
     `id_articulo` int(11) NOT NULL,
+    `cantidad` int(11) NOT NULL,
     `created_at` datetime NOT NULL,
     `updated_at` datetime NOT NULL
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -126,17 +133,46 @@ INSERT INTO
     `id_usuario`,
     `id_emp`,
     `id_articulo`,
+    `cantidad`,
     `created_at`,
     `updated_at`
   )
 VALUES
   (
-    2,
+    5,
+    1,
+    5,
+    46,
+    1,
+    '2022-10-22 20:56:59',
+    '2022-10-22 20:56:59'
+  ),
+  (
+    7,
     1,
     9,
-    46,
-    '2022-10-20 00:34:52',
-    '2022-10-20 00:34:52'
+    48,
+    2,
+    '2022-10-22 20:57:58',
+    '2022-10-22 20:57:58'
+  ),
+  (
+    10,
+    1,
+    5,
+    47,
+    2,
+    '2022-10-23 01:27:32',
+    '2022-10-23 01:27:32'
+  ),
+  (
+    11,
+    1,
+    10,
+    47,
+    3,
+    '2022-10-23 01:51:58',
+    '2022-10-23 01:51:58'
   );
 -- --------------------------------------------------------
   --
@@ -973,6 +1009,950 @@ VALUES
     NULL,
     '2022-10-20 05:04:52',
     '2022-10-20 05:04:52'
+  ),
+  (
+    48,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"estado\":\"Asignado\"}',
+    '{\"estado\":\"En Deposito\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-22 23:21:24',
+    '2022-10-22 23:21:24'
+  ),
+  (
+    49,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\AsignacionAlmacen',
+    2,
+    '{\"id\":2,\"id_usuario\":1,\"id_emp\":9,\"id_articulo\":46,\"cantidad\":0}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-22 23:21:24',
+    '2022-10-22 23:21:24'
+  ),
+  (
+    50,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"estado\":\"En Deposito\"}',
+    '{\"estado\":\"Asignado\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-22 23:25:20',
+    '2022-10-22 23:25:20'
+  ),
+  (
+    51,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    3,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"5\",\"id_articulo\":\"47\",\"cantidad\":\"1\",\"id\":3}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 00:30:32',
+    '2022-10-23 00:30:32'
+  ),
+  (
+    52,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    47,
+    '{\"estado\":\"En Deposito\"}',
+    '{\"estado\":\"Asignado\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 00:30:33',
+    '2022-10-23 00:30:33'
+  ),
+  (
+    53,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    4,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"10\",\"id_articulo\":\"46\",\"cantidad\":\"1\",\"id\":4}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 01:00:14',
+    '2022-10-23 01:00:14'
+  ),
+  (
+    54,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"estado\":\"En Deposito\"}',
+    '{\"estado\":\"Despachado\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 01:00:15',
+    '2022-10-23 01:00:15'
+  ),
+  (
+    55,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"estado\":\"Despachado\"}',
+    '{\"estado\":\"En Deposito\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 01:25:21',
+    '2022-10-23 01:25:21'
+  ),
+  (
+    56,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\AsignacionAlmacen',
+    4,
+    '{\"id\":4,\"id_usuario\":1,\"id_emp\":10,\"id_articulo\":46,\"cantidad\":1}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 01:25:21',
+    '2022-10-23 01:25:21'
+  ),
+  (
+    57,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    5,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"5\",\"id_articulo\":\"46\",\"cantidad\":\"1\",\"id\":5}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 01:26:59',
+    '2022-10-23 01:26:59'
+  ),
+  (
+    58,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"estado\":\"En Deposito\"}',
+    '{\"estado\":\"Despachado\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 01:26:59',
+    '2022-10-23 01:26:59'
+  ),
+  (
+    59,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    6,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"5\",\"id_articulo\":\"47\",\"cantidad\":\"3\",\"id\":6}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 01:27:35',
+    '2022-10-23 01:27:35'
+  ),
+  (
+    60,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    7,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"9\",\"id_articulo\":\"48\",\"cantidad\":\"2\",\"id\":7}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 01:27:58',
+    '2022-10-23 01:27:58'
+  ),
+  (
+    61,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    48,
+    '{\"estado\":\"En Deposito\"}',
+    '{\"estado\":\"Despachado\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 01:27:58',
+    '2022-10-23 01:27:58'
+  ),
+  (
+    62,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"stock\":1}',
+    '{\"stock\":\"2\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:43:52',
+    '2022-10-23 05:43:52'
+  ),
+  (
+    63,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    47,
+    '{\"estado\":\"Despachado\"}',
+    '{\"estado\":\"En Deposito\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:45:39',
+    '2022-10-23 05:45:39'
+  ),
+  (
+    64,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\AsignacionAlmacen',
+    3,
+    '{\"id\":3,\"id_usuario\":1,\"id_emp\":5,\"id_articulo\":47,\"cantidad\":1}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:45:39',
+    '2022-10-23 05:45:39'
+  ),
+  (
+    65,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\AsignacionAlmacen',
+    6,
+    '{\"id\":6,\"id_usuario\":1,\"id_emp\":5,\"id_articulo\":47,\"cantidad\":3}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:53:45',
+    '2022-10-23 05:53:45'
+  ),
+  (
+    66,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    8,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"10\",\"id_articulo\":\"47\",\"cantidad\":\"2\",\"id\":8}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:54:53',
+    '2022-10-23 05:54:53'
+  ),
+  (
+    67,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\AsignacionAlmacen',
+    8,
+    '{\"id\":8,\"id_usuario\":1,\"id_emp\":10,\"id_articulo\":47,\"cantidad\":2}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:57:06',
+    '2022-10-23 05:57:06'
+  ),
+  (
+    68,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    47,
+    '{\"estado\":\"Despachado\"}',
+    '{\"estado\":\"En Deposito\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:57:07',
+    '2022-10-23 05:57:07'
+  ),
+  (
+    69,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    9,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"10\",\"id_articulo\":\"47\",\"cantidad\":\"1\",\"id\":9}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:57:23',
+    '2022-10-23 05:57:23'
+  ),
+  (
+    70,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    47,
+    '{\"estado\":\"En Deposito\"}',
+    '{\"estado\":\"Despachado\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:57:23',
+    '2022-10-23 05:57:23'
+  ),
+  (
+    71,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    10,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"5\",\"id_articulo\":\"47\",\"cantidad\":\"2\",\"id\":10}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:57:32',
+    '2022-10-23 05:57:32'
+  ),
+  (
+    72,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\AsignacionAlmacen',
+    9,
+    '{\"id\":9,\"id_usuario\":1,\"id_emp\":10,\"id_articulo\":47,\"cantidad\":1}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 05:57:37',
+    '2022-10-23 05:57:37'
+  ),
+  (
+    73,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    48,
+    '{\"costo\":\"0\"}',
+    '{\"costo\":\"260\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:19:32',
+    '2022-10-23 06:19:32'
+  ),
+  (
+    74,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"costo\":\"0\"}',
+    '{\"costo\":\"4.000\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:20:34',
+    '2022-10-23 06:20:34'
+  ),
+  (
+    75,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    47,
+    '{\"costo\":\"0\"}',
+    '{\"costo\":\"160\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:20:48',
+    '2022-10-23 06:20:48'
+  ),
+  (
+    76,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    50,
+    '{\"costo\":\"0\"}',
+    '{\"costo\":\"6.000\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/update_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:21:03',
+    '2022-10-23 06:21:03'
+  ),
+  (
+    77,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    11,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"10\",\"id_articulo\":\"47\",\"cantidad\":\"3\",\"id\":11}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:21:58',
+    '2022-10-23 06:21:58'
+  ),
+  (
+    78,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Nomina',
+    76,
+    '[]',
+    '{\"id_empleado\":\"14\",\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29,\"id_nomina\":76}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:42:25',
+    '2022-10-23 06:42:25'
+  ),
+  (
+    79,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionNomina',
+    7,
+    '[]',
+    '{\"id_nomina\":76,\"dias_lab\":32,\"pagos_diasLab\":405.3333333333333,\"dias_libres\":32,\"pagos_DiaLib\":405.3333333333333,\"horas_extra_diurna\":32,\"pago_hr_extraD\":76,\"horas_extra_noc\":2332,\"pago_hr_extra_noc\":6646.2,\"id_asignacion\":7}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:42:25',
+    '2022-10-23 06:42:25'
+  ),
+  (
+    80,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\DeduccionNomina',
+    7,
+    '[]',
+    '{\"id_nomina\":76,\"sso\":14.03076923076923,\"paro_forzoso\":1.7538461538461538,\"lph\":3.8,\"subtotal\":19.58,\"id_deduccion\":7}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:42:25',
+    '2022-10-23 06:42:25'
+  ),
+  (
+    81,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Nomina',
+    77,
+    '[]',
+    '{\"id_empleado\":\"14\",\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29,\"id_nomina\":77}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:48:28',
+    '2022-10-23 06:48:28'
+  ),
+  (
+    82,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionNomina',
+    8,
+    '[]',
+    '{\"id_nomina\":77,\"dias_lab\":32,\"pagos_diasLab\":405.3333333333333,\"dias_libres\":32,\"pagos_DiaLib\":405.3333333333333,\"horas_extra_diurna\":32,\"pago_hr_extraD\":76,\"horas_extra_noc\":2332,\"pago_hr_extra_noc\":6646.2,\"id_asignacion\":8}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:48:28',
+    '2022-10-23 06:48:28'
+  ),
+  (
+    83,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\DeduccionNomina',
+    8,
+    '[]',
+    '{\"id_nomina\":77,\"sso\":14.03076923076923,\"paro_forzoso\":1.7538461538461538,\"lph\":3.8,\"subtotal\":19.58,\"id_deduccion\":8}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:48:28',
+    '2022-10-23 06:48:28'
+  ),
+  (
+    84,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Nomina',
+    78,
+    '[]',
+    '{\"id_empleado\":\"14\",\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29,\"id_nomina\":78}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:49:00',
+    '2022-10-23 06:49:00'
+  ),
+  (
+    85,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionNomina',
+    9,
+    '[]',
+    '{\"id_nomina\":78,\"dias_lab\":32,\"pagos_diasLab\":405.3333333333333,\"dias_libres\":32,\"pagos_DiaLib\":405.3333333333333,\"horas_extra_diurna\":32,\"pago_hr_extraD\":76,\"horas_extra_noc\":2332,\"pago_hr_extra_noc\":6646.2,\"id_asignacion\":9}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:49:00',
+    '2022-10-23 06:49:00'
+  ),
+  (
+    86,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\DeduccionNomina',
+    9,
+    '[]',
+    '{\"id_nomina\":78,\"sso\":14.03076923076923,\"paro_forzoso\":1.7538461538461538,\"lph\":3.8,\"subtotal\":19.58,\"id_deduccion\":9}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:49:00',
+    '2022-10-23 06:49:00'
+  ),
+  (
+    87,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Nomina',
+    79,
+    '[]',
+    '{\"id_empleado\":\"14\",\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29,\"id_nomina\":79}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:49:06',
+    '2022-10-23 06:49:06'
+  ),
+  (
+    88,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionNomina',
+    10,
+    '[]',
+    '{\"id_nomina\":79,\"dias_lab\":32,\"pagos_diasLab\":405.3333333333333,\"dias_libres\":32,\"pagos_DiaLib\":405.3333333333333,\"horas_extra_diurna\":32,\"pago_hr_extraD\":76,\"horas_extra_noc\":2332,\"pago_hr_extra_noc\":6646.2,\"id_asignacion\":10}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:49:06',
+    '2022-10-23 06:49:06'
+  ),
+  (
+    89,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\DeduccionNomina',
+    10,
+    '[]',
+    '{\"id_nomina\":79,\"sso\":14.03076923076923,\"paro_forzoso\":1.7538461538461538,\"lph\":3.8,\"subtotal\":19.58,\"id_deduccion\":10}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:49:06',
+    '2022-10-23 06:49:06'
+  ),
+  (
+    90,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Nomina',
+    80,
+    '[]',
+    '{\"id_empleado\":\"14\",\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29,\"id_nomina\":80}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:49:09',
+    '2022-10-23 06:49:09'
+  ),
+  (
+    91,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionNomina',
+    11,
+    '[]',
+    '{\"id_nomina\":80,\"dias_lab\":32,\"pagos_diasLab\":405.3333333333333,\"dias_libres\":32,\"pagos_DiaLib\":405.3333333333333,\"horas_extra_diurna\":32,\"pago_hr_extraD\":76,\"horas_extra_noc\":2332,\"pago_hr_extra_noc\":6646.2,\"id_asignacion\":11}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:49:09',
+    '2022-10-23 06:49:09'
+  ),
+  (
+    92,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\DeduccionNomina',
+    11,
+    '[]',
+    '{\"id_nomina\":80,\"sso\":14.03076923076923,\"paro_forzoso\":1.7538461538461538,\"lph\":3.8,\"subtotal\":19.58,\"id_deduccion\":11}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:49:09',
+    '2022-10-23 06:49:09'
+  ),
+  (
+    93,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Nomina',
+    81,
+    '[]',
+    '{\"id_empleado\":\"14\",\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29,\"id_nomina\":81}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:50:47',
+    '2022-10-23 06:50:47'
+  ),
+  (
+    94,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionNomina',
+    12,
+    '[]',
+    '{\"id_nomina\":81,\"dias_lab\":32,\"pagos_diasLab\":405.3333333333333,\"dias_libres\":32,\"pagos_DiaLib\":405.3333333333333,\"horas_extra_diurna\":32,\"pago_hr_extraD\":76,\"horas_extra_noc\":2332,\"pago_hr_extra_noc\":6646.2,\"id_asignacion\":12}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:50:47',
+    '2022-10-23 06:50:47'
+  ),
+  (
+    95,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\DeduccionNomina',
+    12,
+    '[]',
+    '{\"id_nomina\":81,\"sso\":14.03076923076923,\"paro_forzoso\":1.7538461538461538,\"lph\":3.8,\"subtotal\":19.58,\"id_deduccion\":12}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:50:47',
+    '2022-10-23 06:50:47'
+  ),
+  (
+    96,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Nomina',
+    82,
+    '[]',
+    '{\"id_empleado\":\"14\",\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29,\"id_nomina\":82}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:51:22',
+    '2022-10-23 06:51:22'
+  ),
+  (
+    97,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionNomina',
+    13,
+    '[]',
+    '{\"id_nomina\":82,\"dias_lab\":32,\"pagos_diasLab\":405.3333333333333,\"dias_libres\":32,\"pagos_DiaLib\":405.3333333333333,\"horas_extra_diurna\":32,\"pago_hr_extraD\":76,\"horas_extra_noc\":2332,\"pago_hr_extra_noc\":6646.2,\"id_asignacion\":13}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:51:22',
+    '2022-10-23 06:51:22'
+  ),
+  (
+    98,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\DeduccionNomina',
+    13,
+    '[]',
+    '{\"id_nomina\":82,\"sso\":14.03076923076923,\"paro_forzoso\":1.7538461538461538,\"lph\":3.8,\"subtotal\":19.58,\"id_deduccion\":13}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 06:51:23',
+    '2022-10-23 06:51:23'
+  ),
+  (
+    99,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\Nomina',
+    82,
+    '{\"id_nomina\":82,\"id_empleado\":14,\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/eliminar_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 07:06:48',
+    '2022-10-23 07:06:48'
+  ),
+  (
+    100,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\Nomina',
+    81,
+    '{\"id_nomina\":81,\"id_empleado\":14,\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/eliminar_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 07:06:52',
+    '2022-10-23 07:06:52'
+  ),
+  (
+    101,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\Nomina',
+    79,
+    '{\"id_nomina\":79,\"id_empleado\":14,\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/eliminar_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 07:12:06',
+    '2022-10-23 07:12:06'
+  ),
+  (
+    102,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\Nomina',
+    80,
+    '{\"id_nomina\":80,\"id_empleado\":14,\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/eliminar_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 07:12:10',
+    '2022-10-23 07:12:10'
+  ),
+  (
+    103,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\Nomina',
+    78,
+    '{\"id_nomina\":78,\"id_empleado\":14,\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/eliminar_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 07:12:13',
+    '2022-10-23 07:12:13'
+  ),
+  (
+    104,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\Nomina',
+    77,
+    '{\"id_nomina\":77,\"id_empleado\":14,\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/eliminar_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 07:12:16',
+    '2022-10-23 07:12:16'
+  ),
+  (
+    105,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\Nomina',
+    76,
+    '{\"id_nomina\":76,\"id_empleado\":14,\"id_usuario\":1,\"salario_mensual\":380,\"tipo_nomina\":\"Mensual\",\"inicio_pago\":\"2022-11-01\",\"fin_pago\":\"2022-12-01\",\"total_asignaciones\":7532.87,\"total_deducciones\":19.58,\"total_pago\":7513.29}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/eliminar_nomina',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 07:12:21',
+    '2022-10-23 07:12:21'
+  ),
+  (
+    106,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Empleado',
+    14,
+    '{\"cargo\":\"alguno\"}',
+    '{\"cargo\":\"chofer\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/guardar_update_empleado',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 07:21:06',
+    '2022-10-23 07:21:06'
   );
 -- --------------------------------------------------------
   --
@@ -1412,6 +2392,69 @@ VALUES
     142.21,
     '2022-10-19 23:23:40',
     '2022-10-19 23:23:40'
+  ),
+  (
+    2,
+    'Nomina',
+    14,
+    '2022-10-23',
+    7513.29,
+    '2022-10-23 02:12:25',
+    '2022-10-23 02:12:25'
+  ),
+  (
+    3,
+    'Nomina',
+    15,
+    '2022-10-23',
+    7513.29,
+    '2022-10-23 02:18:28',
+    '2022-10-23 02:18:28'
+  ),
+  (
+    4,
+    'Nomina',
+    16,
+    '2022-10-23',
+    7513.29,
+    '2022-10-23 02:19:00',
+    '2022-10-23 02:19:00'
+  ),
+  (
+    5,
+    'Nomina',
+    17,
+    '2022-10-23',
+    7513.29,
+    '2022-10-23 02:19:05',
+    '2022-10-23 02:19:05'
+  ),
+  (
+    6,
+    'Nomina',
+    18,
+    '2022-10-23',
+    7513.29,
+    '2022-10-23 02:19:09',
+    '2022-10-23 02:19:09'
+  ),
+  (
+    7,
+    'Nomina',
+    19,
+    '2022-10-23',
+    7513.29,
+    '2022-10-23 02:20:47',
+    '2022-10-23 02:20:47'
+  ),
+  (
+    8,
+    'Nomina',
+    20,
+    '2022-10-23',
+    7513.29,
+    '2022-10-23 02:21:22',
+    '2022-10-23 02:21:22'
   );
 -- --------------------------------------------------------
   --
@@ -1520,12 +2563,12 @@ VALUES
     '1232134311',
     '2000-10-18',
     8,
-    'alguno',
+    'chofer',
     '(222) 222-2222',
     'algun lugar',
     '2018-08-15',
     '2022-09-21 19:24:56',
-    '2022-09-23 22:36:19'
+    '2022-10-23 02:51:06'
   ),
   (
     19,
@@ -1935,27 +2978,6 @@ VALUES
     '2022-10-11 19:56:01',
     '2022-10-11 19:56:01'
   );
--- --------------------------------------------------------
-  --
-  -- Estructura de tabla para la tabla `migrations`
-  --
-  CREATE TABLE `migrations` (
-    `id` int(10) UNSIGNED NOT NULL,
-    `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `batch` int(11) NOT NULL
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
---
-  -- Volcado de datos para la tabla `migrations`
-  --
-INSERT INTO
-  `migrations` (`id`, `migration`, `batch`)
-VALUES
-  (
-    1,
-    '2019_12_14_000001_create_personal_access_tokens_table',
-    1
-  ),
-  (2, '2022_10_07_013753_create_audits_table', 1);
 -- --------------------------------------------------------
   --
   -- Estructura de tabla para la tabla `municipios`
@@ -3710,22 +4732,6 @@ VALUES
   (5, 'Acceso');
 -- --------------------------------------------------------
   --
-  -- Estructura de tabla para la tabla `personal_access_tokens`
-  --
-  CREATE TABLE `personal_access_tokens` (
-    `id` bigint(20) UNSIGNED NOT NULL,
-    `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-    `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `last_used_at` timestamp NULL DEFAULT NULL,
-    `expires_at` timestamp NULL DEFAULT NULL,
-    `created_at` timestamp NULL DEFAULT NULL,
-    `updated_at` timestamp NULL DEFAULT NULL
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
--- --------------------------------------------------------
-  --
   -- Estructura de tabla para la tabla `presupuesto`
   --
   CREATE TABLE `presupuesto` (
@@ -3852,6 +4858,62 @@ VALUES
     499250.95,
     '2022-10-19 23:23:40',
     '2022-10-19 23:23:40'
+  ),
+  (
+    14,
+    491737.66,
+    499250.95,
+    491737.66,
+    '2022-10-23 02:12:25',
+    '2022-10-23 02:12:25'
+  ),
+  (
+    15,
+    484224.37,
+    491737.66,
+    484224.37,
+    '2022-10-23 02:18:28',
+    '2022-10-23 02:18:28'
+  ),
+  (
+    16,
+    476711.08,
+    484224.37,
+    476711.08,
+    '2022-10-23 02:19:00',
+    '2022-10-23 02:19:00'
+  ),
+  (
+    17,
+    469197.79,
+    476711.08,
+    469197.79,
+    '2022-10-23 02:19:05',
+    '2022-10-23 02:19:05'
+  ),
+  (
+    18,
+    461684.50,
+    469197.79,
+    461684.5,
+    '2022-10-23 02:19:09',
+    '2022-10-23 02:19:09'
+  ),
+  (
+    19,
+    454171.21,
+    461684.5,
+    454171.21,
+    '2022-10-23 02:20:47',
+    '2022-10-23 02:20:47'
+  ),
+  (
+    20,
+    446657.92,
+    454171.21,
+    446657.92,
+    '2022-10-23 02:21:22',
+    '2022-10-23 02:21:22'
   );
 -- --------------------------------------------------------
   --
@@ -4823,13 +5885,6 @@ ADD
 ADD
   KEY `flete_codigo` (`flete_codigo`);
 --
-  -- Indices de la tabla `migrations`
-  --
-ALTER TABLE
-  `migrations`
-ADD
-  PRIMARY KEY (`id`);
---
   -- Indices de la tabla `municipios`
   --
 ALTER TABLE
@@ -4877,16 +5932,12 @@ ALTER TABLE
 ADD
   PRIMARY KEY (`idpermiso`);
 --
-  -- Indices de la tabla `personal_access_tokens`
+  -- Indices de la tabla `presupuesto`
   --
 ALTER TABLE
-  `personal_access_tokens`
+  `presupuesto`
 ADD
-  PRIMARY KEY (`id`),
-ADD
-  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-ADD
-  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`, `tokenable_id`);
+  PRIMARY KEY (`id`);
 --
   -- Indices de la tabla `salario_base`
   --
@@ -4966,7 +6017,7 @@ ALTER TABLE
   `asignacion_almacen`
 MODIFY
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 3;
+  AUTO_INCREMENT = 12;
 --
   -- AUTO_INCREMENT de la tabla `asignacion_nomina`
   --
@@ -4974,7 +6025,7 @@ ALTER TABLE
   `asignacion_nomina`
 MODIFY
   `id_asignacion` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 7;
+  AUTO_INCREMENT = 14;
 --
   -- AUTO_INCREMENT de la tabla `audits`
   --
@@ -4982,7 +6033,7 @@ ALTER TABLE
   `audits`
 MODIFY
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 48;
+  AUTO_INCREMENT = 107;
 --
   -- AUTO_INCREMENT de la tabla `cavas`
   --
@@ -5022,7 +6073,7 @@ ALTER TABLE
   `deduccion_nomina`
 MODIFY
   `id_deduccion` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 7;
+  AUTO_INCREMENT = 14;
 --
   -- AUTO_INCREMENT de la tabla `departamento`
   --
@@ -5038,7 +6089,7 @@ ALTER TABLE
   `detalle_presupuesto`
 MODIFY
   `iddetalle` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 2;
+  AUTO_INCREMENT = 9;
 --
   -- AUTO_INCREMENT de la tabla `empleado`
   --
@@ -5064,14 +6115,6 @@ MODIFY
   `flete_id` int(11) NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 35;
 --
-  -- AUTO_INCREMENT de la tabla `migrations`
-  --
-ALTER TABLE
-  `migrations`
-MODIFY
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 3;
---
   -- AUTO_INCREMENT de la tabla `municipios`
   --
 ALTER TABLE
@@ -5094,7 +6137,7 @@ ALTER TABLE
   `pago_nomina`
 MODIFY
   `id_nomina` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 76;
+  AUTO_INCREMENT = 83;
 --
   -- AUTO_INCREMENT de la tabla `parroquias`
   --
@@ -5112,12 +6155,13 @@ MODIFY
   `idpermiso` int(11) NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 7;
 --
-  -- AUTO_INCREMENT de la tabla `personal_access_tokens`
+  -- AUTO_INCREMENT de la tabla `presupuesto`
   --
 ALTER TABLE
-  `personal_access_tokens`
+  `presupuesto`
 MODIFY
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  AUTO_INCREMENT = 21;
 --
   -- AUTO_INCREMENT de la tabla `salario_base`
   --
@@ -5228,6 +6272,13 @@ ALTER TABLE
   `departamento`
 ADD
   CONSTRAINT `fk_departamento_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`);
+--
+  -- Filtros para la tabla `detalle_presupuesto`
+  --
+ALTER TABLE
+  `detalle_presupuesto`
+ADD
+  CONSTRAINT `detalle_presupuesto_ibfk_1` FOREIGN KEY (`idpresupuesto`) REFERENCES `presupuesto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 --
   -- Filtros para la tabla `empleado`
   --
