@@ -9,6 +9,8 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Presupuesto;
+use App\Models\DetallePresupuesto;
 
 class AlmacenController extends Controller
 {
@@ -97,6 +99,16 @@ class AlmacenController extends Controller
             return response()->json(['message' => 'El Codigo Ingresado Ya Ha Sido Registrado'], status: 422);
         }
 
+        $ultimoPresupuesto = DB::table('presupuesto')->select('fondos')->latest()->first();
+        $pre = floatval($ultimoPresupuesto->fondos);
+
+        $stock = intval($request->stock);
+        $costo = floatval(str_replace(".","",$request->costo));
+        $gastos = $stock * $costo;
+        if($gastos >= $pre){
+            return response()->json(['message' => 'Fondos Insuficientes en la Nomina'],status:422);
+        }
+
         $newAlmacen = new Almacen;
         $newAlmacen->idusuario = Auth::user()->idusuario;
         $newAlmacen->codigo = $request->codigo;
@@ -107,6 +119,22 @@ class AlmacenController extends Controller
         $newAlmacen->stock = $request->stock;
         $newAlmacen->descripcion = $request->descripcion;
         $newAlmacen->save();
+
+        $newPresupuesto = new Presupuesto;
+        $newPresupuesto->fondos = $ultimoPresupuesto->fondos - ($request->costo * $request->stock);
+        $newPresupuesto->presupuestoAnterior = $ultimoPresupuesto->fondos;
+        $newPresupuesto->presupuestoActual = $ultimoPresupuesto->fondos - ($request->costo * $request->stock);
+        $newPresupuesto->save();
+
+        // Registramos el detalle del Presupuesto
+        $return_id_presupuesto = DB::table('presupuesto')->select('id')->latest()->first();
+
+        $newDetallePresupuesto = new DetallePresupuesto;
+        $newDetallePresupuesto->destinoFondos = "Inventario/articulo: ".$request->nombre;
+        $newDetallePresupuesto->idpresupuesto = $return_id_presupuesto->id;
+        $newDetallePresupuesto->fechaDetalle = date('Y-m-d');
+        $newDetallePresupuesto->fondosRestados = $gastos;
+        $newDetallePresupuesto->save();
     }
 
     public function mostrar_articulo_update(Request $request)

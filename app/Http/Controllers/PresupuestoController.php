@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\PresupuestoRequest;
 use App\Models\Presupuesto;
 use Illuminate\Support\Facades\DB;
 
@@ -36,19 +36,15 @@ class PresupuestoController extends Controller
         return response()->json($results, status: 200);
     }
 
-    public function insertar_pre(Request $request)
+    public function insertar_pre(PresupuestoRequest $request)
     {
-
-        $this->validate($request, [
-            'presupuesto' => 'required|numeric|min:0'
-        ]);
 
         $ultimoPresupuesto = DB::table('presupuesto')->select('fondos')->latest()->first();
 
         $newPresupuesto = new Presupuesto;
-        $newPresupuesto->fondos = $request->presupuesto;
+        $newPresupuesto->fondos = ($request->presupuesto + $ultimoPresupuesto->fondos);
         $newPresupuesto->presupuestoAnterior = $ultimoPresupuesto->fondos;
-        $newPresupuesto->presupuestoActual = $request->presupuesto;
+        $newPresupuesto->presupuestoActual = ($request->presupuesto + $ultimoPresupuesto->fondos);
         $newPresupuesto->save();
     }
 }
