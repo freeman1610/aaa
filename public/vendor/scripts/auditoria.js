@@ -22,10 +22,7 @@ function listar() {
 		dom: 'Bfrtip',//definimos los elementos del control de la tabla
 		buttons: [
 			'copy',
-			'excel',
-			'pdf',
-			'print',
-			'colvis'
+			'excel'
 		],
 		"ajax":
 		{

@@ -20,6 +20,7 @@
                             <th>Estado</th>
                             <th>Codigo</th>
                             <th>Proveedor</th>
+                            <th>Costo</th>
                             <th>Marca</th>
                             <th>Nombre</th>
                             <th>Stock</th>
@@ -35,6 +36,7 @@
                             <th>Estado</th>
                             <th>Codigo</th>
                             <th>Proveedor</th>
+                            <th>Costo</th>
                             <th>Marca</th>
                             <th>Nombre</th>
                             <th>Stock</th>

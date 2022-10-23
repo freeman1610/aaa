@@ -17,6 +17,7 @@ function enviarFormRegistrarArticulo() {
 		success: function (res) {
 			toastr.success('Datos Guardados Correctamente')
 			tabla.ajax.reload();
+			swal.close()
 		},
 
 		error: function (err) {
@@ -36,6 +37,7 @@ function updateArticulo(id) {
 				'<input type="hidden" name="id_articulo" id="id_articulo" value="' + res.idalmacen + '">' +
 				'<br><label class="d-flex justify-content-between" for="">Codigo: <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><input type="text" autocomplete="off" name="codigo" placeholder="Codigo" maxlength="100" id="codigo" class="form-control" value="' + res.codigo + '" required>' +
 				'<br><label class="d-flex justify-content-start" for="">Proveedor:</label><input type="text" autocomplete="off" placeholder="Proveedor" name="proveedor" id="proveedor" class="form-control" value="' + res.proveedor + '" required>' +
+				'<br><label class="d-flex justify-content-start" for="">Costo:</label><input type="text" autocomplete="off" placeholder="Costo" name="costo" id="costo" class="form-control" value="' + res.costo + '" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))" required>' +
 				'<br><label class="d-flex justify-content-start" for="">Marca:</label><input type="text" autocomplete="off" placeholder="Marca" name="marca" id="marca" class="form-control" value="' + res.marca + '" required>' +
 				'<br><label class="d-flex justify-content-start" for="">Nombre:</label><input type="text" autocomplete="off" placeholder="Nombre" name="nombre" id="nombre" class="form-control" value="' + res.nombre + '" required>' +
 				'<br><label class="d-flex justify-content-start" for="">Stock:</label><input type="number" autocomplete="off" placeholder="Stock" name="stock" id="stock" class="form-control" value="' + res.stock + '" required>' +
@@ -65,6 +67,7 @@ function enviarFormActualizarArticulo() {
 		success: function (res) {
 			toastr.success('Datos Actualizados Correctamente')
 			tabla.ajax.reload();
+			swal.close()
 		},
 
 		error: function (err) {
@@ -86,6 +89,7 @@ function mostrarformNew() {
 			'<form action="" name="formularioRegistrarArticulo" id="formularioRegistrarArticulo" method="POST">' +
 			'<br><label class="d-flex justify-content-between" for="">Codigo: <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><input type="text" autocomplete="off" name="codigo" placeholder="Codigo" maxlength="100" id="codigo" class="form-control" required>' +
 			'<br><label class="d-flex justify-content-start" for="">Proveedor:</label><input type="text" autocomplete="off" placeholder="Proveedor" name="proveedor" id="proveedor" class="form-control" required>' +
+			'<br><label class="d-flex justify-content-start" for="">Costo:</label><input type="text" autocomplete="off" placeholder="Costo" name="costo" id="costo" class="form-control" onkeyup="numeracionDeMil(this,this.value.charAt(this.value.length-1))" required>' +
 			'<br><label class="d-flex justify-content-start" for="">Marca:</label><input type="text" autocomplete="off" placeholder="Marca" name="marca" id="marca" class="form-control" required>' +
 			'<br><label class="d-flex justify-content-start" for="">Nombre:</label><input type="text" autocomplete="off" placeholder="Nombre" name="nombre" id="nombre" class="form-control" required>' +
 			'<br><label class="d-flex justify-content-start" for="">Stock:</label><input type="number" autocomplete="off" placeholder="Stock" name="stock" id="stock" class="form-control" required>' +
@@ -105,6 +109,9 @@ function mostrarformNew() {
 }
 
 function asingnarArti() {
+	if ($('#cantidad').val() < 1) {
+		return toastr.error('Tienes que suministrar la cantidad ha asignar')
+	}
 	let datos = $('#formularioAsigArt').serialize();
 	$.ajax({
 		url: 'asignar_articulo',
@@ -114,6 +121,7 @@ function asingnarArti() {
 		success: function () {
 			toastr.success('Datos Asignados Correctamente')
 			tabla.ajax.reload();
+			swal.close()
 		},
 
 		error: function (err) {
@@ -129,22 +137,38 @@ function listarEmpleados(texto, id) {
 		method: 'POST',
 		data: 'articulo=' + id,
 		success: function (res) {
+
+			let disponibilidad = ''
+			let desactivarBoton = false
+
+			if (res.cantidad_art == 0) {
+				disponibilidad = '<div class="d-flex justify-content-around"><span class="text-warning">No hay Stock Disponible</div>'
+				desactivarBoton = true
+
+			} else {
+				disponibilidad = '<div class="d-flex justify-content-around"><span class="">Disponibilidad: ' + res.cantidad_art + ' </span><div><input type="range" id="cantidad" name="cantidad" value="0" min="0" max="' + res.cantidad_art + '" oninput="this.nextElementSibling.value = this.value" required><output class="pl-3">0</output></div></div>'
+			}
+
 			Swal.fire({
 				title: 'Asignado Articulo: "' + texto + '"',
 				html:
-					'<form action="" name="formularioAsigArt" id="formularioAsigArt" method="POST">' +
-					'<input type="hidden" name="id_articulo" id="id_articulo" value="' + id + '">' +
+					'<form action="" name="formularioAsigArt" id="formularioAsigArt" method="POST">'
+					+ disponibilidad +
+					'<div id="contenido-art"><br><input type="hidden" name="id_articulo" id="id_articulo" value="' + id + '">' +
 					'<label class="d-flex justify-content-start" for="">Seleccione el Empleado:</label><select class="form-control" id="id_emp" name="id_emp" required>' + res.empleados + '</select>' +
-					'<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" type="submit">' +
+					'<div class="d-flex justify-content-around"><button id="boton-asig" class="btn btn-success mt-3" type="submit">' +
 					'Guardar' +
 					'</button>' +
-					'</div>' +
+					'</div></div>' +
 					'</form>',
 				showCloseButton: true,
 				showConfirmButton: false,
 				showCancelButton: false,
 				focusConfirm: false
 			})
+			if (desactivarBoton) {
+				$('#contenido-art').html("")
+			}
 		},
 
 		error: function (err) {
@@ -154,7 +178,7 @@ function listarEmpleados(texto, id) {
 	});
 }
 
-function verAsignacion(id) {
+function verAsignacion(id, texto) {
 	$.ajax({
 		url: 'ver_asignacion',
 		method: 'POST',
@@ -162,37 +186,17 @@ function verAsignacion(id) {
 
 		success: function (res) {
 			Swal.fire({
-				title: 'Detalles',
+				title: 'Articulo: "' + texto + '"',
 				html:
 					'<table class="table">' +
-					'<tbody>' +
+					'<thead>' +
 					'<tr>' +
-					'<td>Nombre y Apellido del Empleado:</td>' +
-					'<td>' + res.empleado.nombre + ' ' + res.empleado.apellido + '</td>' +
+					'<th>Empleado Despachado</th>' +
+					'<th>Cantidad Despachada</th>' +
+					'<th>Fecha del Despacho</th>' +
 					'</tr>' +
-					'<tr>' +
-					'<td>Cedula del Empleado:</td>' +
-					'<td>' + res.empleado.cedula + '</td>' +
-					'</tr>' +
-					'<tr>' +
-					'<td>Codigo del Articulo:</td>' +
-					'<td>' + res.articulo.codigo + '</td>' +
-					'</tr>' +
-					'<td>Nombre del Articulo:</td>' +
-					'<td>' + res.articulo.nombre + '</td>' +
-					'</tr>' +
-					'<tr>' +
-					'<td>Marca del Articulo:</td>' +
-					'<td>' + res.articulo.marca + '</td>' +
-					'</tr>' +
-					'<tr>' +
-					'<td>Fecha de la Asignación:</td>' +
-					'<td>' + res.fecha + '</td>' +
-					'</tr>' +
-					'<tr>' +
-					'<td colspan="2"><button onclick="desasignarArticulo(' + res.id + ')" class="btn btn-danger">Desasignar Articulo</button></td>' +
-					'</tr>' +
-					'</tbody>' +
+					'</thead>' +
+					'<tbody>' + res.tabla + '</tbody>' +
 					'</table>',
 				showCloseButton: true,
 				showConfirmButton: false,
@@ -218,6 +222,7 @@ function desasignarArticulo(id) {
 		success: function () {
 			toastr.success('Datos Desasignados Correctamente')
 			tabla.ajax.reload();
+			swal.close()
 		},
 
 		error: function (err) {
@@ -242,6 +247,50 @@ document.querySelector("#centro_central").addEventListener("submit", ev => {
 		asingnarArti()
 	}
 })
+
+function numeracionDeMil(donde, caracter) {
+	pat = /[\*,\+,\(,\),\?,\,$,\[,\],\^]/
+	valor = donde.value
+	largo = valor.length
+	crtr = true
+	if (isNaN(caracter) || pat.test(caracter) == true) {
+
+		if (pat.test(caracter) == true) {
+			caracter = "'\'" + caracter
+		}
+		carcter = new RegExp(caracter, "g")
+		valor = valor.replace(carcter, "")
+
+		valor = valor.substr(0, largo - 1)
+		donde.value = valor
+		crtr = false
+	}
+	else {
+		var nums = new Array()
+		cont = 0
+		for (m = 0; m < largo; m++) {
+			if (valor.charAt(m) == "." || valor.charAt(m) == " ") { continue; }
+			else {
+				nums[cont] = valor.charAt(m)
+				cont++
+			}
+		}
+	}
+	var cad1 = "", cad2 = "", tres = 0
+	if (largo > 3 && crtr == true) {
+		for (k = nums.length - 1; k >= 0; k--) {
+			cad1 = nums[k]
+			cad2 = cad1 + cad2
+			tres++
+			if ((tres % 3) == 0) {
+				if (k != 0) {
+					cad2 = "." + cad2
+				}
+			}
+		}
+		donde.value = cad2
+	}
+}
 
 var tabla;
 
