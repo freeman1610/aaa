@@ -339,13 +339,20 @@ class NominaController extends Controller
     public function muestra_empleados_select_nom()
     {
         $selectAllEmpleados = Empleado::all()->whereNotIn('cargo', ['Chofer', 'chofer']);
-        return $selectAllEmpleados;
+
+        $option = '<option value="">Seleccione</option>';
+
+        foreach ($selectAllEmpleados as $datos) {
+            $option = $option . '<option value="' . $datos->id_emp . '">' . $datos->nombre . ' ' . $datos->apellido . ' |---|  ' . $datos->tipo_documento . ':  ' . $datos->cedula . ' |---|  Cargo: ' . $datos->cargo . '</option>';
+        }
+
+        return response()->json(['empleados' => $option], status: 200);
     }
 
     public function pagoNominaPDF(Request $request, Fpdf $fpdf)
     {
         if (!$request->hasValidSignature()) {
-            abort(401);
+            return abort(401);
         }
         $this->validate($request, [
             'idNomina' => 'required|numeric',
@@ -649,7 +656,7 @@ class NominaController extends Controller
     public function generarPDFXfechas(Request $request, Fpdf $fpdf)
     {
         if (!$request->hasValidSignature()) {
-            abort(401);
+            return abort(401);
         }
 
         $selectPagos = Nomina::all()

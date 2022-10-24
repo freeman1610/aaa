@@ -36,25 +36,16 @@ class LoginAuthController extends Controller
                 foreach ($seleccionarPermisos as $permiso) {
 
                     switch ($permiso->idpermiso) {
-
-                        case 1:
-                            session()->put('escritorio', '1');
-                            break;
-
                         case 2:
                             session()->put('almacen', '1');
                             break;
 
-                        case 3:
-                            session()->put('compras', '1');
-                            break;
-
                         case 4:
-                            session()->put('egresos', '1');
+                            session()->put('administrativo', '1');
                             break;
 
                         case 5:
-                            session()->put('acceso', '1');
+                            session()->put('sistema', '1');
                             break;
                     }
                 }

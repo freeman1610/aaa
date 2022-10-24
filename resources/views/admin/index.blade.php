@@ -18,8 +18,9 @@
             <div class="icon">
                 <i class="fas fa-users"></i>
             </div>
-            
+            @if(Auth::user()->cargo == 'ADMINISTRADOR' || session()->get('administrativo') == 1)
             <a href="{{ route('empleados') }}" class="small-box-footer">Agregar Empleado <i class="fas fa-arrow-circle-right"></i></a>
+            @endif
         </div>
     </div><!-- ./col -->
      <!-- Empleados -->
@@ -33,8 +34,9 @@
             <div class="icon">
                 <i class="fas fa-shipping-fast"></i>
             </div>
-            
+            @if(Auth::user()->cargo == 'ADMINISTRADOR' || session()->get('administrativo') == 1)
             <a href="{{ route('viajes') }}" class="small-box-footer">Registar Viaje <i class="fas fa-arrow-circle-right"></i></a>
+            @endif
         </div>
     </div><!-- ./col -->
   
@@ -50,7 +52,7 @@
     </div><!-- /.card -->
     <div class="card card-primary card-outline col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="card-header">
-            <h5 class="card-title m-0">Estados más visitados en este Mes</h5>
+            <h5 class="card-title m-0">Estado más visitado en este Mes</h5>
         </div>
         <div class="card-body">
             <div class="chart">

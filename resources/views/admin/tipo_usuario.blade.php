@@ -1,25 +1,13 @@
 @extends('admin.plantilla_principal')
 
-
-@if (Auth::user()->cargo == "ADMINISTRADOR")
-
-    @extends('admin.tipo_usuario_contenido')
-
-@else
-
-@section('contenidoCentral')
-<div class="row mt-4">
-    <div class="card card-primary card-outline">
-        <div class="card-header">
-            <h5 class="card-title m-0">Sin acceso a Este Modúlo</h5>
-        </div>
-        <div class="card-body">
-            <h6 class="card-title">No tienes Los Privilegios Necesarios para ingresas a Este Modúlo</h6>
-        </div>
+@if(Auth::user()->cargo != 'ADMINISTRADOR' || session()->get('sistema') != 1)
+@section("contenidoCentral")
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-center"><h1 class="h1">401 | No Tienes Acceso a este Modulo</h1></div>
     </div>
 </div>
 @endsection
-
+@else
+@extends('sistema.tipo_usuario')
 @endif
-
-

@@ -1,48 +1,13 @@
 @extends('admin.plantilla_principal')
 
-@section('etiquetas_header')
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-@endsection
-
-@section('contenidoCentral')
+@if(Auth::user()->cargo != 'ADMINISTRADOR' || session()->get('sistema') != 1)
+@section("contenidoCentral")
 <div class="row">
     <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Auditoria</h3>
-            </div><!-- /.card-header -->
-            <div class="card-body" id="listadoregistros">
-                <table id="tbllistado" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Usuario</th>
-                            <th>Operacion</th>
-                            <th>Origen</th>
-                            <th>Valores Viejos</th>
-                            <th>Valores Nuevos</th>
-                            <th>Fecha del Movimiento</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Usuario</th>
-                            <th>Operacion</th>
-                            <th>Origen</th>
-                            <th>Valores Viejos</th>
-                            <th>Valores Nuevos</th>
-                            <th>Fecha del Movimiento</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div><!-- /.card-body -->
-        </div><!-- /.card -->
-    </div><!-- /.col -->
-</div><!-- /.row -->
+        <div class="d-flex justify-content-center"><h1 class="h1">401 | No Tienes Acceso a este Modulo</h1></div>
+    </div>
+</div>
 @endsection
-
-@section('agregarScriptsJS')
-<script src="{{ asset('vendor/scripts/auditoria.js') }}"></script>
-<script src="{{ asset('vendor/scripts/libreria.js') }}"></script> 
-@endsection
+@else
+@extends('sistema.auditoria')
+@endif

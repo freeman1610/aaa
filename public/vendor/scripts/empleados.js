@@ -1,3 +1,81 @@
+$.ajaxSetup({
+	headers: {
+		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	}
+});
+
+function enviarFormCrearUsuario() {
+
+	let datos = $('#formularioCrearEmpleado').serialize();
+
+	$.ajax({
+		url: 'crear_empleado',
+		method: 'POST',
+		data: datos,
+
+		success: function (res) {
+			toastr.success('Datos Guardados Correctamente')
+			tabla.ajax.reload();
+		},
+
+		error: function (err) {
+			toastr.error(err.responseJSON.message)
+		}
+
+	});
+}
+
+function prueba() {
+
+	let telll = document.getElementById('telefono_a')
+
+	Inputmask({ "mask": "(999) 999-9999" }).mask(telll)
+
+
+}
+
+function clickAgregarEmpleado() {
+
+	let iddepartamento_select = document.getElementById('iddepartamento').innerHTML
+
+	Swal.fire({
+		title: '<strong>Registrar Empleado</strong>',
+		html:
+			'<form action="" name="formularioCrearEmpleado" id="formularioCrearEmpleado" method="POST">' +
+			'<label for="">Departamento(*):</label><select name="iddepartamento_a" id="iddepartamento_a" class="form-control select2" data-Live-search="true">' + iddepartamento_select + '</select>' +
+			'<br><label for="">Nombre(*):</label><input type="text" name="nombre_a" placeholder="Nombre" id="nombre_a" class="form-control" required>' +
+			'<br><label for="">Apellido(*):</label><input type="text" name="apellido_a" placeholder="Apellido" id="apellido_a" class="form-control" required>' +
+			'<br><label for="">Tipo Documento(*):</label><select name="tipo_documento_a" id="tipo_documento_a" class="form-control" required>' +
+			'<option value="Cedula">Cedúla</option>' +
+			'<option value="RIF">RIF</option>' +
+			'<option value="Pasaporte">Pasaporte</option>' +
+			'</select>' +
+			'<br><label for="">Cedula:</label><input type="text" name="num_documento_a" placeholder="Cedúla" onkeypress="return SoloNumeros(event)" maxlength="10" id="num_documento_a" class="form-control" required>' +
+			'<br><label for="">Fecha de Nacimiento:</label><input type="date" name="fecha_nac" id="fecha_nac" class="form-control" required>' +
+			'<br><label for="">Fecha de Ingreso:</label><input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" required>' +
+			'<br><label for="">Dirección:</label><input type="text" name="direccion_a" placeholder="Dirección" id="direccion_a" class="form-control" required>' +
+			'<br><label for="">Telefono:</label><input type="text" name="telefono_a" onkeydown="prueba()" placeholder="Telefono" id="telefono_a" class="form-control" required>' +
+			'<br><label for="">Cargo:</label><input type="text" name="cargo_a" placeholder="Cargo" id="cargo_a" class="form-control" required>' +
+			'<button class="btn btn-success mt-3" type="submit">' +
+			'Guardar Usuario' +
+			'</button>' +
+			'</form>',
+		showCloseButton: true,
+		showConfirmButton: false,
+		showCancelButton: false,
+		focusConfirm: false,
+	})
+}
+
+document.querySelector("#centro_central").addEventListener("submit", ev => {
+
+	if (ev.target.matches('#formularioCrearEmpleado')) {
+		ev.preventDefault()
+		enviarFormCrearUsuario()
+	}
+
+});
+
 var tabla;
 
 //funcion que se ejecuta al inicio
@@ -24,12 +102,6 @@ function init() {
 	//cargamos los items al select Departamento
 
 	let select = document.getElementById("iddepartamento")
-
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
 
 	$.ajax({
 		url: 'mostrar_departamentos',

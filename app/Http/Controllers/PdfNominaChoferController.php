@@ -16,7 +16,7 @@ class PdfNominaChoferController extends Controller
     public function pdfNominaChofer(Request $request, Fpdf $fpdf)
     {
         if (!$request->hasValidSignature()) {
-            abort(401);
+            return abort(401);
         }
         $this->validate($request, [
             'id' => 'required|numeric'
@@ -102,7 +102,7 @@ class PdfNominaChoferController extends Controller
         $fpdf->SetFont('Arial', 'B', 15);
         $fpdf->setY(25);
 
-        $codigoHash = random_int(100000, 9999999) . '-' . $selectChofer->cedula . '-' . date_format(new DateTime($nomina->created_at), 'dmY');
+        $codigoHash = $datosViaje[0]->viajes_codigo;
 
         // viajes_codigo
 

@@ -1,45 +1,13 @@
 @extends('admin.plantilla_principal')
 
-@section('etiquetas_header')
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-@endsection
-
-@section('contenidoCentral')
+@if(Auth::user()->cargo != 'ADMINISTRADOR' || session()->get('sistema') != 1)
+@section("contenidoCentral")
 <div class="row">
     <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Configuración Chat Bot
-                    <button class="btn btn-dark" onclick="registrarNewReplies()" id="btnagregar"><i class="fa fa-plus-circle"></i> Registrar Nuevas Preguntas y Repuestas</button>
-                    <button class="btn btn-dark" onclick="infoLogicChatBot()" id="btnagregar"><i class="fa fa-info"></i> Como funciona la Logica del Chat Bot</button>
-                </h3>
-            </div><!-- /.card-header -->
-            <div class="card-body" id="listadoregistros">
-                <table id="tbllistado" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Opciones</th>
-                            <th>Palabras Clave (Pregunta)</th>
-                            <th>Repuesta</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Opciones</th>
-                            <th>Palabras Clave (Pregunta)</th>
-                            <th>Repuesta</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div><!-- /.card-body -->
-        </div><!-- /.card -->
-    </div><!-- /.col -->
-</div><!-- /.row -->
+        <div class="d-flex justify-content-center"><h1 class="h1">401 | No Tienes Acceso a este Modulo</h1></div>
+    </div>
+</div>
 @endsection
-
-@section('agregarScriptsJS')
-<script src="{{ asset('vendor/scripts/chat_bot.js') }}"></script>
-<script src="{{ asset('vendor/scripts/libreria.js') }}"></script> 
-@endsection
+@else
+@extends('sistema.chat_bot')
+@endif

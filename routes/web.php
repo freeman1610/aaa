@@ -90,6 +90,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::view('almacen', 'admin.almacen')->name('almacen');
 
+    // --------------------- FIN VISTAS PRINCIPALES ---------------------------
 
     // ---------------- DATOS ESCRITORIO ------------------------
 
@@ -98,10 +99,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('chutos_mes', [EscritorioController::class, 'chutos_mes'])->name('chutos_mes');
     Route::post('estados_mes', [EscritorioController::class, 'estados_mes'])->name('estados_mes');
 
-
     // ---------------- FIN DATOS ESCRITORIO ------------------------
 
-    // --------------------- FIN VISTAS PRINCIPALES ---------------------------
 
     Route::get('perfil_personal', [PerfilController::class, 'mostrar_perfil_personal'])->name('mostrar_perfil_personal');
 

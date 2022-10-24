@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-10-2022 a las 09:03:03
+-- Tiempo de generación: 24-10-2022 a las 05:01:10
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 SET
@@ -1953,6 +1953,104 @@ VALUES
     NULL,
     '2022-10-23 07:21:06',
     '2022-10-23 07:21:06'
+  ),
+  (
+    107,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Empleado',
+    21,
+    '[]',
+    '{\"nombre\":\"Luis\",\"apellido\":\"Perex\",\"tipo_documento\":\"Cedula\",\"cedula\":\"11666499\",\"fecha_nac\":\"2003-07-10\",\"iddepartamento\":\"1\",\"cargo\":\"administracion\",\"telefono\":\"(424) 763-3369\",\"direccion\":\"Caracas\",\"fecha_ingreso\":\"2022-10-23\",\"id_emp\":21}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/crear_empleado',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-23 23:46:32',
+    '2022-10-23 23:46:32'
+  );
+INSERT INTO
+  `audits` (
+    `id`,
+    `user_type`,
+    `user_id`,
+    `event`,
+    `auditable_type`,
+    `auditable_id`,
+    `old_values`,
+    `new_values`,
+    `url`,
+    `ip_address`,
+    `user_agent`,
+    `tags`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    108,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\UsuarioPermiso',
+    1422,
+    '[]',
+    '{\"idusuario\":\"25\",\"idpermiso\":\"1\",\"idusuario_permiso\":1422}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/guardar_usuario_editado?apellido=1.0&cargo=aaa&direccion=asdadad&email=asdad%40gmail.com&iddepartamento=1&idtipousuario=1&idusuario=25&login=prueba&nombre=Prueba%20Laravel&num_documento=111111&permiso%5B0%5D=1&permiso%5B1%5D=2&telefono=%28063%29%20052-____&tipo_documento=Cedula',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-24 02:07:33',
+    '2022-10-24 02:07:33'
+  ),
+  (
+    109,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\UsuarioPermiso',
+    1423,
+    '[]',
+    '{\"idusuario\":\"25\",\"idpermiso\":\"2\",\"idusuario_permiso\":1423}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/guardar_usuario_editado?apellido=1.0&cargo=aaa&direccion=asdadad&email=asdad%40gmail.com&iddepartamento=1&idtipousuario=1&idusuario=25&login=prueba&nombre=Prueba%20Laravel&num_documento=111111&permiso%5B0%5D=1&permiso%5B1%5D=2&telefono=%28063%29%20052-____&tipo_documento=Cedula',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-24 02:07:33',
+    '2022-10-24 02:07:33'
+  ),
+  (
+    110,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Usuario',
+    25,
+    '{\"password\":\"123\"}',
+    '{\"password\":\"$2y$10$9zql4c3frLvaDThukxt2yepuHY4noHPai7lGtazZBl.vJMggCxvVq\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/editar_clave_usuario',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-24 02:08:41',
+    '2022-10-24 02:08:41'
+  ),
+  (
+    111,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\UsuarioPermiso',
+    1424,
+    '[]',
+    '{\"idusuario\":\"25\",\"idpermiso\":\"4\",\"idusuario_permiso\":1424}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/guardar_usuario_editado?apellido=1.0&cargo=aaa&direccion=asdadad&email=asdad%40gmail.com&iddepartamento=1&idtipousuario=1&idusuario=25&login=prueba&nombre=Prueba%20Laravel&num_documento=111111&permiso%5B0%5D=4&telefono=%28063%29%20052-____&tipo_documento=Cedula',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-24 02:15:06',
+    '2022-10-24 02:15:06'
   );
 -- --------------------------------------------------------
   --
@@ -2599,6 +2697,21 @@ VALUES
     '2016-05-15',
     '2022-09-27 00:40:02',
     '2022-09-27 00:40:02'
+  ),
+  (
+    21,
+    'Luis',
+    'Perex',
+    'Cedula',
+    '11666499',
+    '2003-07-10',
+    1,
+    'administracion',
+    '(424) 763-3369',
+    'Caracas',
+    '2022-10-23',
+    '2022-10-23 19:16:32',
+    '2022-10-23 19:16:32'
   );
 -- --------------------------------------------------------
   --
@@ -4725,11 +4838,9 @@ VALUES
 INSERT INTO
   `permiso` (`idpermiso`, `nombre`)
 VALUES
-  (1, 'Escritorio'),
   (2, 'Almacen'),
-  (3, 'Compras'),
-  (4, 'Egresos'),
-  (5, 'Acceso');
+  (4, 'Administrativo'),
+  (5, 'Sistema');
 -- --------------------------------------------------------
   --
   -- Estructura de tabla para la tabla `presupuesto`
@@ -5159,12 +5270,12 @@ VALUES
     'prueba',
     1,
     1,
-    '123',
+    '$2y$10$9zql4c3frLvaDThukxt2yepuHY4noHPai7lGtazZBl.vJMggCxvVq',
     '',
     '1661220038-lagarra.png',
     1,
     '2022-08-17 14:10:51',
-    '2022-08-22 22:00:38'
+    '2022-10-23 21:38:41'
   ),
   (
     26,
@@ -5290,23 +5401,9 @@ INSERT INTO
   )
 VALUES
   (
-    1310,
-    22,
-    1,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
     1311,
     22,
     2,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
-    1312,
-    22,
-    3,
     '2022-10-09 00:22:17',
     '2022-10-09 00:22:17'
   ),
@@ -5325,23 +5422,9 @@ VALUES
     '2022-10-09 00:22:17'
   ),
   (
-    1386,
-    1,
-    1,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
     1387,
     1,
     2,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
-    1388,
-    1,
-    3,
     '2022-10-09 00:22:17',
     '2022-10-09 00:22:17'
   ),
@@ -5360,58 +5443,9 @@ VALUES
     '2022-10-09 00:22:17'
   ),
   (
-    1399,
-    25,
-    1,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
-    1400,
-    25,
-    2,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
-    1401,
-    25,
-    3,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
-    1402,
-    25,
-    4,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
-    1403,
-    25,
-    5,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
-    1409,
-    21,
-    1,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
     1410,
     21,
     2,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
-    1411,
-    21,
-    3,
     '2022-10-09 00:22:17',
     '2022-10-09 00:22:17'
   ),
@@ -5430,30 +5464,9 @@ VALUES
     '2022-10-09 00:22:17'
   ),
   (
-    1414,
-    24,
-    1,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
-    1415,
-    24,
-    3,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
     1416,
     24,
     5,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
-  ),
-  (
-    1417,
-    28,
-    1,
     '2022-10-09 00:22:17',
     '2022-10-09 00:22:17'
   ),
@@ -5465,11 +5478,11 @@ VALUES
     '2022-10-09 00:22:17'
   ),
   (
-    1419,
-    28,
-    3,
-    '2022-10-09 00:22:17',
-    '2022-10-09 00:22:17'
+    1424,
+    25,
+    4,
+    '2022-10-23 21:45:06',
+    '2022-10-23 21:45:06'
   );
 -- --------------------------------------------------------
   --
@@ -6033,7 +6046,7 @@ ALTER TABLE
   `audits`
 MODIFY
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 107;
+  AUTO_INCREMENT = 112;
 --
   -- AUTO_INCREMENT de la tabla `cavas`
   --
@@ -6097,7 +6110,7 @@ ALTER TABLE
   `empleado`
 MODIFY
   `id_emp` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 21;
+  AUTO_INCREMENT = 22;
 --
   -- AUTO_INCREMENT de la tabla `estados`
   --
@@ -6193,7 +6206,7 @@ ALTER TABLE
   `usuario_permiso`
 MODIFY
   `idusuario_permiso` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 1422;
+  AUTO_INCREMENT = 1425;
 --
   -- AUTO_INCREMENT de la tabla `viajes`
   --

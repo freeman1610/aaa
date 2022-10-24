@@ -48,51 +48,6 @@
     </div>
     </div>
   </div>
-{{-- <div class="login-box">
-  <div class="login-logo">
-    <b>Inicio de Sesión</b>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Ingresa para Iniciar Sesión</p>
-
-      <form method="post" id="frmAcceso">
-        @csrf
-        <div class="input-group mb-3">
-          <input type="text" id="login" name="login" required class="form-control" placeholder="Usuario">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" name="password" id="password" required class="form-control" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fa fa-eye mr-2" id="show"></span>
-                <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-6">
-            <a href="{{ route('principio') }}" class="btn btn-primary btn-block">Regresar</a>
-          </div>
-          <div class="col-6">
-            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
-          </div>
-          <!-- /.col -->
-        </div>
-    </form>
-
-    </div>
-    <!-- /.login-card-body -->
-  </div>
-</div>
-<!-- /.login-box --> --}}
-
 <!-- jQuery -->
 <script src="{{ asset('vendor/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->

@@ -47,7 +47,6 @@
                     </tfoot>
                 </table>
             </div><!-- /.card-body -->
-            <select name="id_empleado" style="display: none" id="id_empleado"></select>
             <input type="hidden" id="salario">
         </div><!-- /.card -->
     </div><!-- /.col -->

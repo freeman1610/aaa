@@ -181,35 +181,40 @@ function limpiarFormulario() {
 }
 
 function clickAgregarNomina() {
+	$.ajax({
+		url: 'muestra_empleados_select_nom',
+		type: 'POST',
+		success: function (res) {
+			let salario_value = document.getElementById('salario').value
+			Swal.fire({
+				title: '<strong>Pago de Nomina</strong>',
+				html:
+					'<form action="" name="formularioCrearNomina" id="formularioCrearNomina" method="POST">' +
+					'<br><label class="d-flex justify-content-between" for="">Empleado(*): <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><select name="id_empleado_a" id="id_empleado_a" class="form-control select2" required data-Live-search="true" >' + res.empleados + '</select>' +
+					'<br><label for="" class="d-flex justify-content-start">Salario Mensual(*):</label><input type="text" class="form-control" value="Bs ' + salario_value + '" readonly>' +
+					'<br><label for="" class="d-flex justify-content-start">Tipo de Nómina(*):</label><select name="tipo_nomina_a" id="tipo_nomina_a" class="form-control select2" required data-Live-search="true"><option value="">Seleccione</option>' +
+					'<option value="mensual">Mensual</option>' +
+					'<option value="quincenal">Quincenal</option>' +
+					'</select>' +
+					'<br><label for="" class="d-flex justify-content-start">Fecha de pago de Nomina(*)</label><input type="date" required class="form-control" name="inicio_pago_a" id="inicio_pago_a"' +
+					'<br><br><label for="" class="d-flex justify-content-start">Dias Laborados(*):</label><input class="form-control" type="text" name="dias_lab_a" id="dias_lab_a" minlength="1" required placeholder="Días Laborados" autocomplete="off" onkeypress="return SoloNumeros(event)" minlength="0" maxlength="2" onkeyup="contarNumsMensual()">' +
+					'<br><label for="" class="d-flex justify-content-start">Dia(s) de Descanso Remunerado:(*)</label><input class="form-control" type="text" name="dias_lib_a" id="dias_lib_a" minlength="1" required placeholder="Días de Descanso" autocomplete="off" onkeypress="return SoloNumeros(event)" minlength="0" maxlength="2" onkeyup="contarNumsMensual()">' +
+					'<br><label for="" class="d-flex justify-content-start">Horas Extra Diurnas(*):</label><input class="form-control" type="text" name="hora_d_a" id="hora_d_a" minlength="1 required" placeholder="Días de Permiso" autocomplete="off" onkeypress="return SoloNumeros(event)">' +
+					'<br><label for="" class="d-flex justify-content-start">Horas Extra Nocturnas(*):</label><input class="form-control" type="text" name="hora_n_a" id="hora_n_a" minlength="1" required placeholder="Días de Permiso" autocomplete="off" onkeypress="return SoloNumeros(event)">' +
+					'<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" id="botonSubmitNomina" type="submit">' +
+					'Realizar Pago' +
+					'</button>' +
+					'<button class="btn btn-info mt-3 ml-2" onclick="limpiarFormulario()" type="button">' +
+					'Limpiar' +
+					'</button></div>' +
+					'</form>',
+				showCloseButton: true,
+				showConfirmButton: false,
+				showCancelButton: false,
+				focusConfirm: false,
+			})
 
-	let id_empleado_select = document.getElementById('id_empleado').innerHTML
-	let salario_value = document.getElementById('salario').value
-	Swal.fire({
-		title: '<strong>Pago de Nomina</strong>',
-		html:
-			'<form action="" name="formularioCrearNomina" id="formularioCrearNomina" method="POST">' +
-			'<br><label class="d-flex justify-content-between" for="">Empleado(*): <button class="btn btn-info btn-sm" onclick="limpiarFormulario()" type="button">Limpiar</button></label><select name="id_empleado_a" id="id_empleado_a" class="form-control select2" required data-Live-search="true" ><option value="">Seleccione</option>' + id_empleado_select + '</select>' +
-			'<br><label for="" class="d-flex justify-content-start">Salario Mensual(*):</label><input type="text" class="form-control" value="Bs ' + salario_value + '" readonly>' +
-			'<br><label for="" class="d-flex justify-content-start">Tipo de Nómina(*):</label><select name="tipo_nomina_a" id="tipo_nomina_a" class="form-control select2" required data-Live-search="true"><option value="">Seleccione</option>' +
-			'<option value="mensual">Mensual</option>' +
-			'<option value="quincenal">Quincenal</option>' +
-			'</select>' +
-			'<br><label for="" class="d-flex justify-content-start">Fecha de pago de Nomina(*)</label><input type="date" required class="form-control" name="inicio_pago_a" id="inicio_pago_a"' +
-			'<br><br><label for="" class="d-flex justify-content-start">Dias Laborados(*):</label><input class="form-control" type="text" name="dias_lab_a" id="dias_lab_a" minlength="1" required placeholder="Días Laborados" autocomplete="off" onkeypress="return SoloNumeros(event)" minlength="0" maxlength="2" onkeyup="contarNumsMensual()">' +
-			'<br><label for="" class="d-flex justify-content-start">Dia(s) de Descanso Remunerado:(*)</label><input class="form-control" type="text" name="dias_lib_a" id="dias_lib_a" minlength="1" required placeholder="Días de Descanso" autocomplete="off" onkeypress="return SoloNumeros(event)" minlength="0" maxlength="2" onkeyup="contarNumsMensual()">' +
-			'<br><label for="" class="d-flex justify-content-start">Horas Extra Diurnas(*):</label><input class="form-control" type="text" name="hora_d_a" id="hora_d_a" minlength="1 required" placeholder="Días de Permiso" autocomplete="off" onkeypress="return SoloNumeros(event)">' +
-			'<br><label for="" class="d-flex justify-content-start">Horas Extra Nocturnas(*):</label><input class="form-control" type="text" name="hora_n_a" id="hora_n_a" minlength="1" required placeholder="Días de Permiso" autocomplete="off" onkeypress="return SoloNumeros(event)">' +
-			'<div class="d-flex justify-content-around"><button class="btn btn-success mt-3" id="botonSubmitNomina" type="submit">' +
-			'Realizar Pago' +
-			'</button>' +
-			'<button class="btn btn-info mt-3 ml-2" onclick="limpiarFormulario()" type="button">' +
-			'Limpiar' +
-			'</button></div>' +
-			'</form>',
-		showCloseButton: true,
-		showConfirmButton: false,
-		showCancelButton: false,
-		focusConfirm: false,
+		}
 	})
 }
 
@@ -231,6 +236,8 @@ document.querySelector("#centro_central").addEventListener("submit", ev => {
 	}
 
 });
+
+
 
 document.querySelector("#centro_central").addEventListener("click", ev => {
 
@@ -306,34 +313,6 @@ function init() {
 	$("#nom_a").addClass("active");
 	listar();
 
-	let select = document.getElementById("id_empleado")
-
-	select.innerHTML = ""
-
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-
-	$.ajax({
-		url: 'muestra_empleados_select_nom',
-		type: 'POST',
-
-		success: function (res) {
-
-			// console.log(res);
-			res.forEach(function (dato) {
-
-				let option = document.createElement('option')
-
-				option.value = dato.id_emp
-				option.text = dato.nombre + ' ' + dato.apellido + ' |---|  ' + dato.tipo_documento + ':  ' + dato.cedula + ' |---|  Cargo: ' + dato.cargo
-				select.appendChild(option)
-
-			})
-		}
-	});
 	$.ajax({
 		url: 'muestra_salario_base',
 		type: 'POST',

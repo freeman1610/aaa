@@ -93,6 +93,99 @@ function backUpDataBase() {
 
 // });
 
+
+function enviarFormCrearUsuario() {
+
+	$imagen = $('#imagen_a');
+	let formData = new FormData();
+	let datos = $('#formularioCrearUsuario').serialize();
+	formData.append('imagen_a', $imagen[0].files[0]);
+
+
+	$.ajax({
+		url: 'crear_usuario' + '?' + datos,
+		method: 'POST',
+		data: formData,
+		processData: false,
+		contentType: false,
+
+		success: function (datos) {
+			toastr.success('Datos Guardados Correctamente')
+
+			tabla.ajax.reload();
+		},
+
+		error: function (err) {
+			toastr.error(err.responseJSON.message)
+		}
+
+	});
+}
+
+function prueba() {
+	let telll = document.getElementById('telefono_a')
+
+	Inputmask({ "mask": "(999) 999-9999" }).mask(telll)
+
+
+}
+
+
+function clickAgregarUsuario() {
+
+	let idtipousuario_select = document.getElementById('idtipousuario').innerHTML
+
+	let iddepartamento_select = document.getElementById('iddepartamento').innerHTML
+
+	let permisos_ul = document.getElementById('permisos').innerHTML
+
+	Swal.fire({
+		title: '<strong>Agregar Usuario</strong>',
+		html:
+			'<form action="" name="formularioCrearUsuario" id="formularioCrearUsuario" method="POST" enctype="multipart/form-data">' +
+			'<label for="">Tipo de Usuario(*):</label><select name="idtipousuario_a" id="idtipousuario_a" class="form-control select2" data-Live-search="true" required>' + idtipousuario_select + '</select>' +
+			'<br><label for="">Departamento(*):</label><select name="iddepartamento_a" id="iddepartamento_a" class="form-control select2" data-Live-search="true" >' + iddepartamento_select + '</select>' +
+
+			'<br><label for="">Nombre(*):</label><input type="text" name="nombre_a" placeholder="Nombre" id="nombre_a" class="form-control" required>' +
+			'<br><label for="">Apellido(*):</label><input type="text" name="apellido_a" placeholder="Apellido" id="apellido_a" class="form-control" required>' +
+			'<br><label for="">Tipo Documento(*):</label><select name="tipo_documento_a" id="tipo_documento_a" class="form-control" required>' +
+			'<option value="Cedula">Cedúla</option>' +
+			'<option value="RIF">RIF</option>' +
+			'<option value="Pasaporte">Pasaporte</option>' +
+			'</select>' +
+			'<br><label for="">Cedula:</label><input type="text" name="num_documento_a" placeholder="Cedúla" onkeypress="return SoloNumeros(event)" maxlength="10" id="num_documento_a" class="form-control" required>' +
+			'<br><label for="">Dirección:</label><input type="text" name="direccion_a" placeholder="Dirección" id="direccion_a" class="form-control" required>' +
+			'<br><label for="">Telefono:</label><input type="text" name="telefono_a" onkeydown="prueba()" placeholder="Telefono" id="telefono_a" class="form-control" required>' +
+			'<br><label for="">Email:</label><input type="email" name="email_a" placeholder="Email" id="email_a" class="form-control" required>' +
+			'<br><label for="">Cargo:</label><input type="text" name="cargo_a" placeholder="Cargo" id="cargo_a" class="form-control" required>' +
+			'<br><label for="">Usuario(*):</label><input type="text" name="login_a" placeholder="Usuario" id="login_a" class="form-control" required>' +
+			'<br><label for="">Contraseña(*):</label><input type="password" name="clave_a" placeholder="Contraseña" minlength="6" id="clave_a" class="form-control" required>' +
+			'<br><label for="">Imagen de Perfil(*):</label><input class="form" type="file" name="imagen_a" id="imagen_a">' +
+			'<br><div style="display: flex;justify-content: left;text-align: left"><ul style="list-style: none;">' + permisos_ul + '</ul></div>' + '<button class="btn btn-success mt-1" type="submit">' +
+			'Guardar Usuario' +
+			'</button>' +
+			'</form>',
+		showCloseButton: true,
+		showConfirmButton: false,
+		showCancelButton: false,
+		focusConfirm: false,
+	})
+
+
+
+
+}
+
+document.querySelector("#centro_central").addEventListener("submit", ev => {
+
+	if (ev.target.matches('#formularioCrearUsuario')) {
+		ev.preventDefault()
+		enviarFormCrearUsuario()
+	}
+
+});
+
+
 function limpiarBackUp() {
 	$.post("limpieza_backup_db");
 }

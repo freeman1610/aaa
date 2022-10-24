@@ -132,7 +132,7 @@
                             </a>
                         </li>
 
-                          @if( Auth::user()->cargo == 'ADMINISTRADOR' || session()->get('acceso') == 1)
+                          @if( Auth::user()->cargo == 'ADMINISTRADOR' || session()->get('sistema') == 1)
 
                         <li class="nav-item menu-close">
                             <a href="#" class="nav-link" id="acc">
@@ -158,7 +158,7 @@
                         </li>
                         @endif
 
-                        @if(Auth::user()->cargo == 'ADMINISTRADOR')
+                        @if(Auth::user()->cargo == 'ADMINISTRADOR' || session()->get('administrativo') == 1)
                         <li class="nav-item">
                             <a href="{{ route('empleados') }}" class="nav-link" id="emp">
                                 <i class="nav-icon fas fa-book"></i><p>Registro de Empleados</p>
@@ -192,7 +192,7 @@
                             </a>
                         </li>
                         @endif
-                        @if (Auth::user()->cargo == 'ADMINISTRADOR' || Auth::user()->cargo == 'ADMINISTRATIVO')
+                        @if (Auth::user()->cargo == 'ADMINISTRADOR' || session()->get('administrativo') == 1)
                         <li class="nav-item">
                             <a href="#" class="nav-link" id="transporte">
                                 <i class="nav-icon fas fa-truck"></i><p>Transporte<i class="right fas fa-angle-left"></i></p>
@@ -226,7 +226,7 @@
                             </ul>
                         </li>
                         @endif
-                        @if(Auth::user()->cargo == 'ADMINISTRADOR' || Auth::user()->cargo == 'SISTEMAS')
+                        @if(Auth::user()->cargo == 'ADMINISTRADOR' || session()->get('sistema') == 1)
 
                         <li class="nav-item">
                             <a href="{{ route('auditoria') }}" class="nav-link" id="aud">
@@ -234,7 +234,7 @@
                             </a>
                         </li>
                         @endif
-                        @if(session()->get('almacen') == 1 || Auth::user()->cargo == 'DEPOSITARIO')
+                        @if(session()->get('almacen') == 1)
                         <li class="nav-item">
                             <a href="{{ route('almacen') }}" class="nav-link" id="alm">
                                 <i class="nav-icon fas fa-database"></i><p>Almacen</p>
