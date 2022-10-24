@@ -1,6 +1,6 @@
 @extends('admin.plantilla_principal')
 
-@if(Auth::user()->cargo != 'ADMINISTRADOR' || session()->get('sistema') != 1)
+@if(session()->get('sistema') != 1)
 @section("contenidoCentral")
 <div class="row">
     <div class="col-md-12">
