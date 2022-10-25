@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2022 a las 05:01:10
+-- Tiempo de generación: 25-10-2022 a las 04:48:21
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 SET
@@ -59,7 +59,7 @@ VALUES
     46,
     1,
     '21312',
-    'Despachado',
+    'En Deposito',
     'Ciro Sanchez',
     '4.000',
     'Aiteg',
@@ -67,13 +67,13 @@ VALUES
     2,
     'PC Desktop',
     '2022-09-13 00:00:00',
-    '2022-10-23 01:50:34'
+    '2022-10-24 22:34:37'
   ),
   (
     47,
     21,
     '321222',
-    'Despachado',
+    'En Deposito',
     'Play Store Venezuela',
     '160',
     'Logitech',
@@ -87,7 +87,7 @@ VALUES
     48,
     1,
     '123554',
-    'Despachado',
+    'En Deposito',
     'La Rapida',
     '260',
     'Goodyear',
@@ -110,6 +110,20 @@ VALUES
     'PC Desktop',
     '2022-10-20 00:11:07',
     '2022-10-23 01:51:03'
+  ),
+  (
+    51,
+    1,
+    '852147',
+    'En Deposito',
+    'UElectronica',
+    '4.000',
+    'Samsung',
+    'SLP-12900-L',
+    1,
+    'Laptop',
+    '2022-10-23 23:19:54',
+    '2022-10-23 23:19:54'
   );
 -- --------------------------------------------------------
   --
@@ -124,56 +138,6 @@ VALUES
     `created_at` datetime NOT NULL,
     `updated_at` datetime NOT NULL
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
---
-  -- Volcado de datos para la tabla `asignacion_almacen`
-  --
-INSERT INTO
-  `asignacion_almacen` (
-    `id`,
-    `id_usuario`,
-    `id_emp`,
-    `id_articulo`,
-    `cantidad`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    5,
-    1,
-    5,
-    46,
-    1,
-    '2022-10-22 20:56:59',
-    '2022-10-22 20:56:59'
-  ),
-  (
-    7,
-    1,
-    9,
-    48,
-    2,
-    '2022-10-22 20:57:58',
-    '2022-10-22 20:57:58'
-  ),
-  (
-    10,
-    1,
-    5,
-    47,
-    2,
-    '2022-10-23 01:27:32',
-    '2022-10-23 01:27:32'
-  ),
-  (
-    11,
-    1,
-    10,
-    47,
-    3,
-    '2022-10-23 01:51:58',
-    '2022-10-23 01:51:58'
-  );
 -- --------------------------------------------------------
   --
   -- Estructura de tabla para la tabla `asignacion_nomina`
@@ -2051,6 +2015,86 @@ VALUES
     NULL,
     '2022-10-24 02:15:06',
     '2022-10-24 02:15:06'
+  ),
+  (
+    112,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\Almacen',
+    51,
+    '[]',
+    '{\"idusuario\":1,\"codigo\":\"852147\",\"proveedor\":\"UElectronica\",\"costo\":\"4.000\",\"marca\":\"Samsung\",\"nombre\":\"SLP-12900-L\",\"stock\":\"1\",\"descripcion\":\"Laptop\",\"idalmacen\":51}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/registrar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-24 03:49:54',
+    '2022-10-24 03:49:54'
+  ),
+  (
+    113,
+    'App\\Models\\Usuario',
+    1,
+    'created',
+    'App\\Models\\AsignacionAlmacen',
+    12,
+    '[]',
+    '{\"id_usuario\":1,\"id_emp\":\"5\",\"id_articulo\":\"46\",\"cantidad\":\"1\",\"id\":12}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-25 03:04:23',
+    '2022-10-25 03:04:23'
+  ),
+  (
+    114,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"estado\":\"En Deposito\"}',
+    '{\"estado\":\"Despachado\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/asignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-25 03:04:23',
+    '2022-10-25 03:04:23'
+  ),
+  (
+    115,
+    'App\\Models\\Usuario',
+    1,
+    'deleted',
+    'App\\Models\\AsignacionAlmacen',
+    12,
+    '{\"id\":12,\"id_usuario\":1,\"id_emp\":5,\"id_articulo\":46,\"cantidad\":1}',
+    '[]',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-25 03:04:37',
+    '2022-10-25 03:04:37'
+  ),
+  (
+    116,
+    'App\\Models\\Usuario',
+    1,
+    'updated',
+    'App\\Models\\Almacen',
+    46,
+    '{\"estado\":\"Despachado\"}',
+    '{\"estado\":\"En Deposito\"}',
+    'http://localhost/primera%20prueba%20git/laGarra1/public/desasignar_articulo',
+    '::1',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    NULL,
+    '2022-10-25 03:04:37',
+    '2022-10-25 03:04:37'
   );
 -- --------------------------------------------------------
   --
@@ -2468,92 +2512,6 @@ VALUES
     `created_at` datetime DEFAULT NULL,
     `updated_at` datetime DEFAULT NULL
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_bin;
---
-  -- Volcado de datos para la tabla `detalle_presupuesto`
-  --
-INSERT INTO
-  `detalle_presupuesto` (
-    `iddetalle`,
-    `destinoFondos`,
-    `idpresupuesto`,
-    `fechaDetalle`,
-    `fondosRestados`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    1,
-    'Nomina',
-    13,
-    '2022-10-19',
-    142.21,
-    '2022-10-19 23:23:40',
-    '2022-10-19 23:23:40'
-  ),
-  (
-    2,
-    'Nomina',
-    14,
-    '2022-10-23',
-    7513.29,
-    '2022-10-23 02:12:25',
-    '2022-10-23 02:12:25'
-  ),
-  (
-    3,
-    'Nomina',
-    15,
-    '2022-10-23',
-    7513.29,
-    '2022-10-23 02:18:28',
-    '2022-10-23 02:18:28'
-  ),
-  (
-    4,
-    'Nomina',
-    16,
-    '2022-10-23',
-    7513.29,
-    '2022-10-23 02:19:00',
-    '2022-10-23 02:19:00'
-  ),
-  (
-    5,
-    'Nomina',
-    17,
-    '2022-10-23',
-    7513.29,
-    '2022-10-23 02:19:05',
-    '2022-10-23 02:19:05'
-  ),
-  (
-    6,
-    'Nomina',
-    18,
-    '2022-10-23',
-    7513.29,
-    '2022-10-23 02:19:09',
-    '2022-10-23 02:19:09'
-  ),
-  (
-    7,
-    'Nomina',
-    19,
-    '2022-10-23',
-    7513.29,
-    '2022-10-23 02:20:47',
-    '2022-10-23 02:20:47'
-  ),
-  (
-    8,
-    'Nomina',
-    20,
-    '2022-10-23',
-    7513.29,
-    '2022-10-23 02:21:22',
-    '2022-10-23 02:21:22'
-  );
 -- --------------------------------------------------------
   --
   -- Estructura de tabla para la tabla `empleado`
@@ -4850,6 +4808,8 @@ VALUES
     `fondos` double(8, 2) DEFAULT NULL,
     `presupuestoAnterior` double DEFAULT NULL,
     `presupuestoActual` double DEFAULT NULL,
+    `administrador` text COLLATE utf8mb4_bin DEFAULT NULL,
+    `cedula` text COLLATE utf8mb4_bin DEFAULT NULL,
     `created_at` datetime DEFAULT NULL,
     `updated_at` datetime DEFAULT NULL
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_bin;
@@ -4862,6 +4822,8 @@ INSERT INTO
     `fondos`,
     `presupuestoAnterior`,
     `presupuestoActual`,
+    `administrador`,
+    `cedula`,
     `created_at`,
     `updated_at`
   )
@@ -4871,6 +4833,8 @@ VALUES
     785.00,
     0,
     785,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-18 08:00:01',
     '2022-10-19 22:44:21'
   ),
@@ -4879,6 +4843,8 @@ VALUES
     850.00,
     785,
     850,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-18 09:00:00',
     '2022-10-19 22:44:21'
   ),
@@ -4887,6 +4853,8 @@ VALUES
     250.00,
     850,
     250,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-18 22:14:00',
     '2022-10-19 22:44:22'
   ),
@@ -4895,6 +4863,8 @@ VALUES
     1520.00,
     250,
     1520,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-18 22:33:27',
     '2022-10-19 22:44:22'
   ),
@@ -4903,6 +4873,8 @@ VALUES
     100.00,
     1520,
     100,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-18 22:37:35',
     '2022-10-19 22:44:23'
   ),
@@ -4911,6 +4883,8 @@ VALUES
     5000.00,
     100,
     5000,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-19 21:04:33',
     '2022-10-19 22:44:23'
   ),
@@ -4919,6 +4893,8 @@ VALUES
     10000.00,
     5000,
     10000,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-19 21:09:31',
     '2022-10-19 22:44:24'
   ),
@@ -4927,6 +4903,8 @@ VALUES
     200000.00,
     10000,
     200000,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-19 22:44:10',
     '2022-10-19 22:44:10'
   ),
@@ -4935,6 +4913,8 @@ VALUES
     500000.00,
     200000,
     500000,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-19 22:45:08',
     '2022-10-19 22:45:08'
   ),
@@ -4943,6 +4923,8 @@ VALUES
     499677.58,
     500000,
     499677.58,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-19 23:02:07',
     '2022-10-19 23:02:07'
   ),
@@ -4951,6 +4933,8 @@ VALUES
     499535.37,
     499677.58,
     499535.37,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-19 23:22:09',
     '2022-10-19 23:22:09'
   ),
@@ -4959,6 +4943,8 @@ VALUES
     499393.16,
     499535.37,
     499393.16,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-19 23:22:33',
     '2022-10-19 23:22:33'
   ),
@@ -4967,6 +4953,8 @@ VALUES
     499250.95,
     499393.16,
     499250.95,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-19 23:23:40',
     '2022-10-19 23:23:40'
   ),
@@ -4975,6 +4963,8 @@ VALUES
     491737.66,
     499250.95,
     491737.66,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-23 02:12:25',
     '2022-10-23 02:12:25'
   ),
@@ -4983,6 +4973,8 @@ VALUES
     484224.37,
     491737.66,
     484224.37,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-23 02:18:28',
     '2022-10-23 02:18:28'
   ),
@@ -4991,6 +4983,8 @@ VALUES
     476711.08,
     484224.37,
     476711.08,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-23 02:19:00',
     '2022-10-23 02:19:00'
   ),
@@ -4999,6 +4993,8 @@ VALUES
     469197.79,
     476711.08,
     469197.79,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-23 02:19:05',
     '2022-10-23 02:19:05'
   ),
@@ -5007,6 +5003,8 @@ VALUES
     461684.50,
     469197.79,
     461684.5,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-23 02:19:09',
     '2022-10-23 02:19:09'
   ),
@@ -5015,6 +5013,8 @@ VALUES
     454171.21,
     461684.5,
     454171.21,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-23 02:20:47',
     '2022-10-23 02:20:47'
   ),
@@ -5023,8 +5023,60 @@ VALUES
     446657.92,
     454171.21,
     446657.92,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
     '2022-10-23 02:21:22',
     '2022-10-23 02:21:22'
+  ),
+  (
+    21,
+    447157.92,
+    446657.92,
+    447157.92,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
+    '2022-10-24 21:27:02',
+    '2022-10-24 21:27:02'
+  ),
+  (
+    22,
+    449157.92,
+    447157.92,
+    449157.92,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
+    '2022-10-24 21:28:13',
+    '2022-10-24 21:28:13'
+  ),
+  (
+    23,
+    449657.92,
+    449157.92,
+    449657.92,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
+    '2022-10-24 21:31:05',
+    '2022-10-24 21:31:05'
+  ),
+  (
+    24,
+    450157.92,
+    449657.92,
+    450157.92,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
+    '2022-10-24 21:33:24',
+    '2022-10-24 21:33:24'
+  ),
+  (
+    25,
+    500.00,
+    450157.92,
+    450657.92,
+    'Islender Denilson Montilva Marquez',
+    '28195178',
+    '2022-10-24 21:35:42',
+    '2022-10-24 21:35:42'
   );
 -- --------------------------------------------------------
   --
@@ -5759,8 +5811,6 @@ ALTER TABLE
 ADD
   PRIMARY KEY (`idalmacen`),
 ADD
-  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
-ADD
   UNIQUE KEY `codigo_UNIQUE` (`codigo`),
 ADD
   KEY `fk_articulo_usuario_idx` (`idusuario`);
@@ -6022,7 +6072,7 @@ ALTER TABLE
   `almacen`
 MODIFY
   `idalmacen` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 51;
+  AUTO_INCREMENT = 52;
 --
   -- AUTO_INCREMENT de la tabla `asignacion_almacen`
   --
@@ -6030,7 +6080,7 @@ ALTER TABLE
   `asignacion_almacen`
 MODIFY
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 12;
+  AUTO_INCREMENT = 13;
 --
   -- AUTO_INCREMENT de la tabla `asignacion_nomina`
   --
@@ -6046,7 +6096,7 @@ ALTER TABLE
   `audits`
 MODIFY
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 112;
+  AUTO_INCREMENT = 117;
 --
   -- AUTO_INCREMENT de la tabla `cavas`
   --
@@ -6102,7 +6152,7 @@ ALTER TABLE
   `detalle_presupuesto`
 MODIFY
   `iddetalle` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 9;
+  AUTO_INCREMENT = 10;
 --
   -- AUTO_INCREMENT de la tabla `empleado`
   --
@@ -6174,7 +6224,7 @@ ALTER TABLE
   `presupuesto`
 MODIFY
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 21;
+  AUTO_INCREMENT = 26;
 --
   -- AUTO_INCREMENT de la tabla `salario_base`
   --
