@@ -20,8 +20,8 @@ class PresupuestoController extends Controller
 
 
             $arrayDeDatos[] = [
-                "0" => $dato->fondos,
-                "1" => $dato->administrador,
+                "0" => $dato->administrador,
+                "1" => $dato->fondos,
                 "2" => $dato->presupuestoAnterior,
                 "3" => $dato->presupuestoActual,
                 "4" => $dato->created_at
