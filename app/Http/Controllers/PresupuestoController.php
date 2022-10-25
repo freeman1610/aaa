@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PresupuestoRequest;
 use App\Models\Presupuesto;
@@ -11,7 +12,7 @@ class PresupuestoController extends Controller
 {
     public function listar_pre()
     {
-        $selecPresupuesto = DB::table('presupuesto')->select('fondos', 'created_at', 'presupuestoAnterior', 'presupuestoActual')->orderBy('created_at', 'desc')->get();
+        $selecPresupuesto = DB::table('presupuesto')->select('fondos','administrador', 'created_at', 'presupuestoAnterior', 'presupuestoActual')->orderBy('created_at', 'desc')->get();
 
         $arrayDeDatos = [];
 
@@ -20,9 +21,10 @@ class PresupuestoController extends Controller
 
             $arrayDeDatos[] = [
                 "0" => $dato->fondos,
-                "1" => $dato->presupuestoAnterior,
-                "2" => $dato->presupuestoActual,
-                "3" => $dato->created_at
+                "1" => $dato->administrador,
+                "2" => $dato->presupuestoAnterior,
+                "3" => $dato->presupuestoActual,
+                "4" => $dato->created_at
             ];
         }
 
@@ -42,9 +44,11 @@ class PresupuestoController extends Controller
         $ultimoPresupuesto = DB::table('presupuesto')->select('fondos')->latest()->first();
 
         $newPresupuesto = new Presupuesto;
-        $newPresupuesto->fondos = ($request->presupuesto + $ultimoPresupuesto->fondos);
+        $newPresupuesto->fondos = $request->presupuesto;
         $newPresupuesto->presupuestoAnterior = $ultimoPresupuesto->fondos;
         $newPresupuesto->presupuestoActual = ($request->presupuesto + $ultimoPresupuesto->fondos);
+        $newPresupuesto->administrador = Auth::user()->nombre.' '.Auth::user()->apellido;
+        $newPresupuesto->cedula = Auth::user()->num_documento;
         $newPresupuesto->save();
     }
 }
