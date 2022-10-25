@@ -23,8 +23,8 @@ $.ajax({
 
     success: function (res) {
 
-        var placas = res.placas.replace(/['"]+/g,'').split(',');
-        var numViajes = res.numViajes.split(',');        
+        var placas = res.placas.replace(/['"]+/g, '').split(',');
+        var numViajes = res.numViajes.split(',');
         var ctx = document.getElementById("chutosss").getContext('2d');
         new Chart(ctx, {
             type: 'bar',
@@ -90,14 +90,14 @@ $.ajax({
 
         const estados = resp.estados;
         const totalEstados = resp.totalEstados;
-        
+
         var ctx = document.getElementById("estadosss").getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: estados,
                 datasets: [{
-                    label: '# Chutos más usados en este Mes.',
+                    label: '# Estado más visitado en este Mes.',
                     data: totalEstados,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',

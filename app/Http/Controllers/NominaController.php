@@ -663,11 +663,9 @@ class NominaController extends Controller
             ->whereBetween('inicio_pago', [$request->fecha_inicio, $request->fecha_fin]);
 
         if (count($selectPagos) == 0) {
-            abort(404);
-            // return response()->json(['message' => 'No hay datos Fechas en este periodo de fechas'], status: 422);
+            return abort(404);
         }
 
-        $i = 0;
         foreach ($selectPagos as $datos) {
 
             $selectEmpleado = Empleado::find($datos->id_empleado);

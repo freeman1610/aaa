@@ -14,6 +14,7 @@ use App\Http\Controllers\LoginAuthController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NominaChoferesController;
 use App\Http\Controllers\NominaController;
+use App\Http\Controllers\PdfAuditoriaController;
 use App\Http\Controllers\PdfNominaChoferController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\SalarioController;
@@ -307,6 +308,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('listar_auditoria', [AuditoriaController::class, 'listar_auditoria'])->name('listar_auditoria');
 
+    Route::post('listar_usuarios_audt', [PdfAuditoriaController::class, 'listar_usuarios_audt'])->name('listar_usuarios_audt');
+
+    Route::post('generar_url_audt_usuario', [PdfAuditoriaController::class, 'generar_url_audt_usuario'])->name('generar_url_audt_usuario');
+
+    Route::post('generar_url_audt_fechas', [PdfAuditoriaController::class, 'generar_url_audt_fechas'])->name('generar_url_audt_fechas');
+
+    Route::get('pdf_audit_usuario', [PdfAuditoriaController::class, 'pdf_audit_usuario'])->name('pdf_audit_usuario');
+
+    Route::get('pdf_audit_fechas', [PdfAuditoriaController::class, 'pdf_audit_fechas'])->name('pdf_audit_fechas');
 
     //  ---------------- FIN AUDITORIA ------------------------
 

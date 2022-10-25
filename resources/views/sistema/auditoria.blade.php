@@ -8,7 +8,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Auditoria</h3>
+                <h3 class="card-title">Auditoria
+                    <button class="btn btn-dark" onclick="autUsuairo()"><i class="fas fa-user"></i> Auditar Usuario</button>
+                    <button class="btn btn-dark" onclick="GenerarPDFXfechas()" id="btnagregar"><i class="fas fa-file-alt"></i> Generar PDF por rango de fechas</button>
+                </h3>
             </div><!-- /.card-header -->
             <div class="card-body" id="listadoregistros">
                 <table id="tbllistado" class="table table-bordered table-striped">
