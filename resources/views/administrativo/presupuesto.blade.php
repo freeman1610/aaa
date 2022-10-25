@@ -8,15 +8,15 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Presupuesto
-                    <button class="btn btn-dark" id="btnPresupuesto"><i
-                            class="fa fa-plus-circle"></i>Asignar Presupuesto</button>
+                    <button class="btn btn-dark" id="btnPresupuesto"><i class="fa fa-plus-circle"></i>Asignar Presupuesto</button>
                 </h3>
             </div><!-- /.card-header -->
             <div class="card-body" id="listadoregistros">
                 <table id="tbllistado" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Fondos</th>
+                            <th>Administrador</th>
+                            <th>Fondos Agregados</th>
                             <th>Presupuesto Anterior</th>
                             <th>Presupuesto Actual</th>
                             <th>Fecha del Presupuesto</th>
@@ -26,7 +26,8 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Fondos</th>
+                            <th>Administrador</th>
+                            <th>Fondos Agregados</th>
                             <th>Presupuesto Anterior</th>
                             <th>Presupuesto Actual</th>
                             <th>Fecha del Presupuesto</th>

@@ -37,7 +37,7 @@ function listar() {
         },
         "bDestroy": true,
         "iDisplayLength": 5,//paginacion
-        "order": [[3, "desc"]]//ordenar (columna, orden)
+        "order": [[4, "desc"]]//ordenar (columna, orden)
     }).DataTable();
 }
 
