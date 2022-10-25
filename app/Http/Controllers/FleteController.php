@@ -261,10 +261,10 @@ class FleteController extends Controller
             'flete_id' => 'required|numeric',
         ]);
         $comprobarEstado = Flete::find($request->flete_id);
-        if ($comprobarEstado->flete_estado == 1) {
+        if ($comprobarEstado->flete_estado == 1 || $comprobarEstado->flete_estado == 2) {
             return response()->json(['message' => 'El Flete no se puede Eliminar por que ya ha sido Asignado a un Viaje'], status: 422);
         }
         Flete::destroy($request->flete_id);
-        return response()->json('Fino Pa', status: 200);
+        return response()->json('Eliminado Exitosamente!', status: 200);
     }
 }
